@@ -1,6 +1,6 @@
 "use client";
+import { debounce } from "@/shared/utils/timing/debounce";
 import { useState, useEffect } from "react";
-import { debounce } from "../utils/timing/debounce";
 
 /**
  * Based on Tailwind CSS breakpoints

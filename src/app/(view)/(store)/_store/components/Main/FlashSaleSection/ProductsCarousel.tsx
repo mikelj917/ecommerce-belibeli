@@ -9,8 +9,8 @@ import {
 import { SectionHeader } from "./SectionHeader";
 import { ProductCardSkeleton } from "@/app/(view)/(store)/components/ProductCardSkeleton";
 import { ProductCard } from "@/app/(view)/(store)/components/ProductCard";
-import { useScreenSize } from "@/shared/hooks/useScreenSize";
-import type { ProductInclude } from "@/shared/types/Includes";
+import type { ProductInclude } from "@/shared/types/product";
+import { useScreenSize } from "@/shared/hooks/ui/useScreenSize";
 
 type Props = {
   productsOnSale?: ProductInclude[];

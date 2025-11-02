@@ -1,13 +1,23 @@
+"use client";
+import { useScrollDirection } from "@/shared/hooks/ui/useScrollDirection";
 import { CategoryBar } from "./CategoryBar/CategoryBar";
 import { NavBar } from "./NavBar/NavBar";
 
-export const Header = () => {
+export function Header() {
+  const scrollDir = useScrollDirection();
+
+  const isHidden = scrollDir === "down";
+
+  const translateYClass = isHidden ? "-translate-y-full" : "translate-y-0";
+
   return (
-    <header className="fixed top-0 right-0 left-0 z-10 bg-neutral-100 p-2 inset-shadow-2xs">
+    <header
+      className={`fixed top-0 right-0 left-0 z-50 bg-neutral-100 p-2 inset-shadow-2xs transition-transform duration-300 ease-in-out ${translateYClass} `}
+    >
       <div className="mx-auto lg:container">
         <NavBar />
         <CategoryBar />
       </div>
     </header>
   );
-};
+}
