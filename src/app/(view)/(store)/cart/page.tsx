@@ -3,10 +3,12 @@ import { CartHeader } from "./components/Header/CartHeader";
 
 const CartPage = () => {
   return (
-    <div className="mx-auto p-3 lg:container">
-      <CartHeader />
-      <CartList />
-    </div>
+    <section className="bg-neutral-100">
+      <div className="mx-auto">
+        <CartHeader />
+        <CartList />
+      </div>
+    </section>
   );
 };
 
