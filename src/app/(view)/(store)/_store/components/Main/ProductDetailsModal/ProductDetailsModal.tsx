@@ -7,7 +7,7 @@ export const ProductDetailsModal = () => {
   const { setIsProductDetailsModalOpen } = useProductDetailsContext();
 
   return (
-    <div className="fixed inset-0 z-10 flex items-center justify-center bg-black/70 p-15">
+    <div className="fixed inset-0 z-2 flex items-center justify-center bg-black/70 p-15">
       <div className="relative w-5xl rounded-md bg-white p-10">
         <IconMobileButton
           onClick={() => setIsProductDetailsModalOpen(false)}

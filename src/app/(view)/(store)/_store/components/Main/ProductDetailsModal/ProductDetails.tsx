@@ -62,7 +62,7 @@ export const ProductDetails = () => {
     setCount(count - 1);
   };
 
-  const isProductOnSale = isSaleActive(selectedProduct);
+  const isProductOnSale = isSaleActive(selectedProduct.promotionEnd);
   const percentDiscount = getPercentDiscount(selectedProduct);
 
   return (
