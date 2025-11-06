@@ -7,7 +7,7 @@ type CartListProps = {
 
 export const CartList = ({ cart }: CartListProps) => {
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div className="flex w-full flex-col items-center gap-3">
       {cart.items.map((cartItem) => (
         <CartItem
           key={cartItem.id}

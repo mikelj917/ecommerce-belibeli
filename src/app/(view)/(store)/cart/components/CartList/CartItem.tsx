@@ -35,7 +35,7 @@ export const CartItem = ({
   };
 
   return (
-    <div className="flex w-full max-w-4xl rounded-sm bg-white p-4 text-xs md:text-lg">
+    <div className="flex w-full rounded-sm bg-white p-4 text-xs md:text-lg">
       <CartItemImage product={product} />
       <div className="relative ml-3 flex flex-1">
         <CartItemInfo>
