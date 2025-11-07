@@ -1,4 +1,4 @@
-import type { AnimatedIconHandle } from "@/shared/types/icon";
+import type { AnimatedIconHandle } from "@/shared/types/Icon";
 import { useCallback, useRef } from "react";
 
 /**

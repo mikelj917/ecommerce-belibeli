@@ -3,7 +3,7 @@ import { HeartIcon, ShoppingCartIcon, StarIcon } from "@/assets/Icons";
 import { useProductDetailsContext } from "../contexts/ProductDetailsContext";
 import { isSaleActive } from "@/shared/utils/product/isSaleActive";
 import { getPercentDiscount } from "@/shared/utils/product/getPercentDiscount";
-import type { ProductInclude } from "@/shared/types/product";
+import type { ProductInclude } from "@/shared/types/Product";
 
 type ProductCardProps = {
   product: ProductInclude;
@@ -29,7 +29,7 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
 
   return (
     <div
-      className={`group cursor-pointer overflow-hidden rounded-2xl border border-black/20 bg-white shadow-sm transition hover:scale-105 ${grid ? "w-full" : "w-60 flex-shrink-0"}`}
+      className={`group cursor-pointer overflow-hidden rounded-2xl border border-black/20 bg-white shadow-sm transition hover:scale-105 ${grid ? "w-full" : "w-60 shrink-0"}`}
     >
       {/* Image + Percent + Wish Button */}
       <div className="relative bg-black/10 p-4">

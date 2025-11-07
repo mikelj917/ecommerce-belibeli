@@ -7,7 +7,7 @@ import { QuantitySelector } from "./QuantitySelector";
 import { useState } from "react";
 import { HeartIcon } from "@/assets/Icons";
 import { useCreateCart } from "@/shared/hooks/data/useCartMutations";
-import type { BackendOption, ProductOptionsArray } from "@/shared/types/product";
+import type { BackendOption, ProductOptionsArray } from "@/shared/types/Product";
 
 export type SelectedOptionsState = Record<string, number>;
 
@@ -77,7 +77,7 @@ export const ProductDetails = () => {
       {/* Detalhes - lado direito */}
       <div className="flex h-full flex-1 flex-col">
         {/* ========== SEÇÃO SUPERIOR (altura automática) ========== */}
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <h1 className="text-2xl font-bold">{title}</h1>
 
           {/* Rating */}
@@ -127,7 +127,7 @@ export const ProductDetails = () => {
         </div>
 
         {/* ========== SEÇÃO INFERIOR (altura automática) ========== */}
-        <div className="flex-shrink-0 border-t border-zinc-200 pt-4">
+        <div className="shrink-0 border-t border-zinc-200 pt-4">
           <div className="flex items-center justify-center gap-4">
             <button
               onClick={handleAddToCart}

@@ -1,4 +1,4 @@
-import type { ProductOptions } from "@/shared/types/product";
+import type { ProductOptions } from "@/shared/types/Product";
 import { isSaleActive } from "@/shared/utils/product/isSaleActive";
 import type { Product } from "@prisma/client";
 import type { Decimal } from "@prisma/client/runtime/library";

@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   Carousel,
   CarouselContent,
@@ -9,8 +8,8 @@ import {
 import { SectionHeader } from "./SectionHeader";
 import { ProductCardSkeleton } from "@/app/(view)/(store)/components/ProductCardSkeleton";
 import { ProductCard } from "@/app/(view)/(store)/components/ProductCard";
-import type { ProductInclude } from "@/shared/types/product";
 import { useScreenSize } from "@/shared/hooks/ui/useScreenSize";
+import type { ProductInclude } from "@/shared/types/Product";
 
 type Props = {
   productsOnSale?: ProductInclude[];
@@ -31,8 +30,8 @@ export function ProductsCarousel({ isLoading, productsOnSale }: Props) {
       <div className="flex justify-between">
         <SectionHeader />
         <div className="mr-4 hidden gap-3 lg:flex">
-          <CarouselPrevious className="cursor-pointer rounded-md border-1 border-black px-10 transition-colors active:bg-black active:text-white disabled:opacity-50" />
-          <CarouselNext className="cursor-pointer rounded-md border-1 border-black px-10 transition-colors active:bg-black active:text-white disabled:opacity-50" />
+          <CarouselPrevious className="cursor-pointer rounded-md border border-black px-10 transition-colors active:bg-black active:text-white disabled:opacity-50" />
+          <CarouselNext className="cursor-pointer rounded-md border border-black px-10 transition-colors active:bg-black active:text-white disabled:opacity-50" />
         </div>
       </div>
       <CarouselContent className="flex gap-4 py-10">
