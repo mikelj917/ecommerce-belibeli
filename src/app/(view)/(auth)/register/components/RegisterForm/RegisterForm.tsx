@@ -1,3 +1,4 @@
+"use client"
 import { ChevronLeftIcon, LockClosedIcon } from "@/assets/Icons";
 import { OrDivider } from "@/app/(view)/(auth)/components/OrDivider";
 import googleGLogo from "@/assets/images/auth-logos/google-G.png";
