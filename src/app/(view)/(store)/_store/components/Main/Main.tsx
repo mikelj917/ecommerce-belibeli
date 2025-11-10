@@ -1,5 +1,4 @@
 "use client";
-import { useProductDetailsContext } from "../../../contexts/ProductDetailsContext";
 import { CategoriesSection } from "./CategoriesSection/CategoriesSection";
 import { FlashSaleSection } from "./FlashSaleSection/FlashSaleSection";
 import { ForYouSection } from "./ForYouSection/ForYouSection";
@@ -7,6 +6,7 @@ import { ProductDetailsModal } from "../../../../../shared/components/domain/sto
 import { useFindProducts } from "@/app/shared/hooks/data/useProductsQueries";
 import { LoadError } from "@/app/shared/components/LoadError";
 import { getProductsOnSale } from "@/app/shared/utils/product/getProductsOnSale";
+import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
 
 export const Main = () => {
   const { data, isLoading, isError, refetch } = useFindProducts();

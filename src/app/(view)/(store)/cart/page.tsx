@@ -6,8 +6,8 @@ import { CartHeader } from "./components/CartHeader";
 import { RecommendedProducts } from "./components/RecommendedProducts";
 import { CartPageSkeleton } from "./components/CartPageSkeleton";
 import { EmptyCart } from "./components/EmptyCart";
-import { useProductDetailsContext } from "../contexts/ProductDetailsContext";
 import { ProductDetailsModal } from "../../../shared/components/domain/store/ProductDetailsModal/ProductDetailsModal";
+import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
 
 const CartPage = () => {
   const { data, isLoading, isError } = useFindCart();

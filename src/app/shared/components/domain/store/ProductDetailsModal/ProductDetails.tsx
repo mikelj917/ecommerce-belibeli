@@ -1,4 +1,3 @@
-import { useProductDetailsContext } from "@/app/(view)/(store)/contexts/ProductDetailsContext";
 import { getPercentDiscount } from "@/app/shared/utils/product/getPercentDiscount";
 import { isSaleActive } from "@/app/shared/utils/product/isSaleActive";
 import { Rating } from "@mui/material";
@@ -8,6 +7,7 @@ import { useState } from "react";
 import { useCreateCart } from "@/app/shared/hooks/data/useCartMutations";
 import type { BackendOption, ProductOptionsArray } from "@/app/shared/types/Product";
 import { HeartIcon } from "lucide-react";
+import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
 
 export type SelectedOptionsState = Record<string, number>;
 

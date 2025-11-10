@@ -1,6 +1,6 @@
 import { ProductDetails } from "./ProductDetails";
 import { IconMobileButton } from "@/app/shared/components/IconMobileButton";
-import { useProductDetailsContext } from "@/app/(view)/(store)/contexts/ProductDetailsContext";
+import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
 import { XIcon } from "lucide-react";
 
 export const ProductDetailsModal = () => {

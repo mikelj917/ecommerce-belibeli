@@ -3,9 +3,9 @@ import { SearchInput } from "./SearchInput";
 import { headerActionIcons } from "./MenuItems";
 import { HeaderLogo } from "./Logo";
 import { SideMenu } from "./SideMenu/SideMenu";
-import { useSideMenu } from "@/app/(view)/(store)/contexts/SideMenuMobileContext";
 import { useFindCart } from "@/app/shared/hooks/data/useCartQueries";
 import { IconMobileButton } from "@/app/shared/components/IconMobileButton";
+import { useSideMenu } from "@/app/shared/contexts/SideMenuMobileContext";
 
 export const NavBar = () => {
   const { isSideMenuMobOpen, setIsSideMenuMobOpen } = useSideMenu();

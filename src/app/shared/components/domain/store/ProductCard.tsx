@@ -3,7 +3,7 @@ import { isSaleActive } from "@/app/shared/utils/product/isSaleActive";
 import { getPercentDiscount } from "@/app/shared/utils/product/getPercentDiscount";
 import type { ProductInclude } from "@/app/shared/types/Product";
 import { HeartIcon, ShoppingCartIcon, StarIcon } from "lucide-react";
-import { useProductDetailsContext } from "@/app/(view)/(store)/contexts/ProductDetailsContext";
+import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
 
 type ProductCardProps = {
   product: ProductInclude;
