@@ -8,46 +8,56 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/app/shared/components/ui/empty";
-import { useAnimatedIcon } from "@/app/shared/hooks/ui/useAnimatedIcon";
-import { WifiOffIcon } from "lucide-react";
-import { useEffect } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
+
+// Tipamos os props do wrapper do ícone (que é um <div>)
+type EmptyMediaProps = HTMLAttributes<HTMLDivElement>;
 
 type LoadErrorProps = {
+  /** Ação a ser executada ao clicar no botão */
   onRetry: () => void;
+  /** O elemento do ícone a ser renderizado */
+  icon: ReactNode;
+  /** O título principal */
+  title: ReactNode;
+  /** O texto de descrição */
+  description: ReactNode;
+  /** Texto do botão (opcional, padrão 'Tentar novamente') */
+  buttonText?: string;
+  /** Classe CSS para o wrapper do ícone (opcional) */
+  iconWrapperClassName?: string;
+  /** Props a serem passadas para o wrapper do ícone (ex: onMouseEnter, onMouseLeave) */
+  iconWrapperProps?: EmptyMediaProps;
 };
 
-export const LoadError = ({ onRetry }: LoadErrorProps) => {
-  const { handleMouseEnter, handleMouseLeave, iconRef } = useAnimatedIcon();
-
-  useEffect(() => {
-    const startTimer = setTimeout(() => {
-      iconRef.current?.startAnimation();
-      setTimeout(() => {
-        iconRef.current?.stopAnimation();
-      }, 1000);
-    }, 100);
-    return () => {
-      clearTimeout(startTimer);
-    };
-  }, []);
-
+export const LoadError = ({
+  onRetry,
+  icon,
+  title,
+  description,
+  buttonText = "Tentar novamente",
+  iconWrapperClassName,
+  iconWrapperProps,
+}: LoadErrorProps) => {
   return (
     <Empty>
       <EmptyHeader className="max-w-lg">
         <EmptyMedia
           variant="default"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          className="rounded-full bg-red-100 p-4"
+          className={iconWrapperClassName}
+          // Passamos os handlers (onMouseEnter/Leave) e outros props aqui
+          {...iconWrapperProps}
         >
-          <WifiOffIcon className="size-10 text-red-500" />
+          {/* Renderizamos o ícone recebido via props */}
+          {icon}
         </EmptyMedia>
         <EmptyTitle className="text-2xl font-bold">
-          Não foi possivel carregar os produtos
+          {/* Renderizamos o título recebido via props */}
+          {title}
         </EmptyTitle>
         <EmptyDescription>
-          Parece que estamos com problemas para buscar os produtos. Por favor, verifique sua conexão
-          com a internet ou aguarde alguns instantes.
+          {/* Renderizamos a descrição recebida via props */}
+          {description}
         </EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
@@ -57,7 +67,7 @@ export const LoadError = ({ onRetry }: LoadErrorProps) => {
           className="cursor-pointer bg-blue-500 px-30 font-bold hover:bg-blue-500/80 active:bg-blue-500/50"
           onClick={onRetry}
         >
-          Tentar novamente
+          {buttonText}
         </Button>
       </EmptyContent>
     </Empty>
