@@ -2,13 +2,13 @@ import type { CartInclude } from "@/app/shared/types/Cart";
 import { CartItem } from "./CartItem";
 
 type CartListProps = {
-  cart: CartInclude;
+  cartItems: CartInclude["items"];
 };
 
-export const CartList = ({ cart }: CartListProps) => {
+export const CartList = ({ cartItems }: CartListProps) => {
   return (
     <div className="flex w-full flex-col items-center gap-3">
-      {cart.items.map((cartItem) => (
+      {cartItems.map((cartItem) => (
         <CartItem
           key={cartItem.id}
           product={cartItem.product}

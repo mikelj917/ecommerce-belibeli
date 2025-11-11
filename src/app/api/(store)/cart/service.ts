@@ -6,7 +6,7 @@ export async function get(req: NextRequest) {
   const token = req.cookies.get("accessToken");
 
   if (!token?.value) {
-    return { items: [], count: 0 };
+    return { cart: { items: [] }, count: 0 };
   }
 
   const { userId } = await verifyToken(token.value);
@@ -21,12 +21,24 @@ export async function get(req: NextRequest) {
   });
 
   if (!cart) {
-    return { items: [], count: 0 };
+    return { cart: { items: [] }, count: 0 };
   }
 
   const count = cart?.items.reduce((total, item) => total + item.quantity, 0) ?? 0;
 
-  return { cart, count };
+  const subtotal = cart.items.reduce((acc, item) => {
+    const retailPrice = Number(item.product.price);
+    return acc + retailPrice * item.quantity;
+  }, 0);
+
+  const total = cart.items.reduce((acc, item) => {
+    const finalPrice = Number(item.product.promotionPrice ?? item.product.price);
+    return acc + finalPrice * item.quantity;
+  }, 0);
+
+  const discount = subtotal - total;
+
+  return { cart, count, subtotal, total, discount };
 }
 
 export const cartService = { get };

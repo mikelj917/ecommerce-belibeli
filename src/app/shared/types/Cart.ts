@@ -8,7 +8,10 @@ export type CartInclude = Prisma.CartGetPayload<{
   };
 }>;
 
-export type CartWithCount = {
+export type CartSummary = {
   cart: CartInclude | null;
   count: number;
+  subtotal: number;
+  total: number;
+  discount: number;
 };
