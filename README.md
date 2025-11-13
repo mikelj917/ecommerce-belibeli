@@ -1,135 +1,86 @@
-# Turborepo starter
+# 🚀 E-commerce BeliBeli
 
-This Turborepo starter is maintained by the Turborepo core team.
+**Simulação de uma plataforma de e-commerce moderna e responsiva em constante desenvolvimento.**
 
-## Using this example
+---
 
-Run the following command:
+## 💡 Sobre o Projeto
 
-```sh
-npx create-turbo@latest
-```
+O **E-commerce BeliBeli** é um projeto de portfólio pessoal focado em demonstrar proficiência em **desenvolvimento Full Stack** com o ecossistema **Next.js/TypeScript**.  
+O objetivo é construir uma plataforma completa de comércio eletrônico, priorizando a **experiência do usuário (UX)** e uma **arquitetura de código limpa**.
 
-## What's inside?
+> 🧠 Este projeto está em **desenvolvimento ativo** e em constante melhoria.  
+> Novas funcionalidades e refatorações são aplicadas diariamente, garantindo um código sempre atualizado e otimizado.
 
-This Turborepo includes the following packages/apps:
+---
 
-### Apps and Packages
+## ⚙️ Tecnologias Utilizadas
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+Este projeto utiliza a seguinte stack:
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+| Categoria | Tecnologia | Detalhes |
+|------------|-------------|-----------|
+| **Frontend & Backend** | [Next.js (App Router)](https://nextjs.org/) | Estrutura unificada e robusta, utilizando o poder do React e renderização híbrida. |
+| **Linguagem** | [TypeScript](https://www.typescriptlang.org/) | Garantindo tipagem forte e maior segurança de código. |
+| **ORM** | [Prisma](https://www.prisma.io/) | ORM de última geração para interação com o banco de dados. |
+| **Banco de Dados** | SQLite | Utilizado para desenvolvimento e prototipação rápida. |
+| **Estilização** | [Tailwind CSS](https://tailwindcss.com/) | Desenvolvimento rápido, flexível e totalmente responsivo de UI. |
 
-### Utilities
+---
 
-This Turborepo has some additional tools already setup for you:
+## ✅ Status Atual do Desenvolvimento
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### 🔐 Fluxo de Autenticação e Cadastro
+- **Sistema de Autenticação Completo:** Registro de usuário (multi-step) e Login com geração e validação de Token.  
+- **UX/UI - Status Logado:** Melhorias em andamento para deixar mais claro quando o usuário está logado.
 
-### Build
+---
 
-To build all apps and packages, run the following command:
+### 🖥️ Layout e Responsividade
+- **Layout Totalmente Responsivo:** O design se adapta a todas as telas (mobile, tablet e desktop).
 
-```
-cd my-turborepo
+![GIF: Responsividade da Página Inicial](docs/gifs/belibeliresponsivity.gif)
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
+---
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
+### 🛒 Navegação e Interação com Produto
+- **Rota Principal (Home):** Contém Header, Banner, Seção de Ofertas Relâmpago e listagem de produtos gerais.  
+- **Interação com Produto (Modal):** No desktop, o hover sobre o card exibe um botão para abrir o modal de detalhes.
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+![GIF: Interação com Card de Produto e Abertura do Modal](docs/gifs/product_modal_interaction.gif)
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+---
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+## 🛣️ Próximos Passos e Roadmap
 
-### Develop
+| Módulo | Status | Descrição |
+|---------|---------|-----------|
+| **Página de Detalhes** | 🕒 Em breve | Implementação da página de detalhes do produto dedicada (fora do modal). |
+| **Página do Carrinho** | 🚧 Em desenvolvimento | Finalização da rota para gerenciar itens no carrinho antes do checkout. |
+| **Wishlist** | 📝 Planejado | Sistema para salvar e gerenciar produtos desejados pelo usuário. |
+| **Configurações da Conta** | 📝 Planejado | Rota dedicada para o usuário gerenciar suas informações, endereços e preferências. |
 
-To develop all apps and packages, run the following command:
+---
 
-```
-cd my-turborepo
+## 💻 Como Rodar Localmente
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
+Siga estas instruções para configurar o projeto na sua máquina:
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+```bash
+# Clone o repositório
+git clone https://github.com/SeuUsuario/ecommerce-belibeli-app.git
+cd ecommerce-belibeli-app
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+# Instale as dependências
+npm install
+# ou
+yarn install
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+# Configure o Banco de Dados (Prisma)
+# Crie seu arquivo .env baseado no .env.example e aplique as migrações:
+npx prisma migrate dev
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+# Execute o servidor de desenvolvimento
+npm run dev
+# ou
+yarn dev

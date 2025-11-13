@@ -13,7 +13,6 @@ type TypeInputFormProps<TFormValues extends FieldValues> = ComponentProps<"input
   isPassword?: boolean;
   onTogglePassword?: (inputName: string) => void;
 };
-
 export const InputForm = <TFormValues extends FieldValues>({
   label,
   name,
@@ -38,7 +37,7 @@ export const InputForm = <TFormValues extends FieldValues>({
           {...rest}
           {...register(name)}
           className={`w-full rounded-lg border outline-0 ${
-            icon ? "py-3 pr-12 pl-3" : "p-3"
+            icon ? "py-3 pl-3 pr-12" : "p-3"
           } ${message ? "border-red-500" : "border-black/30"}`}
         />
 

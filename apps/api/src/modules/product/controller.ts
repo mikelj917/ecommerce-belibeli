@@ -5,6 +5,8 @@ const findAll: RequestHandler = (req, res) => {
     title: "cerveja",
     rating: "4.5",
     price: "$200",
+
+    
   });
 };
 

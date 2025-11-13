@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 type ProductCardSkeletonProps = {
   grid?: boolean;
@@ -7,14 +7,13 @@ type ProductCardSkeletonProps = {
 export const ProductCardSkeleton: React.FC<ProductCardSkeletonProps> = ({ grid }) => {
   return (
     // Usa as mesmas classes de largura do ProductCard para manter o layout
-    <div 
-      className={`relative animate-pulse overflow-hidden rounded-2xl border border-black/20 bg-white shadow-sm 
-        ${grid ? "w-full" : "w-60 flex-shrink-0"}`}
+    <div
+      className={`relative animate-pulse overflow-hidden rounded-2xl border border-black/20 bg-white shadow-sm ${grid ? "w-full" : "w-60 shrink-0"}`}
     >
       {/* Área da Imagem (simula o fundo e o botão de coração) */}
       <div className="relative flex aspect-square w-full items-center justify-center bg-gray-200 p-4">
         {/* Simula o botão de coração */}
-        <div className="absolute top-2 right-2 h-6 w-6 rounded-full bg-gray-300"></div>
+        <div className="absolute right-2 top-2 h-6 w-6 rounded-full bg-gray-300"></div>
       </div>
 
       {/* Área das Informações do Produto */}

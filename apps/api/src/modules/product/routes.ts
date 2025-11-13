@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { findAll } from "./controller";
-import { authentication } from "@/shared/middlewares/authentication";
+import { authentication } from "@/shared/middlewares/authentication.js";
+import { findAll } from "@/modules/product/controller.js";
 
-const productRouter = Router();
+const productRouter: Router = Router();
 
 productRouter.get("/product", authentication, findAll);
 
