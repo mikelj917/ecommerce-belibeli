@@ -6,12 +6,12 @@ import type {
 import API from "./API";
 
 async function login(userData: LoginRequest) {
-  const response = await API.post("/login", userData);
+  const response = await API.post("/auth/login", userData);
   return response.data;
 }
 
 async function register(userData: RegisterRequest) {
-  const response = await API.post<RegisterResponse>("/register", userData);
+  const response = await API.post<RegisterResponse>("/auth/register", userData);
   return response.data;
 }
 

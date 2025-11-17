@@ -10,22 +10,22 @@ export const API = axios.create({
 
 API.interceptors.response.use(
   (res) => res,
-  (error: AxiosError) => {
+  async (error: AxiosError) => {
     const { status, config } = error;
+    const currentPath = window.location.pathname;
+    const isLoginPage = currentPath.startsWith("/login");
 
-    if (!config?.url) return Promise.reject(error);
-
-    const criticalProtectedEndpoints = ["/profile"];
-    const isCriticalEndpoint = criticalProtectedEndpoints.some((endpoint) =>
-      config.url?.startsWith(endpoint),
-    );
-
-    if (status === 401 && isCriticalEndpoint) {
-      const currentPath = window.location.pathname;
-      const isLoginPage = currentPath.startsWith("/login");
-      if (!isLoginPage) {
-        const redirect = encodeURIComponent(currentPath + window.location.search);
-        window.location.href = `/login?redirect=${redirect}`;
+    if (status === 401) {
+      try {
+        await API.post("/auth/refresh");
+        if (!config) return Promise.reject(error);
+        return API(config);
+      } catch (refreshError: any) {
+        if (!isLoginPage) {
+          const redirect = encodeURIComponent(currentPath + window.location.search);
+          window.location.href = `/login?redirect=${redirect}`;
+        }
+        return Promise.reject(error);
       }
     }
 

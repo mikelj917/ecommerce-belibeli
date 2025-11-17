@@ -4,7 +4,7 @@ import API from "./API";
 type Products = { products: ProductInclude[]; count: number };
 
 async function getProducts() {
-  const response = await API.get<Products>("/product");
+  const response = await API.get<Products>("/products");
   return response.data;
 }
 

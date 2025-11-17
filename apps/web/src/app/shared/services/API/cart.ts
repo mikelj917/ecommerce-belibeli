@@ -9,11 +9,18 @@ async function findCart() {
   return response.data;
 }
 
-async function createCart(params: CreateCartParams) {
-  const { productID, quantity, productOptions } = params;
-  const response = await API.post<CartItem>("/cartItem", { productID, quantity, productOptions });
+async function findCartItems() {
+  const response = await API.get<CartSummary>("/cart/items");
 
   return response.data;
 }
 
-export const cartService = { findCart, createCart };
+async function createCart(params: CreateCartParams) {
+  const { productId, quantity, productOptions } = params;
+
+  const response = await API.post<CartItem>("/cart/items", { productId, productOptions, quantity });
+
+  return response.data;
+}
+
+export const cartService = { findCart, findCartItems, createCart };

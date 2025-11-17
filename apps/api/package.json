@@ -6,23 +6,46 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch --env-file=.env src/server.ts",
+    "build": "tsup",
     "lint": "eslint",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "prisma:migrate": "dotenv -e .env -- prisma migrate dev",
+    "prisma:studio": "dotenv -e .env -- prisma studio",
+    "db:seed": "dotenv -e .env -- prisma db seed"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.20.0",
   "dependencies": {
+    "@prisma/client": "6.19.0",
+    "@repo/utils": "workspace:*",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
-    "prisma": "^6.19.0"
+    "helmet": "^8.1.0",
+    "jose": "^6.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^6.19.0",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
+    "@repo/types": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@types/bcrypt": "6.0.0",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.10.1",
+    "cookie-parser": "^1.4.7",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9.39.1",
+    "tsup": "^8.5.1",
     "tsx": "^4.20.6"
   }
 }

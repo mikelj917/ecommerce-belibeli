@@ -51,7 +51,7 @@ export const ProductDetails = () => {
   const handleAddToCart = () => {
     const productOptionsPayload = formatOptionsForBackend(selectedOptions);
 
-    mutate({ productID: id, quantity: count, productOptions: productOptionsPayload });
+    mutate({ productId: id, quantity: count, productOptions: productOptionsPayload });
     setIsProductDetailsModalOpen(false);
   };
 
@@ -131,7 +131,7 @@ export const ProductDetails = () => {
           <div className="flex items-center justify-center gap-4">
             <button
               onClick={handleAddToCart}
-              className="flex-1 cursor-pointer bg-black px-8 py-4 font-bold text-white uppercase transition-colors hover:bg-black/80"
+              className="flex-1 cursor-pointer bg-black px-8 py-4 font-bold uppercase text-white transition-colors hover:bg-black/80"
             >
               Adicionar ao Carrinho
             </button>

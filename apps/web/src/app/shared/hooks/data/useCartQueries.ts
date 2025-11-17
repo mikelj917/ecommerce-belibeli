@@ -7,3 +7,10 @@ export const useFindCart = () => {
     queryFn: cartService.findCart,
   });
 };
+
+export const useFindCartItems = () => {
+  return useQuery({
+    queryKey: ["cartItems"],
+    queryFn: cartService.findCartItems,
+  });
+};
