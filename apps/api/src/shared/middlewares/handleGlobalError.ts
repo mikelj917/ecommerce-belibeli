@@ -1,11 +1,12 @@
-import { HttpError } from "@/shared/HttpErrors.js";
+import { HttpError } from "@/shared/utils/HttpErrors.js";
 import { ErrorRequestHandler } from "express";
 
-export const handleGlobalError: ErrorRequestHandler = (error, _req, res) => {
+export const handleGlobalError: ErrorRequestHandler = (error, _req, res, _next) => {
   if (error instanceof HttpError) {
     const { message, details, status } = error;
     return res.status(status).json({ message, details });
   }
 
-  return res.status(500).json({ message: "Erro interno do servidor palavra aleatoria", details: null });
+  console.log(error);
+  return res.status(500).json({ message: "Erro interno do servidor", details: null });
 };

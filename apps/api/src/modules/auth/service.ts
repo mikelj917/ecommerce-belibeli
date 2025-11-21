@@ -1,5 +1,5 @@
 import { generateAccessToken, generateRefreshToken } from "@/modules/auth/utils/tokenGenerator.js";
-import { BadRequestError, ConflictError } from "@/shared/HttpErrors.js";
+import { BadRequestError, ConflictError } from "@/shared/utils/HttpErrors.js";
 import { db } from "@/shared/lib/db.js";
 import { verifyToken } from "@/shared/middlewares/utils/verifyToken.js";
 import bcrypt from "bcrypt";

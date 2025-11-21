@@ -16,10 +16,6 @@ const findAll = async (querys: ProductServiceQuery) => {
     take: limit,
   });
 
-  if(true) {
-    throw new Error("to testando essa budega")
-  }
-
   const count = await db.product.count({
     where: whereClause,
   });

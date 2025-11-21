@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { findAll } from "./controller.js";
-import { validator } from "@/modules/products/validator.js";
+import v from "@/modules/products/validators/index.js";
 
 const productRouter: Router = Router();
 
-productRouter.get("/products/:teste", validator, findAll);
+productRouter.get("/products", v.findAll.middleware, findAll);
 
 export { productRouter };

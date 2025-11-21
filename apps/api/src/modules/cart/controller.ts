@@ -1,89 +1,51 @@
 import { RequestHandler } from "express";
-import { handleError } from "@/shared/utils/handleError.js";
-import { handleResponse } from "@/shared/utils/handleResponse.js";
 import { cartService } from "@/modules/cart/service.js";
-import { toValidPositiveNumber } from "@repo/utils";
+import v from "@/modules/cart/validators/index.js";
 
 const findCart: RequestHandler = async (req, res) => {
-  try {
-    const { userId } = res.locals.user;
+  const { userId } = res.locals.user;
+  const { cart, count, subtotal, total, discount } = await cartService.getFullCart(userId);
 
-    const { cart, count, subtotal, total, discount } = await cartService.getFullCart(userId);
-
-    return res.json({ cart, count, subtotal, total, discount });
-  } catch (error) {
-    const dataResponse = handleError(error);
-    return handleResponse(res, dataResponse);
-  }
+  return res.json({ cart, count, subtotal, total, discount });
 };
 
 const findAllCartItems: RequestHandler = async (req, res) => {
-  try {
-    const { userId } = res.locals.user;
+  const { userId } = res.locals.user;
+  const { cartItems, count } = await cartService.getCartItems(userId);
 
-    const { cartItems, count } = await cartService.getCartItems(userId);
-
-    return res.json({ cartItems, count });
-  } catch (error) {
-    const dataResponse = handleError(error);
-    return handleResponse(res, dataResponse);
-  }
+  return res.json({ cartItems, count });
 };
 
 const addItemToCart: RequestHandler = async (req, res) => {
-  try {
-    const { userId } = res.locals.user;
-    const productId = req.body.productId;
-    const quantity = req.body.quantity;
-    const productOptions = req.body.productOptions;
+  const { userId } = res.locals.user;
+  const { productId, productOptions, quantity } = v.addItemToCart.getValidatedValues(req).body;
 
-    const { cartItem } = await cartService.createCartItem({
-      userId,
-      productId,
-      quantity,
-      options: productOptions,
-    });
-    return res.status(201).json({ cartItem });
-  } catch (error) {
-    const dataResponse = handleError(error);
-    return handleResponse(res, dataResponse);
-  }
+  const { cartItem } = await cartService.createCartItem({
+    userId,
+    productId,
+    quantity,
+    options: productOptions,
+  });
+
+  return res.status(201).json({ cartItem });
 };
 
 const updateCartItemQuantity: RequestHandler = async (req, res) => {
-  try {
-    const { userId } = res.locals.user;
-    const cartItemId = toValidPositiveNumber(req.params.cartItemId);
-    const quantity = toValidPositiveNumber(req.body.quantity);
+  const { userId } = res.locals.user;
+  const { cartItemId, quantity } = v.updateCartItemQuantity.getValidatedValues(req).body;
 
-    if (!cartItemId || !quantity) {
-      return res.status(400).json({ message: "ID do item do carrinho inválido." });
-    }
+  const { cartItem } = await cartService.updateCartItemQuantity({ cartItemId, quantity, userId });
 
-    const { cartItem } = await cartService.updateCartItemQuantity({ cartItemId, quantity, userId });
-
-    return res.json({ cartItem });
-  } catch (error) {
-    const dataResponse = handleError(error);
-    return handleResponse(res, dataResponse);
-  }
+  return res.json({ cartItem });
 };
 
 const removeItemFromCart: RequestHandler = async (req, res) => {
-  try {
-    const { userId } = res.locals.user;
-    const cartItemId = toValidPositiveNumber(req.params.cartItemId);
+  const { userId } = res.locals.user;
+  const { cartItemId } = v.removeItemFromCart.getValidatedValues(req).body;
 
-    if (!cartItemId) {
-      return res.status(400).json({ message: "ID do item do carrinho inválido." });
-    }
+  await cartService.deleteCartItem({ cartItemId, userId });
 
-    await cartService.deleteCartItem({ cartItemId, userId });
-    return res.status(204).send();
-  } catch (error) {
-    const dataResponse = handleError(error);
-    return handleResponse(res, dataResponse);
-  }
+  return res.status(204).send();
 };
 
 export { findCart, findAllCartItems, addItemToCart, updateCartItemQuantity, removeItemFromCart };

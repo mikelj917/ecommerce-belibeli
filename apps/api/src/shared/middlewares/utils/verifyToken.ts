@@ -1,4 +1,4 @@
-import { UnauthorizedError } from "@/shared/HttpErrors.js";
+import { UnauthorizedError } from "@/shared/utils/HttpErrors.js";
 import { JWTPayload, jwtVerify } from "jose";
 
 export async function verifyToken(token: string = "") {

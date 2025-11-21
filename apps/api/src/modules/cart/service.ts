@@ -5,7 +5,7 @@ import type {
   DeleteCartItem,
   UpdateCartItemQuantity,
 } from "@/modules/cart/types/index.js";
-import { ConflictError, ForbiddenError, NotFoundError } from "@/shared/HttpErrors.js";
+import { ConflictError, ForbiddenError, NotFoundError } from "@/shared/utils/HttpErrors.js";
 
 export const getFullCart = async (userId: number) => {
   const cart = await db.cart.findUnique({
