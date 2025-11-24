@@ -1,15 +1,19 @@
+import type { FindAllProductsParams } from "@/modules/products/types/ServicesParams";
 import { db } from "../../shared/lib/db";
-import { FindAllProducts } from "@repo/types/contracts";
 
-const findAll = async ({ categoryId, limit, offset }: FindAllProducts) => {
+const findAll = async ({ categoryId, limit, offset }: FindAllProductsParams) => {
   const whereClause = categoryId !== undefined ? { categoryId: categoryId } : {};
 
   const products = await db.product.findMany({
     where: whereClause,
     include: {
-      category: { select: { name: true } },
-      productOption: { include: { values: true } },
+      category: { select: { id: true, name: true } },
+      productOption: {
+        include: { values: { select: { id: true, value: true } } },
+        omit: { productId: true },
+      },
     },
+    omit: { categoryId: true, createdAt: true, updatedAt: true },
     skip: offset,
     take: limit,
   });
@@ -18,7 +22,7 @@ const findAll = async ({ categoryId, limit, offset }: FindAllProducts) => {
     where: whereClause,
   });
 
-  return { products, count };
+  return { products, count }; 
 };
 
 export const productService = { findAll };

@@ -1,5 +1,4 @@
 import z from "zod";
-import { CreateCartItem } from "@repo/types/contracts";
 import { validation } from "@/shared/middlewares/validation";
 
 const OptionSchema = z.object({
@@ -7,7 +6,7 @@ const OptionSchema = z.object({
   optionValueId: z.number("Valor inválido"),
 });
 
-const body: z.ZodType<CreateCartItem> = z.object({
+const body = z.object({
   productId: z.coerce.number("Valor inválido.").positive("O número deve ser maior que zero."),
   productOptions: z.array(OptionSchema, "Valor inválido").default([]),
   quantity: z.coerce.number("Valor inválido."),

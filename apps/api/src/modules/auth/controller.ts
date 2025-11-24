@@ -1,17 +1,18 @@
-import { RequestHandler } from "express";
+import { RequestHandler, Response } from "express";
 import { authService } from "@/modules/auth/service";
+import { LoginResponse, RegisterResponse } from "@repo/types/contracts";
 import v from "@/modules/auth/validators";
 
-const register: RequestHandler = async (req, res) => {
+const register: RequestHandler = async (req, res: Response<RegisterResponse>) => {
   const { name, email, password } = v.register.getValidatedValues(req).body;
-  const user = await authService.register(name, email, password);
+  const user = await authService.register({ name, email, password });
 
   return res.status(201).json({ user });
 };
 
-const login: RequestHandler = async (req, res) => {
+const login: RequestHandler = async (req, res: Response<LoginResponse>) => {
   const { email, password } = v.login.getValidatedValues(req).body;
-  const { user, accessToken, refreshToken } = await authService.login(email, password);
+  const { user, accessToken, refreshToken } = await authService.login({ email, password });
 
   res.cookie("accessToken", accessToken, {
     httpOnly: true,

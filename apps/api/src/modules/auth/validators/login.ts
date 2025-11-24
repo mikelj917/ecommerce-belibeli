@@ -1,8 +1,7 @@
 import z from "zod";
-import { LoginUser } from "@repo/types/contracts";
 import { validation } from "@/shared/middlewares/validation";
 
-const body: z.ZodType<LoginUser> = z.object({
+const body = z.object({
   email: z.email("E-mail inválido.").min(1, "O e-mail é obrigatório."),
   password: z
     .string()

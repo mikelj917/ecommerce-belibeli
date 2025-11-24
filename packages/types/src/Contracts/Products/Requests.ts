@@ -1,4 +1,4 @@
-export type FindAllProducts = {
+export type FindAllProductsRequest = {
   categoryId?: number;
   offset?: number;
   limit?: number;

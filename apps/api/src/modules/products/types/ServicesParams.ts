@@ -1,0 +1,3 @@
+import { FindAllProductsRequest } from "@repo/types/contracts";
+
+export type FindAllProductsParams = FindAllProductsRequest;

@@ -1,5 +1,5 @@
-import { validation } from "@/shared/middlewares/validation";
 import z from "zod";
+import { validation } from "@/shared/middlewares/validation";
 
 const query = z.object({
   categoryId: z.coerce.number().positive().optional(),

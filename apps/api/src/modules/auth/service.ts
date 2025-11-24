@@ -3,9 +3,13 @@ import { db } from "@/shared/lib/db";
 import { generateAccessToken, generateRefreshToken } from "@/modules/auth/utils/tokenGenerator";
 import { BadRequestError, ConflictError } from "@/shared/utils/HttpErrors";
 import { verifyToken } from "@/shared/utils/verifyToken";
-import { RegisterUser, LoginUser } from "@repo/types/contracts";
+import {
+  LoginParams,
+  RegisterParams,
+  RefreshAccessTokenParams,
+} from "@/modules/auth/types/ServicesParams";
 
-const register = async ({ name, email, password }: Omit<RegisterUser, "confirmPassword">) => {
+const register = async ({ name, email, password }: RegisterParams) => {
   const existingUser = await db.user.findUnique({ where: { email } });
   if (existingUser) {
     throw new ConflictError("Já existe um usuário com esse e-mail");
@@ -21,7 +25,7 @@ const register = async ({ name, email, password }: Omit<RegisterUser, "confirmPa
   return user;
 };
 
-const login = async ({ email, password }: LoginUser) => {
+const login = async ({ email, password }: LoginParams) => {
   const user = await db.user.findUnique({ where: { email } });
 
   if (!user) {
@@ -42,7 +46,7 @@ const login = async ({ email, password }: LoginUser) => {
   return { user: userWithoutPassword, accessToken, refreshToken };
 };
 
-const refreshAccessToken = async (refreshToken: string) => {
+const refreshAccessToken = async ({ refreshToken }: RefreshAccessTokenParams) => {
   const { userId, email } = await verifyToken(refreshToken);
 
   const user = await db.user.findUnique({ where: { id: userId } });

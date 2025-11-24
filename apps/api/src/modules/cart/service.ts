@@ -2,23 +2,55 @@ import { db } from "../../shared/lib/db";
 import { getCartSummary } from "@/modules/cart/utils/getCartSummary";
 import { ConflictError, ForbiddenError, NotFoundError } from "@/shared/utils/HttpErrors";
 import type {
-  CreateCartItemDto,
-  RemoveItemFromCartDto,
-  UpdateCartItemQuantityDto,
-} from "@/modules/cart/utils/DTO";
+  CreateCartItemParams,
+  UpdateCartItemQuantityParams,
+  RemoveItemFromCartParams,
+  GetFullCartParams,
+  GetCartItemsParams,
+} from "@/modules/cart/types/ServiceParams";
+import { controllerFullCartMapper } from "@/modules/cart/mappers/fullCart";
+import { controllerCartItemsMapper } from "@/modules/cart/mappers/cartItems";
+import type { emptyCartItemsDto, emptyFullCartDto } from "@/modules/cart/types/Dtos/cartDtos";
 
-export const getFullCart = async (userId: number) => {
-  const cart = await db.cart.findUnique({
+export const getFullCart = async ({ userId }: GetFullCartParams) => {
+  const rawCart = await db.cart.findUnique({
     where: { userId },
     include: {
       items: {
-        include: { product: true, productOptions: { select: { option: true, optionValue: true } } },
+        include: {
+          product: {
+            select: {
+              id: true,
+              title: true,
+              price: true,
+              image: true,
+              promotionPrice: true,
+              promotionEnd: true,
+            },
+          },
+          productOptions: {
+            select: {
+              option: { omit: { productId: true } },
+              optionValue: { omit: { productOptionId: true } },
+            },
+          },
+        },
+        omit: { productId: true, cartId: true, createdAt: true, updatedAt: true },
       },
     },
+    omit: { userId: true, createdAt: true, updatedAt: true },
   });
 
-  if (!cart) {
-    return { cart: { items: [] }, count: 0 };
+  const cart = controllerFullCartMapper(rawCart);
+
+  if (cart === null) {
+    return {
+      cart: { id: null, items: [] },
+      count: 0,
+      subtotal: 0,
+      total: 0,
+      discount: 0,
+    } as emptyFullCartDto;
   }
 
   const { count, discount, subtotal, total } = getCartSummary(cart);
@@ -26,27 +58,44 @@ export const getFullCart = async (userId: number) => {
   return { cart, count, subtotal, total, discount };
 };
 
-export const getCartItems = async (userId: number) => {
+export const getCartItems = async ({ userId }: GetCartItemsParams) => {
   const cartId = await db.cart.findUnique({
     where: { userId },
     select: { id: true },
   });
 
-  const cartItems = await db.cartItem.findMany({
+  const rawItems = await db.cartItem.findMany({
     where: { cartId: cartId?.id },
     include: {
-      product: true,
-      productOptions: { select: { option: true, optionValue: true } },
+      product: {
+        select: {
+          id: true,
+          title: true,
+          price: true,
+          image: true,
+          promotionPrice: true,
+          promotionEnd: true,
+        },
+      },
+      productOptions: {
+        select: {
+          option: { omit: { productId: true } },
+          optionValue: { omit: { productOptionId: true } },
+        },
+      },
     },
+    omit: { productId: true, cartId: true, createdAt: true, updatedAt: true },
   });
 
-  if (cartItems.length === 0) {
-    return { cartItems: [], count: 0 };
+  const items = controllerCartItemsMapper(rawItems);
+
+  if (!items || items.length === 0 || !cartId) {
+    return { items: [], count: 0 } as emptyCartItemsDto;
   }
 
-  const { count } = getCartSummary({ items: cartItems });
+  const { count } = getCartSummary({ id: cartId.id, items });
 
-  return { cartItems, count };
+  return { items, count };
 };
 
 export const createCartItem = async ({
@@ -54,7 +103,7 @@ export const createCartItem = async ({
   productId,
   productOptions,
   quantity,
-}: CreateCartItemDto) => {
+}: CreateCartItemParams) => {
   const existingCart = await db.cart.findUnique({ where: { userId } });
   const optionsPayload =
     productOptions && productOptions.length > 0
@@ -76,6 +125,7 @@ export const createCartItem = async ({
         quantity,
         ...optionsPayload,
       },
+      omit: { createdAt: true, updatedAt: true },
     });
 
     return { cartItem };
@@ -101,6 +151,7 @@ export const createCartItem = async ({
       quantity,
       ...optionsPayload,
     },
+    omit: { createdAt: true, updatedAt: true },
   });
 
   return { cartItem };
@@ -110,7 +161,7 @@ export const updateCartItemQuantity = async ({
   userId,
   cartItemId,
   quantity,
-}: UpdateCartItemQuantityDto) => {
+}: UpdateCartItemQuantityParams) => {
   const item = await db.cartItem.findUnique({
     where: { id: cartItemId },
     include: { cart: { select: { userId: true } } },
@@ -127,12 +178,13 @@ export const updateCartItemQuantity = async ({
   const cartItem = await db.cartItem.update({
     where: { id: cartItemId },
     data: { quantity },
+    omit: { createdAt: true, updatedAt: true },
   });
 
   return { cartItem };
 };
 
-export const deleteCartItem = async ({ userId, cartItemId }: RemoveItemFromCartDto) => {
+export const deleteCartItem = async ({ userId, cartItemId }: RemoveItemFromCartParams) => {
   const item = await db.cartItem.findUnique({
     where: { id: cartItemId },
     include: { cart: { select: { userId: true } } },
