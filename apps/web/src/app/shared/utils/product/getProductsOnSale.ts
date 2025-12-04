@@ -1,6 +1,6 @@
-import type { ProductInclude } from "../../types/Product";
+import { ProductDto } from "@repo/types/contracts";
 
-export function getProductsOnSale(products: ProductInclude[] | undefined) {
+export function getProductsOnSale(products: ProductDto[] | undefined) {
   if (!products) return [];
 
   const productsOnSale = products.filter((product) => {

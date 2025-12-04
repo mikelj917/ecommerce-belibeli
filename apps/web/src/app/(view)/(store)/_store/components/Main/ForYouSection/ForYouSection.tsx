@@ -1,9 +1,9 @@
 import { ProductCardSkeleton } from "../../../../../../shared/components/domain/store/ProductCardSkeleton";
 import { ProductCard } from "@/app/shared/components/domain/store/ProductCard";
-import type { ProductInclude } from "@/app/shared/types/Product";
+import { ProductDto } from "@repo/types/contracts";
 
 type ForYouSectionProps = {
-  products: ProductInclude[] | undefined;
+  products: ProductDto[] | undefined;
   isLoading: boolean;
 };
 

@@ -22,12 +22,20 @@ export const HeroBanner = () => {
   }, [currentIndex]);
 
   return (
-    <section className="relative flex w-screen justify-center overflow-hidden pt-14.5 lg:pt-0">
+    <section className="pt-14.5 relative flex w-screen justify-center overflow-hidden lg:pt-0">
       <div
-        className="flex w-full flex-row transition-transform duration-650"
+        className="duration-650 flex w-full flex-row transition-transform"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        onTouchStart={(e) => setStartX(e.touches[0].clientX)}
-        onTouchMove={(e) => setCurrentX(e.touches[0].clientX)}
+        onTouchStart={(e) => {
+          const touch = e.touches[0];
+          if (!touch) return;
+          setStartX(touch.clientX);
+        }}
+        onTouchMove={(e) => {
+          const touch = e.touches[0];
+          if (!touch) return;
+          setCurrentX(touch.clientX);
+        }}
         onTouchEnd={() => {
           if (!currentX || !startX) return;
           const deltaX = currentX - startX;

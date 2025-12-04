@@ -9,10 +9,10 @@ import {
 import { SectionHeader } from "./SectionHeader";
 import { ProductCardSkeleton } from "@/app/shared/components/domain/store/ProductCardSkeleton";
 import { useScreenSize } from "@/app/shared/hooks/ui/useScreenSize";
-import type { ProductInclude } from "@/app/shared/types/Product";
+import type { ProductDto } from "@repo/types/contracts";
 
 type Props = {
-  productsOnSale?: ProductInclude[];
+  productsOnSale?: ProductDto[];
   isLoading: boolean;
 };
 

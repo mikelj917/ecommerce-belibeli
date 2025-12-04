@@ -1,9 +1,9 @@
-type OptionsDto = {
+export type OptionsDto = {
   optionId: number;
   optionValueId: number;
 };
 
-export type CreateCartItemRequest = {
+export type addItemToCartRequest = {
   productId: number;
   productOptions: OptionsDto[];
   quantity: number;

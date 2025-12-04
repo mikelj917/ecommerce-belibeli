@@ -1,10 +1,9 @@
-"use client";
-import type { ProductOptionWithValues, ProductOptionsArray } from "@/app/shared/types/Product";
+import { ProductOptionDto } from "@repo/types/contracts";
 import type { SelectedOptionsState } from "./ProductDetails";
 import { ProductOptionSelect } from "./ProductOptionSelect";
 
 type ProductOptionsProps = {
-  productOptions: ProductOptionsArray;
+  productOptions: ProductOptionDto[];
   onSelectOption: (optionId: number, valueId: number) => void;
   selectedOptions: SelectedOptionsState;
 };
@@ -18,7 +17,7 @@ export const ProductOptions = ({
     return <h1 className="text-red-500">Falha ao carregar as opções do produto</h1>;
   }
 
-  const getSelectedValueName = (option: ProductOptionWithValues): string => {
+  const getSelectedValueName = (option: ProductOptionDto): string => {
     const currentSelectedId = selectedOptions[option.id.toString()];
 
     const selectedValue = option.values.find((value) => value.id === currentSelectedId);

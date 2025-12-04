@@ -51,7 +51,7 @@ const CartPage = () => {
       <div className="mx-auto">
         <CartHeader />
         <div className="mx-auto my-2 flex justify-center gap-3 p-3 lg:container lg:flex">
-          <CartList cartItems={data.cart.items} />
+          <CartList items={data.cart.items} />
           <CartSummary
             summary={{
               count: data.count,

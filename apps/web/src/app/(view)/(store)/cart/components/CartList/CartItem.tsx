@@ -1,13 +1,11 @@
-import type { ProductOptions } from "@/app/shared/types/Product";
 import { isSaleActive } from "@/app/shared/utils/product/isSaleActive";
-import type { Product } from "@prisma/client";
-import type { Decimal } from "@prisma/client/runtime/library";
+import type { CartItemDto } from "@repo/types/contracts";
 import { Heart, Minus, Plus, Trash } from "lucide-react";
 import React from "react";
 
 type CartItemProps = {
-  product: Product;
-  productOptions: ProductOptions;
+  product: CartItemDto["product"];
+  productOptions: CartItemDto["productOptions"];
   quantity: number;
   onDelete?: () => void;
   onAddToWishlist?: () => void;
@@ -63,13 +61,13 @@ export const CartItem = ({
 };
 
 type CartItemImageProps = {
-  product: Product;
+  product: CartItemDto["product"];
 };
 
 const CartItemImage = ({ product }: CartItemImageProps) => {
   return (
     <img
-      className="aspect-square w-20 rounded-sm bg-black/10 object-contain p-1 sm:w-30 md:w-40"
+      className="sm:w-30 aspect-square w-20 rounded-sm bg-black/10 object-contain p-1 md:w-40"
       src={product.image}
       alt={product.title}
     />
@@ -90,14 +88,14 @@ type CartItemTitleProps = React.ComponentProps<"h1"> & {
 
 const CartItemTitle = ({ productTitle, ...props }: CartItemTitleProps) => {
   return (
-    <h1 {...props} className="line-clamp-1 text-sm leading-tight font-semibold md:text-lg">
+    <h1 {...props} className="line-clamp-1 text-sm font-semibold leading-tight md:text-lg">
       {productTitle}
     </h1>
   );
 };
 
 type CartItemSpecificationsProps = {
-  productOptions: ProductOptions;
+  productOptions: CartItemDto["productOptions"];
 };
 
 const CartItemSpecifications = ({ productOptions }: CartItemSpecificationsProps) => {
@@ -113,8 +111,8 @@ const CartItemSpecifications = ({ productOptions }: CartItemSpecificationsProps)
 };
 
 type CartItemPriceProps = React.ComponentProps<"div"> & {
-  productPrice: Decimal;
-  productPromoPrice: Decimal | null;
+  productPrice: number;
+  productPromoPrice: number | null;
   isProductOnSale: boolean;
 };
 
@@ -127,7 +125,7 @@ const CartItemPrice = ({
     <div className="flex items-center gap-1 self-stretch">
       <strong className="text-xs font-semibold sm:text-base md:text-lg">
         R$
-        {isProductOnSale ? Number(productPromoPrice).toFixed(2) : Number(productPrice).toFixed(2)}
+        {isProductOnSale ? productPromoPrice?.toFixed(2) : productPrice.toFixed(2)}
       </strong>
       {isProductOnSale && (
         <span className="text-xs text-red-500 line-through md:text-sm">
@@ -144,7 +142,7 @@ type CartItemActionsProps = {
 
 const CartItemActions = ({ children }: CartItemActionsProps) => {
   return (
-    <div className="flex h-full flex-col items-end justify-between gap-5 sm:absolute sm:right-0 sm:bottom-0 sm:flex-row-reverse">
+    <div className="flex h-full flex-col items-end justify-between gap-5 sm:absolute sm:bottom-0 sm:right-0 sm:flex-row-reverse">
       {children}
     </div>
   );

@@ -1,11 +1,9 @@
-import type { ProductInclude } from "@/app/shared/types/Product";
 import API from "./API";
+import { FindAllProductsResponse } from "@repo/types/contracts";
 
-type Products = { products: ProductInclude[]; count: number };
-
-async function getProducts() {
-  const response = await API.get<Products>("/products");
+async function findAllProducts() {
+  const response = await API.get<FindAllProductsResponse>("/products");
   return response.data;
 }
 
-export const productService = { getProducts };
+export const productService = { findAllProducts };

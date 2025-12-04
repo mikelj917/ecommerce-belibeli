@@ -1,26 +1,31 @@
 import { API } from "@/app/shared/services/API/API";
-import type { CartSummary } from "@/app/shared/types/Cart";
-import type { CreateCartParams } from "@/app/shared/types/Params";
-import type { CartItem } from "@prisma/client";
+import {
+  FindCartResponse,
+  FindAllCartItemsResponse,
+  AddItemToCartResponse,
+  addItemToCartRequest,
+} from "@repo/types/contracts";
 
 async function findCart() {
-  const response = await API.get<CartSummary>("/cart");
+  const response = await API.get<FindCartResponse>("/cart");
 
   return response.data;
 }
 
 async function findCartItems() {
-  const response = await API.get<CartSummary>("/cart/items");
+  const response = await API.get<FindAllCartItemsResponse>("/cart/items");
 
   return response.data;
 }
 
-async function createCart(params: CreateCartParams) {
-  const { productId, quantity, productOptions } = params;
-
-  const response = await API.post<CartItem>("/cart/items", { productId, productOptions, quantity });
+async function addItemToCart({ productId, quantity, productOptions }: addItemToCartRequest) {
+  const response = await API.post<AddItemToCartResponse>("/cart/items", {
+    productId,
+    productOptions,
+    quantity,
+  });
 
   return response.data;
 }
 
-export const cartService = { findCart, findCartItems, createCart };
+export const cartService = { findCart, findCartItems, addItemToCart };

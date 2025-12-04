@@ -1,10 +1,10 @@
 "use client";
-import type { ProductInclude } from "@/app/shared/types/Product";
+import type { ProductDto } from "@repo/types/contracts";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type ProductDetailsContextType = {
-  handleOpenProductDetails: (product: ProductInclude) => void;
-  selectedProduct: ProductInclude | null;
+  handleOpenProductDetails: (product: ProductDto) => void;
+  selectedProduct: ProductDto | null;
   isProductDetailsModalOpen: boolean;
   setIsProductDetailsModalOpen: (open: boolean) => void;
 };
@@ -16,10 +16,10 @@ type ProductDetailsProviderType = {
 const ProductDetailsContext = createContext<ProductDetailsContextType | null>(null);
 
 export const ProductDetailsProvider = ({ children }: ProductDetailsProviderType) => {
-  const [selectedProduct, setSelectedProduct] = useState<ProductInclude | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ProductDto | null>(null);
   const [isProductDetailsModalOpen, setIsProductDetailsModalOpen] = useState(false);
 
-  const handleOpenProductDetails = (product: ProductInclude) => {
+  const handleOpenProductDetails = (product: ProductDto) => {
     setSelectedProduct(product);
     setIsProductDetailsModalOpen(true);
   };

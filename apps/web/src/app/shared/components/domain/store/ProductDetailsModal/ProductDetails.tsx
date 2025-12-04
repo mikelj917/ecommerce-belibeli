@@ -5,20 +5,20 @@ import { ProductOptions } from "./ProductOptions";
 import { QuantitySelector } from "./QuantitySelector";
 import { useState } from "react";
 import { useCreateCart } from "@/app/shared/hooks/data/useCartMutations";
-import type { BackendOption, ProductOptionsArray } from "@/app/shared/types/Product";
 import { HeartIcon } from "lucide-react";
 import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
+import { OptionsDto, ProductOptionDto } from "@repo/types/contracts";
 
 export type SelectedOptionsState = Record<string, number>;
 
-const formatOptionsForBackend = (selectedOptions: SelectedOptionsState): BackendOption[] => {
+const formatOptionsForBackend = (selectedOptions: SelectedOptionsState): OptionsDto[] => {
   return Object.entries(selectedOptions).map(([optionIdStr, optionValueId]) => ({
     optionId: parseInt(optionIdStr, 10), // Converte a chave (string) de volta para número
     optionValueId: optionValueId,
   }));
 };
 
-const getInitialState = (options: ProductOptionsArray): SelectedOptionsState => {
+const getInitialState = (options: ProductOptionDto[]): SelectedOptionsState => {
   return options.reduce((acc, option) => {
     acc[option.id.toString()] = option.values[0]?.id || 0;
     return acc;
@@ -51,7 +51,7 @@ export const ProductDetails = () => {
   const handleAddToCart = () => {
     const productOptionsPayload = formatOptionsForBackend(selectedOptions);
 
-    mutate({ productId: id, quantity: count, productOptions: productOptionsPayload });
+    mutate({ productId: id, productOptions: productOptionsPayload, quantity: count });
     setIsProductDetailsModalOpen(false);
   };
 

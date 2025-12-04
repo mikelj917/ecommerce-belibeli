@@ -1,8 +1,8 @@
 import { ProductsCarousel } from "./ProductsCarousel";
-import type { ProductInclude } from "@/app/shared/types/Product";
+import { ProductDto } from "@repo/types/contracts";
 
 type FlashSaleSectionProps = {
-  products: ProductInclude[] | undefined;
+  products: ProductDto[] | undefined;
   isLoading: boolean;
 };
 

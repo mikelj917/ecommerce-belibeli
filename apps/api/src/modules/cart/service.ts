@@ -1,6 +1,7 @@
 import { db } from "../../shared/lib/db";
 import { getCartSummary } from "@/modules/cart/utils/getCartSummary";
 import { ConflictError, ForbiddenError, NotFoundError } from "@/shared/utils/HttpErrors";
+import { controllerFullCartMapper, controllerCartItemsMapper } from "@/modules/cart/mappers";
 import type {
   CreateCartItemParams,
   UpdateCartItemQuantityParams,
@@ -8,9 +9,6 @@ import type {
   GetFullCartParams,
   GetCartItemsParams,
 } from "@/modules/cart/types/ServiceParams";
-import { controllerFullCartMapper } from "@/modules/cart/mappers/fullCart";
-import { controllerCartItemsMapper } from "@/modules/cart/mappers/cartItems";
-import type { emptyCartItemsDto, emptyFullCartDto } from "@/modules/cart/types/Dtos/cartDtos";
 
 export const getFullCart = async ({ userId }: GetFullCartParams) => {
   const rawCart = await db.cart.findUnique({
@@ -45,12 +43,12 @@ export const getFullCart = async ({ userId }: GetFullCartParams) => {
 
   if (cart === null) {
     return {
-      cart: { id: null, items: [] },
+      cart: null,
       count: 0,
       subtotal: 0,
       total: 0,
       discount: 0,
-    } as emptyFullCartDto;
+    };
   }
 
   const { count, discount, subtotal, total } = getCartSummary(cart);
@@ -64,8 +62,12 @@ export const getCartItems = async ({ userId }: GetCartItemsParams) => {
     select: { id: true },
   });
 
+  if (!cartId) {
+    return { items: [], count: 0 };
+  }
+
   const rawItems = await db.cartItem.findMany({
-    where: { cartId: cartId?.id },
+    where: { cartId: cartId.id },
     include: {
       product: {
         select: {
@@ -88,10 +90,6 @@ export const getCartItems = async ({ userId }: GetCartItemsParams) => {
   });
 
   const items = controllerCartItemsMapper(rawItems);
-
-  if (!items || items.length === 0 || !cartId) {
-    return { items: [], count: 0 } as emptyCartItemsDto;
-  }
 
   const { count } = getCartSummary({ id: cartId.id, items });
 

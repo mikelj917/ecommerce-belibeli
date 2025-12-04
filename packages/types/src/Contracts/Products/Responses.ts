@@ -28,7 +28,7 @@ export type ProductDto = {
   productOption: ProductOptionDto[];
 };
 
-export type ProductListResponse = {
+export type FindAllProductsResponse = {
   products: ProductDto[];
   count: number;
 };

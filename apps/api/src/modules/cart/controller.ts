@@ -1,15 +1,15 @@
 import { RequestHandler, Response } from "express";
 import { cartService } from "@/modules/cart/service";
 import {
-  CartItemsResponse,
-  AddCartItemResponse,
-  FullCartResponse,
+  FindAllCartItemsResponse,
+  AddItemToCartResponse,
+  FindCartResponse,
   RemoveCartItemResponse,
   UpdateCartItemQuantityResponse,
 } from "@repo/types/contracts";
 import v from "@/modules/cart/validators";
 
-const findCart: RequestHandler = async (_req, res: Response<FullCartResponse>) => {
+const findCart: RequestHandler = async (_req, res: Response<FindCartResponse>) => {
   const { userId } = res.locals.user;
 
   const { cart, count, subtotal, total, discount } = await cartService.getFullCart({ userId });
@@ -17,7 +17,7 @@ const findCart: RequestHandler = async (_req, res: Response<FullCartResponse>) =
   return res.json({ cart, count, subtotal, total, discount });
 };
 
-const findAllCartItems: RequestHandler = async (_req, res: Response<CartItemsResponse>) => {
+const findAllCartItems: RequestHandler = async (_req, res: Response<FindAllCartItemsResponse>) => {
   const { userId } = res.locals.user;
 
   const { items, count } = await cartService.getCartItems({ userId });
@@ -25,7 +25,7 @@ const findAllCartItems: RequestHandler = async (_req, res: Response<CartItemsRes
   return res.json({ items, count });
 };
 
-const addItemToCart: RequestHandler = async (req, res: Response<AddCartItemResponse>) => {
+const addItemToCart: RequestHandler = async (req, res: Response<AddItemToCartResponse>) => {
   const { userId } = res.locals.user;
   const { productId, productOptions, quantity } = v.addItemToCart.getValidatedValues(req).body;
 

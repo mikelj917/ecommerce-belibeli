@@ -1,8 +1,9 @@
-export function isSaleActive(promotionEnd: Date | null) {
+export function isSaleActive(promotionEnd: string | null) {
   if (!promotionEnd) return false;
 
-  const now = new Date();
   const end = new Date(promotionEnd);
 
-  return now < end;
+  if (isNaN(end.getTime())) return false;
+
+  return Date.now() < end.getTime();
 }

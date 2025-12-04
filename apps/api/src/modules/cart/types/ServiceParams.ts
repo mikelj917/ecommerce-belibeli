@@ -1,5 +1,5 @@
 import {
-  CreateCartItemRequest,
+  addItemToCartRequest,
   UpdateCartItemQuantityRequest,
   RemoveItemFromCartRequest,
 } from "@repo/types/contracts";
@@ -14,7 +14,7 @@ export type GetCartItemsParams = {
 
 export type CreateCartItemParams = {
   userId: number;
-} & CreateCartItemRequest;
+} & addItemToCartRequest;
 
 export type UpdateCartItemQuantityParams = {
   userId: number;

@@ -1,19 +1,19 @@
-import type { CartInclude } from "@/app/shared/types/Cart";
+import type { CartItemDto } from "@repo/types/contracts";
 import { CartItem } from "./CartItem";
 
 type CartListProps = {
-  cartItems: CartInclude["items"];
+  items: CartItemDto[];
 };
 
-export const CartList = ({ cartItems }: CartListProps) => {
+export const CartList = ({ items }: CartListProps) => {
   return (
     <div className="flex w-full flex-col items-center gap-3">
-      {cartItems.map((cartItem) => (
+      {items.map((item) => (
         <CartItem
-          key={cartItem.id}
-          product={cartItem.product}
-          productOptions={cartItem.productOptions}
-          quantity={cartItem.quantity}
+          key={item.id}
+          product={item.product}
+          productOptions={item.productOptions}
+          quantity={item.quantity}
         />
       ))}
     </div>

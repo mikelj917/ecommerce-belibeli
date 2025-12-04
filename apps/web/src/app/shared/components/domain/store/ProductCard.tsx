@@ -1,12 +1,12 @@
 "use client";
 import { isSaleActive } from "@/app/shared/utils/product/isSaleActive";
 import { getPercentDiscount } from "@/app/shared/utils/product/getPercentDiscount";
-import type { ProductInclude } from "@/app/shared/types/Product";
 import { HeartIcon, ShoppingCartIcon, StarIcon } from "lucide-react";
 import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
+import { ProductDto } from "@repo/types/contracts";
 
 type ProductCardProps = {
-  product: ProductInclude;
+  product: ProductDto;
   grid?: boolean;
 };
 
@@ -17,7 +17,7 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
   const isProductOnSale = isSaleActive(product.promotionEnd);
   const percentDiscount = getPercentDiscount(product);
 
-  const onCartClick = async (product: ProductInclude) => handleOpenProductDetails(product);
+  const onCartClick = async (product: ProductDto) => handleOpenProductDetails(product);
 
   const onWishClick = () => {};
 
@@ -42,7 +42,7 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
 
         {/* Percent */}
         {isProductOnSale && (
-          <strong className="absolute top-2 left-2 my-1 inline-block rounded-4xl bg-red-500 px-2 py-1 text-sm font-bold text-white">
+          <strong className="rounded-4xl absolute left-2 top-2 my-1 inline-block bg-red-500 px-2 py-1 text-sm font-bold text-white">
             - {percentDiscount}% off
           </strong>
         )}
@@ -50,7 +50,7 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
         {/* Wish Button */}
         <button
           // onClick={onWishClick}
-          className={`absolute top-2 right-2 cursor-pointer rounded-full bg-white p-1 shadow-md transition duration-150 hover:scale-110 active:scale-140`}
+          className={`active:scale-140 absolute right-2 top-2 cursor-pointer rounded-full bg-white p-1 shadow-md transition duration-150 hover:scale-110`}
           aria-label="Add to favorites"
         >
           <HeartIcon
@@ -61,7 +61,7 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
 
       {/* Product Info */}
       <div className="relative p-2">
-        <h1 className="mb-1 line-clamp-2 h-[35px] text-sm leading-tight font-semibold">
+        <h1 className="mb-1 line-clamp-2 h-[35px] text-sm font-semibold leading-tight">
           {product.title}
         </h1>
 
@@ -92,7 +92,7 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
         {/* Cart Button */}
         <button
           onClick={() => onCartClick(product)}
-          className={`absolute right-2 bottom-2 hidden cursor-pointer rounded-full bg-white p-1 shadow-md transition duration-150 hover:scale-110 active:scale-140 lg:right-3 lg:bottom-3 lg:hidden lg:group-hover:block`}
+          className={`active:scale-140 absolute bottom-2 right-2 hidden cursor-pointer rounded-full bg-white p-1 shadow-md transition duration-150 hover:scale-110 lg:bottom-3 lg:right-3 lg:hidden lg:group-hover:block`}
           aria-label="Add to cart"
         >
           <ShoppingCartIcon

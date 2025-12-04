@@ -1,6 +1,6 @@
-import type { ProductInclude } from "@/app/shared/types/Product";
+import type { ProductDto } from "@repo/types/contracts";
 
-export function getPercentDiscount(product: ProductInclude) {
+export function getPercentDiscount(product: ProductDto) {
   if (!product.promotionPrice) return 0;
   return Math.floor(
     ((Number(product.price) - Number(product.promotionPrice)) / Number(product.price)) * 100,

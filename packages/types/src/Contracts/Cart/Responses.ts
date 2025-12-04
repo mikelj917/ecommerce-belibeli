@@ -21,28 +21,25 @@ export type CartItemDto = {
   }[];
 };
 
-export type FullCartResponse = {
-  cart:
-    | {
-        id: number;
-        items: CartItemDto[];
-      }
-    | {
-        id: null;
-        items: [];
-      };
+export type CartDto = {
+  id: number;
+  items: CartItemDto[];
+};
+
+export type FindCartResponse = {
+  cart: CartDto | null;
   count: number;
   subtotal: number;
   total: number;
   discount: number;
 };
 
-export type CartItemsResponse = {
+export type FindAllCartItemsResponse = {
   items: CartItemDto[] | [];
   count: number;
 };
 
-export type AddCartItemResponse = {
+export type AddItemToCartResponse = {
   cartItem: {
     id: number;
     quantity: number;

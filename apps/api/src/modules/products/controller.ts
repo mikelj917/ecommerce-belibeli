@@ -1,15 +1,13 @@
 import { RequestHandler, Response } from "express";
 import { productService } from "./service.js";
-import { ProductListResponse } from "@repo/types/contracts";
+import { FindAllProductsResponse } from "@repo/types/contracts";
 import v from "@/modules/products/validators";
-import { mapProductListToDto } from "@/modules/products/mappers/productList.js";
 
-const findAll: RequestHandler = async (req, res: Response<ProductListResponse>) => {
+const findAll: RequestHandler = async (req, res: Response<FindAllProductsResponse>) => {
   const { query } = v.findAll.getValidatedValues(req);
   const { categoryId, limit, offset } = query;
 
-  const serviceResult = await productService.findAll({ categoryId, offset, limit });
-  const { products, count } = mapProductListToDto(serviceResult.products, serviceResult.count);
+  const { products, count } = await productService.findAll({ categoryId, offset, limit });
   return res.json({ products, count });
 };
 
