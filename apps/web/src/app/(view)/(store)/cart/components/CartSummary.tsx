@@ -25,7 +25,7 @@ export const CartSummary = ({ summary }: CartSummaryProps) => {
         </button>
       </div>
 
-      <div className="sticky top-0 hidden space-y-3 self-start lg:block">
+      <div className="sticky top-3 hidden space-y-3 self-start lg:block">
         <div className="rounded-sm bg-white p-3">
           <h1 className="text-2xl font-semibold">Resumo do pedido</h1>
           <span className="text-xs text-black/30">
