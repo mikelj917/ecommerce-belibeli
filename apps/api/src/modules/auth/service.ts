@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import { db } from "@/shared/lib/db";
 import { generateAccessToken, generateRefreshToken } from "@/modules/auth/utils/tokenGenerator";
 import { BadRequestError, ConflictError } from "@/shared/utils/HttpErrors";
-import { verifyToken } from "@/shared/utils/verifyToken";
+import { verifyAccessToken, verifyRefreshToken } from "@/shared/utils/verifyToken";
 import {
   LoginParams,
   RegisterParams,
@@ -40,14 +40,14 @@ const login = async ({ email, password }: LoginParams) => {
 
   const { password: _pw, ...userWithoutPassword } = user;
 
-  const accessToken = generateAccessToken(user.id, user.email);
+  const accessToken = generateAccessToken(user.id);
   const refreshToken = generateRefreshToken(user.id);
 
   return { user: userWithoutPassword, accessToken, refreshToken };
 };
 
 const refreshAccessToken = async ({ refreshToken }: RefreshAccessTokenParams) => {
-  const { userId, email } = await verifyToken(refreshToken);
+  const { userId } = await verifyRefreshToken(refreshToken);
 
   const user = await db.user.findUnique({ where: { id: userId } });
 
@@ -55,7 +55,7 @@ const refreshAccessToken = async ({ refreshToken }: RefreshAccessTokenParams) =>
     throw new BadRequestError("Este usuário não existe.");
   }
 
-  const newAccessToken = generateAccessToken(userId, email);
+  const newAccessToken = generateAccessToken(userId);
 
   return { accessToken: newAccessToken };
 };

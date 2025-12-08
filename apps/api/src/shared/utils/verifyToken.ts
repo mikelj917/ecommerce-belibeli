@@ -1,15 +1,25 @@
+import { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET } from "@/shared/utils/env";
 import { UnauthorizedError } from "@/shared/utils/HttpErrors.js";
-import { JWTPayload, jwtVerify } from "jose";
+import jwt from "jsonwebtoken";
 
-export async function verifyToken(token: string = "") {
+export async function verifyAccessToken(token: string = "") {
   if (!token) throw new UnauthorizedError("Token não fornecido.");
-  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
-  const { payload } = await jwtVerify(token, secret);
-  const { email, userId } = payload as JWTPayload & {
+  const decoded = jwt.verify(token, JWT_ACCESS_SECRET);
+  const { userId } = decoded as {
     userId: number;
-    email: string;
   };
 
-  return { email, userId };
+  return { userId };
+}
+
+export async function verifyRefreshToken(token: string = "") {
+  if (!token) throw new UnauthorizedError("Token não fornecido.");
+
+  const decoded = jwt.verify(token, JWT_REFRESH_SECRET);
+  const { userId } = decoded as {
+    userId: number;
+  };
+
+  return { userId };
 }
