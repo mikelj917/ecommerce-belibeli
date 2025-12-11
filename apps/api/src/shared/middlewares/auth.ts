@@ -1,13 +1,14 @@
-import { verifyAccessToken } from "@/shared/utils/verifyToken.js";
+import { verifyToken } from "@/shared/utils/verifyToken.js";
 import type { RequestHandler } from "express";
 
 export const authMiddleware: RequestHandler = async (req, res, next) => {
   const accessToken = req.cookies.accessToken;
 
-  if (!accessToken) return res.status(401).json({ error: "Token não fornecido" });
+  if (!accessToken)
+    return res.status(401).json({ error: "Token não fornecido" });
 
   try {
-    const { userId } = await verifyAccessToken(accessToken);
+    const { userId } = await verifyToken(accessToken, "access");
     res.locals.user = { userId };
     next();
   } catch {

@@ -9,15 +9,22 @@ import {
 } from "@repo/types/contracts";
 import v from "@/modules/cart/validators";
 
-const findCart: RequestHandler = async (_req, res: Response<FindCartResponse>) => {
+const findCart: RequestHandler = async (
+  _req,
+  res: Response<FindCartResponse>
+) => {
   const { userId } = res.locals.user;
 
-  const { cart, count, subtotal, total, discount } = await cartService.getFullCart({ userId });
+  const { cart, count, subtotal, total, discount } =
+    await cartService.getFullCart({ userId });
 
   return res.json({ cart, count, subtotal, total, discount });
 };
 
-const findAllCartItems: RequestHandler = async (_req, res: Response<FindAllCartItemsResponse>) => {
+const findAllCartItems: RequestHandler = async (
+  _req,
+  res: Response<FindAllCartItemsResponse>
+) => {
   const { userId } = res.locals.user;
 
   const { items, count } = await cartService.getCartItems({ userId });
@@ -25,9 +32,13 @@ const findAllCartItems: RequestHandler = async (_req, res: Response<FindAllCartI
   return res.json({ items, count });
 };
 
-const addItemToCart: RequestHandler = async (req, res: Response<AddItemToCartResponse>) => {
+const addItemToCart: RequestHandler = async (
+  req,
+  res: Response<AddItemToCartResponse>
+) => {
   const { userId } = res.locals.user;
-  const { productId, productOptions, quantity } = v.addItemToCart.getValidatedValues(req).body;
+  const { productId, productOptions, quantity } =
+    v.addItemToCart.getValidatedValues(req).body;
 
   const { cartItem } = await cartService.createCartItem({
     userId,
@@ -41,17 +52,25 @@ const addItemToCart: RequestHandler = async (req, res: Response<AddItemToCartRes
 
 const updateCartItemQuantity: RequestHandler = async (
   req,
-  res: Response<UpdateCartItemQuantityResponse>,
+  res: Response<UpdateCartItemQuantityResponse>
 ) => {
   const { userId } = res.locals.user;
-  const { cartItemId, quantity } = v.updateCartItemQuantity.getValidatedValues(req).body;
+  const { cartItemId, quantity } =
+    v.updateCartItemQuantity.getValidatedValues(req).body;
 
-  const { cartItem } = await cartService.updateCartItemQuantity({ cartItemId, quantity, userId });
+  const { cartItem } = await cartService.updateCartItemQuantity({
+    cartItemId,
+    quantity,
+    userId,
+  });
 
   return res.json({ cartItem });
 };
 
-const removeItemFromCart: RequestHandler = async (req, res: Response<RemoveCartItemResponse>) => {
+const removeItemFromCart: RequestHandler = async (
+  req,
+  res: Response<RemoveCartItemResponse>
+) => {
   const { userId } = res.locals.user;
   const { cartItemId } = v.removeItemFromCart.getValidatedValues(req).body;
 
@@ -60,4 +79,10 @@ const removeItemFromCart: RequestHandler = async (req, res: Response<RemoveCartI
   return res.status(204).send();
 };
 
-export { findCart, findAllCartItems, addItemToCart, updateCartItemQuantity, removeItemFromCart };
+export {
+  findCart,
+  findAllCartItems,
+  addItemToCart,
+  updateCartItemQuantity,
+  removeItemFromCart,
+};

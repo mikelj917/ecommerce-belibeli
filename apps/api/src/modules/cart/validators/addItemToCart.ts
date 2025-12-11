@@ -2,14 +2,19 @@ import z from "zod";
 import { validation } from "@/shared/middlewares/validation";
 
 const OptionSchema = z.object({
-  optionId: z.number("Valor inválido"),
-  optionValueId: z.number("Valor inválido"),
+  optionId: z.uuid("Valor inválido"),
+  optionValueId: z.uuid("Valor inválido"),
 });
 
 const body = z.object({
-  productId: z.coerce.number("Valor inválido.").positive("O número deve ser maior que zero."),
-  productOptions: z.array(OptionSchema, "Valor inválido").default([]),
-  quantity: z.coerce.number("Valor inválido."),
+  productId: z.uuid("Valor inválido."),
+  productOptions: z.preprocess((val) => {
+    if (val == null) return [];
+    return val;
+  }, z.array(OptionSchema).default([])),
+  quantity: z.coerce
+    .number("Valor inválido.")
+    .min(1, "A quantidade mínima é 1."),
 });
 
 export const addItemToCart = validation({ body });

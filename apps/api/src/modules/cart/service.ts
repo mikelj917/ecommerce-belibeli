@@ -1,7 +1,15 @@
 import { db } from "../../shared/lib/db";
 import { getCartSummary } from "@/modules/cart/utils/getCartSummary";
-import { ConflictError, ForbiddenError, NotFoundError } from "@/shared/utils/HttpErrors";
-import { controllerFullCartMapper, controllerCartItemsMapper } from "@/modules/cart/mappers";
+import {
+  BadRequestError,
+  ConflictError,
+  ForbiddenError,
+  NotFoundError,
+} from "@/shared/utils/HttpErrors";
+import {
+  controllerFullCartMapper,
+  controllerCartItemsMapper,
+} from "@/modules/cart/mappers";
 import type {
   CreateCartItemParams,
   UpdateCartItemQuantityParams,
@@ -9,6 +17,7 @@ import type {
   GetFullCartParams,
   GetCartItemsParams,
 } from "@/modules/cart/types/ServiceParams";
+import { buildVariantHash } from "@/shared/utils/variantHash";
 
 export const getFullCart = async ({ userId }: GetFullCartParams) => {
   const rawCart = await db.cart.findUnique({
@@ -33,7 +42,12 @@ export const getFullCart = async ({ userId }: GetFullCartParams) => {
             },
           },
         },
-        omit: { productId: true, cartId: true, createdAt: true, updatedAt: true },
+        omit: {
+          productId: true,
+          cartId: true,
+          createdAt: true,
+          updatedAt: true,
+        },
       },
     },
     omit: { userId: true, createdAt: true, updatedAt: true },
@@ -102,7 +116,35 @@ export const createCartItem = async ({
   productOptions,
   quantity,
 }: CreateCartItemParams) => {
+  const product = await db.product.findUnique({
+    where: { id: productId },
+    include: { productOptions: { include: { values: true } } },
+  });
+
+  if (!product) {
+    throw new NotFoundError("Produto não encontrado.");
+  }
+
+  if (productOptions.length > 0) {
+    const optionMap = new Map(
+      product.productOptions.map((o) => [
+        o.id,
+        new Set(o.values.map((v) => v.id)),
+      ])
+    );
+
+    productOptions.forEach(({ optionId, optionValueId }) => {
+      const allowed = optionMap.get(optionId);
+      if (!allowed) throw new BadRequestError(`optionId inválido: ${optionId}`);
+      if (!allowed.has(optionValueId))
+        throw new BadRequestError(`optionValueId inválido: ${optionValueId}`);
+    });
+  }
+
   const existingCart = await db.cart.findUnique({ where: { userId } });
+
+  const variantHash = buildVariantHash(productId, productOptions);
+
   const optionsPayload =
     productOptions && productOptions.length > 0
       ? {
@@ -120,6 +162,7 @@ export const createCartItem = async ({
       data: {
         cartId: id,
         productId,
+        variantHash,
         quantity,
         ...optionsPayload,
       },
@@ -131,21 +174,28 @@ export const createCartItem = async ({
 
   const existingItem = await db.cartItem.findUnique({
     where: {
-      cartId_productId: {
+      cartId_productId_variantHash: {
         cartId: existingCart.id,
         productId,
+        variantHash,
       },
     },
+    omit: { createdAt: true, updatedAt: true },
   });
 
   if (existingItem) {
-    throw new ConflictError("Este item já está no carrinho.");
+    await db.cartItem.update({
+      where: { id: existingItem.id },
+      data: { quantity: existingItem.quantity + quantity },
+    });
+    return { cartItem: existingItem };
   }
 
   const cartItem = await db.cartItem.create({
     data: {
       cartId: existingCart.id,
       productId,
+      variantHash,
       quantity,
       ...optionsPayload,
     },
@@ -182,7 +232,10 @@ export const updateCartItemQuantity = async ({
   return { cartItem };
 };
 
-export const deleteCartItem = async ({ userId, cartItemId }: RemoveItemFromCartParams) => {
+export const deleteCartItem = async ({
+  userId,
+  cartItemId,
+}: RemoveItemFromCartParams) => {
   const item = await db.cartItem.findUnique({
     where: { id: cartItemId },
     include: { cart: { select: { userId: true } } },

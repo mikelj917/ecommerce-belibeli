@@ -1,8 +1,8 @@
 import { ProductDto } from "@repo/types/contracts";
-import { Decimal } from "@prisma/client/runtime/library";
+import type { Decimal } from "../../../prisma/generated/client/internal/prismaNamespace";
 
 type RawProduct = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   price: Decimal;
@@ -11,17 +11,17 @@ type RawProduct = {
   promotionEnd: Date | null;
   stock: number;
   totalSold: number;
-  ratingRate: number;
+  ratingRate: Decimal;
   ratingCount: number;
   category: {
-    id: number;
+    id: string;
     name: string;
   };
-  productOption: {
-    id: number;
+  productOptions: {
+    id: string;
     type: string;
     values: {
-      id: number;
+      id: string;
       value: string;
     }[];
   }[];
@@ -38,7 +38,7 @@ export const controllerProductMapper = (product: RawProduct): ProductDto => {
     promotionEnd: product.promotionEnd ? product.promotionEnd.toISOString() : null,
     stock: product.stock,
     totalSold: product.totalSold,
-    ratingRate: product.ratingRate,
+    ratingRate: Number(product.ratingRate),
     ratingCount: product.ratingCount,
 
     category: {
@@ -46,7 +46,7 @@ export const controllerProductMapper = (product: RawProduct): ProductDto => {
       name: product.category.name,
     },
 
-    productOption: product.productOption.map((opt) => ({
+    productOptions: product.productOptions.map((opt) => ({
       id: opt.id,
       type: opt.type,
       values: opt.values.map((val) => ({

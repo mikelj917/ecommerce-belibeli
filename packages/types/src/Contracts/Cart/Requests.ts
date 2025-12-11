@@ -1,19 +1,19 @@
 export type OptionsDto = {
-  optionId: number;
-  optionValueId: number;
+  optionId: string;
+  optionValueId: string;
 };
 
 export type addItemToCartRequest = {
-  productId: number;
+  productId: string;
   productOptions: OptionsDto[];
   quantity: number;
 };
 
 export type UpdateCartItemQuantityRequest = {
-  cartItemId: number;
+  cartItemId: string;
   quantity: number;
 };
 
 export type RemoveItemFromCartRequest = {
-  cartItemId: number;
+  cartItemId: string;
 };

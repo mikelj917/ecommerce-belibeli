@@ -5,21 +5,21 @@ import {
 } from "@repo/types/contracts";
 
 export type GetFullCartParams = {
-  userId: number;
+  userId: string;
 };
 
 export type GetCartItemsParams = {
-  userId: number;
+  userId: string;
 };
 
 export type CreateCartItemParams = {
-  userId: number;
+  userId: string;
 } & addItemToCartRequest;
 
 export type UpdateCartItemQuantityParams = {
-  userId: number;
+  userId: string;
 } & UpdateCartItemQuantityRequest;
 
 export type RemoveItemFromCartParams = {
-  userId: number;
+  userId: string;
 } & RemoveItemFromCartRequest;

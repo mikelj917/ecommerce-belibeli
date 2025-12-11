@@ -18,13 +18,13 @@ app.use(
     origin: ["http://localhost:3000", "http://192.168.3.14:3000"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-  }),
+  })
 );
 app.use(
   helmet({
     contentSecurityPolicy: false, // evita quebrar tudo no começo
     crossOriginEmbedderPolicy: false,
-  }),
+  })
 );
 
 // Routes ------------------------------------------------------------

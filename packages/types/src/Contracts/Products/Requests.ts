@@ -1,5 +1,5 @@
 export type FindAllProductsRequest = {
-  categoryId?: number;
+  categoryId?: string;
   offset?: number;
   limit?: number;
 };

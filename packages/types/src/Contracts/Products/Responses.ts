@@ -1,16 +1,16 @@
 export type ProductValueDto = {
-  id: number;
+  id: string;
   value: string;
 };
 
 export type ProductOptionDto = {
-  id: number;
+  id: string;
   type: string;
   values: ProductValueDto[];
 };
 
 export type ProductDto = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   price: number;
@@ -22,10 +22,10 @@ export type ProductDto = {
   ratingRate: number;
   ratingCount: number;
   category: {
-    id: number;
+    id: string;
     name: string;
   };
-  productOption: ProductOptionDto[];
+  productOptions: ProductOptionDto[];
 };
 
 export type FindAllProductsResponse = {

@@ -1,6 +1,6 @@
 export type LoginResponse = {
   user: {
-    id: number;
+    id: string;
     name: string;
     email: string;
   };
@@ -8,7 +8,7 @@ export type LoginResponse = {
 
 export type RegisterResponse = {
   user: {
-    id: number;
+    id: string;
     name: string;
     email: string;
   };

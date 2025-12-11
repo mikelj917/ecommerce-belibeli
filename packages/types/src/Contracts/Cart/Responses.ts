@@ -1,8 +1,8 @@
 export type CartItemDto = {
-  id: number;
+  id: string;
   quantity: number;
   product: {
-    id: number;
+    id: string;
     title: string;
     price: number;
     image: string;
@@ -11,18 +11,18 @@ export type CartItemDto = {
   };
   productOptions: {
     option: {
-      id: number;
+      id: string;
       type: string;
     };
     optionValue: {
-      id: number;
+      id: string;
       value: string;
     };
   }[];
 };
 
 export type CartDto = {
-  id: number;
+  id: string;
   items: CartItemDto[];
 };
 
@@ -41,19 +41,19 @@ export type FindAllCartItemsResponse = {
 
 export type AddItemToCartResponse = {
   cartItem: {
-    id: number;
+    id: string;
     quantity: number;
-    cartId: number;
-    productId: number;
+    cartId: string;
+    productId: string;
   };
 };
 
 export type UpdateCartItemQuantityResponse = {
   cartItem: {
-    id: number;
+    id: string;
     quantity: number;
-    cartId: number;
-    productId: number;
+    cartId: string;
+    productId: string;
   };
 };
 

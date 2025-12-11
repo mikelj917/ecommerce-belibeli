@@ -1,8 +1,11 @@
 import bcrypt from "bcrypt";
 import { db } from "@/shared/lib/db";
-import { generateAccessToken, generateRefreshToken } from "@/modules/auth/utils/tokenGenerator";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "@/modules/auth/utils/tokenGenerator";
 import { BadRequestError, ConflictError } from "@/shared/utils/HttpErrors";
-import { verifyAccessToken, verifyRefreshToken } from "@/shared/utils/verifyToken";
+import { verifyToken } from "@/shared/utils/verifyToken";
 import {
   LoginParams,
   RegisterParams,
@@ -26,7 +29,10 @@ const register = async ({ name, email, password }: RegisterParams) => {
 };
 
 const login = async ({ email, password }: LoginParams) => {
-  const user = await db.user.findUnique({ where: { email } });
+  const user = await db.user.findUnique({
+    where: { email },
+    omit: { createdAt: true, updatedAt: true },
+  });
 
   if (!user) {
     throw new BadRequestError("E-mail ou senha incorretos.");
@@ -46,8 +52,11 @@ const login = async ({ email, password }: LoginParams) => {
   return { user: userWithoutPassword, accessToken, refreshToken };
 };
 
-const refreshAccessToken = async ({ refreshToken }: RefreshAccessTokenParams) => {
-  const { userId } = await verifyRefreshToken(refreshToken);
+const refreshAccessToken = async ({
+  refreshToken,
+}: RefreshAccessTokenParams) => {
+  const { userId } = await verifyToken(refreshToken, "refresh");
+  console.log(userId);
 
   const user = await db.user.findUnique({ where: { id: userId } });
 

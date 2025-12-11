@@ -9,7 +9,7 @@ const findAll = async ({ categoryId, limit, offset }: FindAllProductsParams) => 
     where: whereClause,
     include: {
       category: { select: { id: true, name: true } },
-      productOption: {
+      productOptions: {
         include: { values: { select: { id: true, value: true } } },
         omit: { productId: true },
       },

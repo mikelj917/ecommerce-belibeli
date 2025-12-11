@@ -1,11 +1,11 @@
 import { CartItemDto, CartDto } from "@repo/types/contracts";
-import { Decimal } from "@prisma/client/runtime/library";
+import type { Decimal } from "../../../prisma/generated/client/internal/prismaNamespace";
 
 type RawCartItem = {
-  id: number;
+  id: string;
   quantity: number;
   product: {
-    id: number;
+    id: string;
     title: string;
     price: Decimal;
     image: string;
@@ -14,22 +14,24 @@ type RawCartItem = {
   };
   productOptions: {
     option: {
-      id: number;
+      id: string;
       type: string;
     };
     optionValue: {
-      id: number;
+      id: string;
       value: string;
     };
   }[];
 };
 
 type RawFullCart = {
-  id: number;
+  id: string;
   items: RawCartItem[];
 } | null;
 
-export const controllerFullCartMapper = (rawCart: RawFullCart | null): CartDto | null => {
+export const controllerFullCartMapper = (
+  rawCart: RawFullCart | null
+): CartDto | null => {
   if (!rawCart) return null;
 
   return {
@@ -42,8 +44,12 @@ export const controllerFullCartMapper = (rawCart: RawFullCart | null): CartDto |
         title: item.product.title,
         image: item.product.image,
         price: Number(item.product.price),
-        promotionPrice: item.product.promotionPrice ? Number(item.product.promotionPrice) : null,
-        promotionEnd: item.product.promotionEnd ? item.product.promotionEnd.toISOString() : null,
+        promotionPrice: item.product.promotionPrice
+          ? Number(item.product.promotionPrice)
+          : null,
+        promotionEnd: item.product.promotionEnd
+          ? item.product.promotionEnd.toISOString()
+          : null,
       },
       productOptions: item.productOptions.map((po) => ({
         option: {
@@ -59,7 +65,9 @@ export const controllerFullCartMapper = (rawCart: RawFullCart | null): CartDto |
   };
 };
 
-export const controllerCartItemsMapper = (rawItems: RawCartItem[]): CartItemDto[] => {
+export const controllerCartItemsMapper = (
+  rawItems: RawCartItem[]
+): CartItemDto[] => {
   return rawItems.map((item) => ({
     id: item.id,
     quantity: item.quantity,
@@ -68,8 +76,12 @@ export const controllerCartItemsMapper = (rawItems: RawCartItem[]): CartItemDto[
       title: item.product.title,
       image: item.product.image,
       price: Number(item.product.price),
-      promotionPrice: item.product.promotionPrice ? Number(item.product.promotionPrice) : null,
-      promotionEnd: item.product.promotionEnd ? item.product.promotionEnd.toISOString() : null,
+      promotionPrice: item.product.promotionPrice
+        ? Number(item.product.promotionPrice)
+        : null,
+      promotionEnd: item.product.promotionEnd
+        ? item.product.promotionEnd.toISOString()
+        : null,
     },
     productOptions: item.productOptions.map((po) => ({
       option: {
