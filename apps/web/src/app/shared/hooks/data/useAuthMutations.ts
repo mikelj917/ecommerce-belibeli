@@ -1,4 +1,8 @@
 "use client";
+import { useMutation } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+
 import type {
   LoginRequest,
   LoginResponse,
@@ -6,9 +10,6 @@ import type {
   RegisterResponse,
 } from "@/app/(view)/(auth)/types/Auth";
 import { authService } from "@/app/shared/services/API/auth";
-import { useMutation } from "@tanstack/react-query";
-import type { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
 
 export const useLogin = () => {
   const router = useRouter();

@@ -1,9 +1,11 @@
 "use client";
-import { InputForm } from "@/app/(view)/(auth)/components/InputForm";
-import type { FieldErrors, UseFormRegister } from "react-hook-form";
-import type { RegisterFormData } from "../../schemas/registerSchema";
-import { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { useState } from "react";
+import type { FieldErrors, UseFormRegister } from "react-hook-form";
+
+import { InputForm } from "@/app/(view)/(auth)/components/InputForm";
+
+import type { RegisterFormData } from "../../schemas/registerSchema";
 
 type StepProps = {
   register: UseFormRegister<RegisterFormData>;

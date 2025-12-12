@@ -1,8 +1,9 @@
 "use client";
-import { IconMobileButton } from "@/app/shared/components/IconMobileButton";
 import { ArrowLeftIcon, MenuIcon, Verified } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+import { IconMobileButton } from "@/app/shared/components/IconMobileButton";
 
 export const CartHeader = () => {
   const { back } = useRouter();

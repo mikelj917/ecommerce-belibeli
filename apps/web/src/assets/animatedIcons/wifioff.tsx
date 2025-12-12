@@ -1,8 +1,8 @@
 "use client";
 import type { Variants } from "motion/react";
+import { motion, useAnimation } from "motion/react";
 import type { HTMLAttributes } from "react";
 import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
-import { motion, useAnimation } from "motion/react";
 
 export interface WifiOffIconHandle {
   startAnimation: () => void;
@@ -51,7 +51,7 @@ const WifiOffIcon = forwardRef<WifiOffIconHandle, WifiOffIconProps>(
         }
         onMouseEnter?.(e);
       },
-      [controls, onMouseEnter],
+      [controls, onMouseEnter]
     );
 
     const handleMouseLeave = useCallback(
@@ -61,7 +61,7 @@ const WifiOffIcon = forwardRef<WifiOffIconHandle, WifiOffIconProps>(
         }
         onMouseLeave?.(e);
       },
-      [controls, onMouseLeave],
+      [controls, onMouseLeave]
     );
 
     return (
@@ -95,7 +95,7 @@ const WifiOffIcon = forwardRef<WifiOffIconHandle, WifiOffIconProps>(
         </motion.svg>
       </div>
     );
-  },
+  }
 );
 
 WifiOffIcon.displayName = "WifiOffIcon";

@@ -1,5 +1,6 @@
-import { ProductsCarousel } from "./ProductsCarousel";
 import { ProductDto } from "@repo/types/contracts";
+
+import { ProductsCarousel } from "./ProductsCarousel";
 
 type FlashSaleSectionProps = {
   products: ProductDto[] | undefined;

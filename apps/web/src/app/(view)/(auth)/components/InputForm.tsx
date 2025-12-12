@@ -1,18 +1,25 @@
 "use client";
+import type { ComponentProps } from "react";
+import type {
+  FieldErrors,
+  FieldPath,
+  FieldValues,
+  UseFormRegister,
+} from "react-hook-form";
+
 import { extractErrorMessage } from "@/app/shared/utils/form/extract-error-message";
 import { findFieldError } from "@/app/shared/utils/form/find-field-error";
-import type { ComponentProps } from "react";
-import type { FieldErrors, FieldPath, FieldValues, UseFormRegister } from "react-hook-form";
 
-type TypeInputFormProps<TFormValues extends FieldValues> = ComponentProps<"input"> & {
-  label: string;
-  name: FieldPath<TFormValues>;
-  register: UseFormRegister<TFormValues>;
-  errors: FieldErrors<TFormValues>;
-  icon?: React.ReactNode;
-  isPassword?: boolean;
-  onTogglePassword?: (inputName: string) => void;
-};
+type TypeInputFormProps<TFormValues extends FieldValues> =
+  ComponentProps<"input"> & {
+    label: string;
+    name: FieldPath<TFormValues>;
+    register: UseFormRegister<TFormValues>;
+    errors: FieldErrors<TFormValues>;
+    icon?: React.ReactNode;
+    isPassword?: boolean;
+    onTogglePassword?: (inputName: string) => void;
+  };
 export const InputForm = <TFormValues extends FieldValues>({
   label,
   name,
@@ -28,7 +35,10 @@ export const InputForm = <TFormValues extends FieldValues>({
 
   return (
     <div className="mx-auto flex w-full max-w-lg flex-col justify-center">
-      <label htmlFor={name} className={`mb-1 font-bold ${message ? "text-red-500" : "text-black"}`}>
+      <label
+        htmlFor={name}
+        className={`mb-1 font-bold ${message ? "text-red-500" : "text-black"}`}
+      >
         {label}
       </label>
 
@@ -42,12 +52,14 @@ export const InputForm = <TFormValues extends FieldValues>({
         />
 
         {icon && (
-          <div
+          <button
             onClick={() => onTogglePassword?.(name)}
-            className={`absolute right-3 text-gray-500 ${isPassword ? "cursor-pointer" : ""}`}
+            className={`absolute right-3 text-gray-500 ${
+              isPassword ? "cursor-pointer" : ""
+            }`}
           >
             {icon}
-          </div>
+          </button>
         )}
       </div>
 

@@ -1,10 +1,11 @@
 import { ProductOptionDto } from "@repo/types/contracts";
+
 import type { SelectedOptionsState } from "./ProductDetails";
 import { ProductOptionSelect } from "./ProductOptionSelect";
 
 type ProductOptionsProps = {
   productOptions: ProductOptionDto[];
-  onSelectOption: (optionId: number, valueId: number) => void;
+  onSelectOption: (optionId: string, valueId: string) => void;
   selectedOptions: SelectedOptionsState;
 };
 

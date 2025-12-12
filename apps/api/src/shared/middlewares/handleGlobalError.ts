@@ -6,7 +6,7 @@ export const handleGlobalError: ErrorRequestHandler = (
   error,
   _req,
   res,
-  _next // eslint-disable-line @typescript-eslint/no-unused-vars
+  _next
 ) => {
   if (error instanceof HttpError) {
     const { message, details, status } = error;

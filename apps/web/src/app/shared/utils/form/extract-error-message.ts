@@ -1,4 +1,6 @@
-export function extractErrorMessage(errorObject: any): string | null {
+export function extractErrorMessage(
+  errorObject: any // eslint-disable-line @typescript-eslint/no-explicit-any
+): string | null {
   if (!errorObject) return null;
   if (errorObject.message) return errorObject.message;
   for (const value of Object.values(errorObject)) {

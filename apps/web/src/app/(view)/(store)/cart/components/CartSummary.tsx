@@ -1,5 +1,6 @@
-import { paymentLogos } from "@/assets/images/payment-logos/paymentLogos";
 import Image from "next/image";
+
+import { paymentLogos } from "@/assets/images/payment-logos/paymentLogos";
 
 type CartSummaryProps = {
   summary: {

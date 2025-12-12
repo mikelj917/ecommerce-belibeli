@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+
 import { FlashSaleDigit } from "./FlashSaleDigit";
 
 export const FlashSaleTimer = ({ endDate }: { endDate: string }) => {

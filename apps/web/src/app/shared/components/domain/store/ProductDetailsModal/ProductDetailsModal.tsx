@@ -1,7 +1,9 @@
-import { ProductDetails } from "./ProductDetails";
+import { XIcon } from "lucide-react";
+
 import { IconMobileButton } from "@/app/shared/components/IconMobileButton";
 import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
-import { XIcon } from "lucide-react";
+
+import { ProductDetails } from "./ProductDetails";
 
 export const ProductDetailsModal = () => {
   const { setIsProductDetailsModalOpen } = useProductDetailsContext();

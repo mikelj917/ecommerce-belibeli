@@ -1,5 +1,6 @@
-import type { AnimatedIconHandle } from "@/app/shared/types/Icon";
 import { useCallback, useRef } from "react";
+
+import type { AnimatedIconHandle } from "@/app/shared/types/Icon";
 
 /**
  * Hook to control animated icon animations from parent element hover events.

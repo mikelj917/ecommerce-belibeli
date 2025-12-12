@@ -1,8 +1,9 @@
 "use client";
+import { useEffect } from "react";
+
 import { LoadError } from "@/app/shared/components/LoadError";
 import { useAnimatedIcon } from "@/app/shared/hooks/ui/useAnimatedIcon";
 import { WifiOffIcon } from "@/assets/animatedIcons/wifioff";
-import { useEffect } from "react";
 
 type ProductLoadErrorProps = {
   onRetry: () => void;

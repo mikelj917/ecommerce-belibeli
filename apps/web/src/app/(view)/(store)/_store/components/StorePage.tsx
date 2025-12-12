@@ -1,7 +1,7 @@
-import { MobileBottomNav } from "./MobileBottomNav/BottomNav";
+import { HeroBanner } from "./Banner/HeroBanner";
 import { Header } from "./Header/Header";
 import { Main } from "./Main/Main";
-import { HeroBanner } from "./Banner/HeroBanner";
+import { MobileBottomNav } from "./MobileBottomNav/BottomNav";
 
 export const StorePage = async () => {
   return (

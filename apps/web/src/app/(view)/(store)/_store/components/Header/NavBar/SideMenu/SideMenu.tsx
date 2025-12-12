@@ -1,6 +1,7 @@
-import { SideMenuItem } from "./SideMenuItem";
-import { sideMenuMainLinks, sideMenuSupportLinks } from "../MenuItems";
 import { DownloadIcon, XIcon } from "lucide-react";
+
+import { sideMenuMainLinks, sideMenuSupportLinks } from "../MenuItems";
+import { SideMenuItem } from "./SideMenuItem";
 
 type Props = {
   onClose: () => void;
@@ -12,13 +13,19 @@ const handleContentClick = (e: React.MouseEvent) => {
   e.stopPropagation();
 };
 
-export const SideMenu = ({ onClose, backgroundClassName, sideMenuClassName }: Props) => {
+export const SideMenu = ({
+  onClose,
+  backgroundClassName,
+  sideMenuClassName,
+}: Props) => {
   return (
     <div
+      role="none"
       onClick={onClose}
       className={`fixed top-0 left-0 z-50 h-screen w-screen transition-opacity duration-250 ${backgroundClassName}`}
     >
       <div
+        role="none"
         onClick={handleContentClick}
         className={`safe-area-bottom-padding absolute right-0 bottom-0 flex h-full w-[80%] translate-x-0 transform flex-col overflow-y-auto bg-white py-6 transition-transform duration-250 ease-in-out ${sideMenuClassName}`}
       >

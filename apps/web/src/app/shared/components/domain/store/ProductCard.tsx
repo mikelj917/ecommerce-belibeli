@@ -1,9 +1,10 @@
 "use client";
-import { isSaleActive } from "@/app/shared/utils/product/isSaleActive";
-import { getPercentDiscount } from "@/app/shared/utils/product/getPercentDiscount";
-import { HeartIcon, ShoppingCartIcon, StarIcon } from "lucide-react";
-import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
 import { ProductDto } from "@repo/types/contracts";
+import { HeartIcon, ShoppingCartIcon, StarIcon } from "lucide-react";
+
+import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
+import { getPercentDiscount } from "@/app/shared/utils/product/getPercentDiscount";
+import { isSaleActive } from "@/app/shared/utils/product/isSaleActive";
 
 type ProductCardProps = {
   product: ProductDto;
@@ -17,9 +18,10 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
   const isProductOnSale = isSaleActive(product.promotionEnd);
   const percentDiscount = getPercentDiscount(product);
 
-  const onCartClick = async (product: ProductDto) => handleOpenProductDetails(product);
+  const onCartClick = async (product: ProductDto) =>
+    handleOpenProductDetails(product);
 
-  const onWishClick = () => {};
+  // const onWishClick = () => {};
 
   // const handleWishlistToggle = () => {
   //   setIsWishedState((prev) => !prev);
@@ -29,7 +31,9 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
 
   return (
     <div
-      className={`group cursor-pointer overflow-hidden rounded-2xl border border-black/20 bg-white shadow-sm transition hover:scale-105 ${grid ? "w-full" : "w-60 shrink-0"}`}
+      className={`group cursor-pointer overflow-hidden rounded-2xl border border-black/20 bg-white shadow-sm transition hover:scale-105 ${
+        grid ? "w-full" : "w-60 shrink-0"
+      }`}
     >
       {/* Image + Percent + Wish Button */}
       <div className="relative bg-black/10 p-4">
@@ -54,23 +58,29 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
           aria-label="Add to favorites"
         >
           <HeartIcon
-            className={`size-4 lg:size-5 ${true ? "fill-red-500 text-red-500" : "fill-gray-500 text-gray-500"}`}
+            className={`size-4 lg:size-5 ${
+              true ? "fill-red-500 text-red-500" : "fill-gray-500 text-gray-500"
+            }`}
           />
         </button>
       </div>
 
       {/* Product Info */}
       <div className="relative p-2">
-        <h1 className="mb-1 line-clamp-2 h-[35px] text-sm font-semibold leading-tight">
+        <h1 className="mb-1 line-clamp-2 h-8.75 text-sm font-semibold leading-tight">
           {product.title}
         </h1>
 
         {/* Rating */}
         <div className="mb-1 flex items-center text-xs text-gray-500">
           <StarIcon className="mr-1 h-3 w-3 fill-yellow-400 stroke-yellow-400" />
-          <span className="font-bold text-black">{product.ratingRate.toFixed(1) ?? "–"}</span>
+          <span className="font-bold text-black">
+            {product.ratingRate.toFixed(1) ?? "–"}
+          </span>
           <span className="mx-1">·</span>
-          <span>{product.ratingCount ? `${product.totalSold} vendidos` : "Novo"}</span>
+          <span>
+            {product.ratingCount ? `${product.totalSold} vendidos` : "Novo"}
+          </span>
         </div>
 
         {/* Price */}
@@ -96,7 +106,9 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
           aria-label="Add to cart"
         >
           <ShoppingCartIcon
-            className={"fill-blackfill-gray-500 block size-4 text-black lg:size-5"}
+            className={
+              "fill-blackfill-gray-500 block size-4 text-black lg:size-5"
+            }
           />
         </button>
       </div>

@@ -1,4 +1,6 @@
 "use client";
+import type { HTMLAttributes, ReactNode } from "react";
+
 import { Button } from "@/app/shared/components/ui/button";
 import {
   Empty,
@@ -8,7 +10,6 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/app/shared/components/ui/empty";
-import type { HTMLAttributes, ReactNode } from "react";
 
 // Tipamos os props do wrapper do ícone (que é um <div>)
 type EmptyMediaProps = HTMLAttributes<HTMLDivElement>;

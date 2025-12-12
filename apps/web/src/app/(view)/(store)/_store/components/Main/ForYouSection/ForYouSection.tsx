@@ -1,6 +1,8 @@
-import { ProductCardSkeleton } from "../../../../../../shared/components/domain/store/ProductCardSkeleton";
-import { ProductCard } from "@/app/shared/components/domain/store/ProductCard";
 import { ProductDto } from "@repo/types/contracts";
+
+import { ProductCard } from "@/app/shared/components/domain/store/ProductCard";
+
+import { ProductCardSkeleton } from "../../../../../../shared/components/domain/store/ProductCardSkeleton";
 
 type ForYouSectionProps = {
   products: ProductDto[] | undefined;

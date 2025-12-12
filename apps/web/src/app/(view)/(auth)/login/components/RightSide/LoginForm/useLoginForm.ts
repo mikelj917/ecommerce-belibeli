@@ -1,8 +1,10 @@
-import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { loginSchema, type LoginFormData } from "../../../schemas/loginSchema";
+
 import { useLogin } from "@/app/shared/hooks/data/useAuthMutations";
+
+import { type LoginFormData,loginSchema } from "../../../schemas/loginSchema";
 
 export const useLoginForm = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -24,8 +26,11 @@ export const useLoginForm = () => {
   const onSubmit = async (data: LoginFormData) => {
     mutate(data, {
       onError: (error) => {
-        const data = error.response?.data as { message: string };
-        setAuthError(data.message);
+        const data = error.response?.data as {
+          message: string;
+          details: string;
+        };
+        setAuthError(data.details);
       },
     });
   };

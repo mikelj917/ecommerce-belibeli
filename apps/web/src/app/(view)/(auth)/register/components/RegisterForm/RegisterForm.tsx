@@ -1,14 +1,16 @@
 "use client"
-import { OrDivider } from "@/app/(view)/(auth)/components/OrDivider";
-import googleGLogo from "@/assets/images/auth-logos/google-G.png";
+import { ChevronLeftIcon, LockIcon } from "lucide-react";
 import Link from "next/link";
+
+import { OrDivider } from "@/app/(view)/(auth)/components/OrDivider";
 import { SocialLoginButton } from "@/app/(view)/(auth)/components/SocialLoginButton";
+import { ErrorNotification } from "@/app/shared/components/ErrorNotification";
+import googleGLogo from "@/assets/images/auth-logos/google-G.png";
+
 import { SucessRegisterModal } from "../SucessRegisterModal/SucessRegisterModal";
 import { Step1Identification } from "./Step1Identification";
 import { Step2Security } from "./Step2Security";
 import { useRegisterForm } from "./useRegisterForm";
-import { ErrorNotification } from "@/app/shared/components/ErrorNotification";
-import { ChevronLeftIcon, LockIcon } from "lucide-react";
 
 export const RegisterForm = () => {
   const {

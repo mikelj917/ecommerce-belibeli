@@ -1,5 +1,6 @@
 "use client";
 import { useScrollDirection } from "@/app/shared/hooks/ui/useScrollDirection";
+
 import { NavBar } from "./NavBar/NavBar";
 
 export function Header() {

@@ -1,14 +1,15 @@
 "use client";
-import { useFindCart } from "@/app/shared/hooks/data/useCartQueries";
-import { CartList } from "./components/CartList/CartList";
-import { CartSummary } from "./components/CartSummary";
-import { CartHeader } from "./components/CartHeader";
-import { RecommendedProducts } from "./components/RecommendedProducts";
-import { CartPageSkeleton } from "./components/CartPageSkeleton";
-import { EmptyCart } from "./components/EmptyCart";
-import { ProductDetailsModal } from "../../../shared/components/domain/store/ProductDetailsModal/ProductDetailsModal";
-import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
 import { CartLoadError } from "@/app/shared/components/domain/store/CartLoadError";
+import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
+import { useFindCart } from "@/app/shared/hooks/data/useCartQueries";
+
+import { ProductDetailsModal } from "../../../shared/components/domain/store/ProductDetailsModal/ProductDetailsModal";
+import { CartHeader } from "./components/CartHeader";
+import { CartList } from "./components/CartList/CartList";
+import { CartPageSkeleton } from "./components/CartPageSkeleton";
+import { CartSummary } from "./components/CartSummary";
+import { EmptyCart } from "./components/EmptyCart";
+import { RecommendedProducts } from "./components/RecommendedProducts";
 
 const CartPage = () => {
   const { data, isLoading, isError, refetch } = useFindCart();

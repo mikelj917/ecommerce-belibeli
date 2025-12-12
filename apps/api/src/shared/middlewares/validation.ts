@@ -1,4 +1,4 @@
-import { Request,RequestHandler } from "express";
+import { Request, RequestHandler } from "express";
 import z from "zod";
 
 type Property = "body" | "query" | "header" | "params";
@@ -20,7 +20,9 @@ const formatErrorsZod = (safeParseError: z.ZodSafeParseError<unknown>) => {
   return details;
 };
 
-export const validation = <S extends Schemas>(schemas: S): ValidationReturn<S> => {
+export const validation = <S extends Schemas>(
+  schemas: S
+): ValidationReturn<S> => {
   const middleware: RequestHandler = (req, res, next) => {
     const schemasArray = Object.entries(schemas);
     const errors: ValidationError = {};
@@ -34,8 +36,8 @@ export const validation = <S extends Schemas>(schemas: S): ValidationReturn<S> =
           ? Object.fromEntries(
               Object.entries(req.headers).map(([k, v]) => [
                 k,
-                Array.isArray(v) ? v.join(", ") : (v ?? ""),
-              ]),
+                Array.isArray(v) ? v.join(", ") : v ?? "",
+              ])
             )
           : req[prop];
 

@@ -1,6 +1,7 @@
-import { cartService } from "@/app/shared/services/API/cart";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addItemToCartRequest } from "@repo/types/contracts";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+import { cartService } from "@/app/shared/services/API/cart";
 
 export const useCreateCart = () => {
   const queryClient = useQueryClient();

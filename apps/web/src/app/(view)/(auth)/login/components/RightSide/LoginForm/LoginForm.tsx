@@ -1,12 +1,14 @@
 "use client";
+import { EyeIcon, EyeOffIcon, MailIcon } from "lucide-react";
+import Link from "next/link";
+
 import { InputForm } from "@/app/(view)/(auth)/components/InputForm";
 import { OrDivider } from "@/app/(view)/(auth)/components/OrDivider";
 import { SocialLoginButton } from "@/app/(view)/(auth)/components/SocialLoginButton";
-import googleGLogo from "@/assets/images/auth-logos/google-G.png";
-import Link from "next/link";
-import { useLoginForm } from "./useLoginForm";
 import { ErrorNotification } from "@/app/shared/components/ErrorNotification";
-import { EyeIcon, EyeOffIcon, MailIcon } from "lucide-react";
+import googleGLogo from "@/assets/images/auth-logos/google-G.png";
+
+import { useLoginForm } from "./useLoginForm";
 
 export const LoginForm = () => {
   const {

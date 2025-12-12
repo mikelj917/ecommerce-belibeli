@@ -1,5 +1,5 @@
-import { RegisterForm } from "./components/RegisterForm/RegisterForm";
 import { HeaderRegister } from "./components/Header/HeaderRegister";
+import { RegisterForm } from "./components/RegisterForm/RegisterForm";
 
 export const metadata = {
   title: "Criar Conta | BeliBeli Store",

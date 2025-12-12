@@ -1,4 +1,5 @@
 import { ZapIcon } from "lucide-react";
+
 import { FlashSaleTimer } from "./FlashSaleTimer";
 
 export const SectionHeader = () => {

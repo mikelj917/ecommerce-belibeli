@@ -1,21 +1,27 @@
+import { Rating } from "@mui/material";
+import { OptionsDto, ProductOptionDto } from "@repo/types/contracts";
+import { HeartIcon } from "lucide-react";
+import { useState } from "react";
+
+import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
+import { useCreateCart } from "@/app/shared/hooks/data/useCartMutations";
 import { getPercentDiscount } from "@/app/shared/utils/product/getPercentDiscount";
 import { isSaleActive } from "@/app/shared/utils/product/isSaleActive";
-import { Rating } from "@mui/material";
+
 import { ProductOptions } from "./ProductOptions";
 import { QuantitySelector } from "./QuantitySelector";
-import { useState } from "react";
-import { useCreateCart } from "@/app/shared/hooks/data/useCartMutations";
-import { HeartIcon } from "lucide-react";
-import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
-import { OptionsDto, ProductOptionDto } from "@repo/types/contracts";
 
 export type SelectedOptionsState = Record<string, number>;
 
-const formatOptionsForBackend = (selectedOptions: SelectedOptionsState): OptionsDto[] => {
-  return Object.entries(selectedOptions).map(([optionIdStr, optionValueId]) => ({
-    optionId: parseInt(optionIdStr, 10), // Converte a chave (string) de volta para número
-    optionValueId: optionValueId,
-  }));
+const formatOptionsForBackend = (
+  selectedOptions: SelectedOptionsState
+): OptionsDto[] => {
+  return Object.entries(selectedOptions).map(
+    ([optionIdStr, optionValueId]) => ({
+      optionId: parseInt(optionIdStr, 10), // Converte a chave (string) de volta para número
+      optionValueId: optionValueId,
+    })
+  );
 };
 
 const getInitialState = (options: ProductOptionDto[]): SelectedOptionsState => {
@@ -26,20 +32,31 @@ const getInitialState = (options: ProductOptionDto[]): SelectedOptionsState => {
 };
 
 export const ProductDetails = () => {
-  const { selectedProduct, setIsProductDetailsModalOpen } = useProductDetailsContext();
+  const { selectedProduct, setIsProductDetailsModalOpen } =
+    useProductDetailsContext();
 
   if (!selectedProduct) {
-    return <p className="text-red-500">Falha ao carregar os detalhes do produto</p>;
+    return (
+      <p className="text-red-500">Falha ao carregar os detalhes do produto</p>
+    );
   }
 
   const { mutate } = useCreateCart();
   const [count, setCount] = useState(1);
-  const [selectedOptions, setSelectedOptions] = useState<SelectedOptionsState>(() =>
-    getInitialState(selectedProduct.productOption),
+  const [selectedOptions, setSelectedOptions] = useState<SelectedOptionsState>(
+    () => getInitialState(selectedProduct.productOption)
   );
 
-  const { id, image, title, ratingRate, ratingCount, price, promotionPrice, productOption } =
-    selectedProduct;
+  const {
+    id,
+    image,
+    title,
+    ratingRate,
+    ratingCount,
+    price,
+    promotionPrice,
+    productOption,
+  } = selectedProduct;
 
   const handleSelectOption = (optionId: number, valueId: number) => {
     setSelectedOptions((prevOptions) => ({
@@ -51,7 +68,11 @@ export const ProductDetails = () => {
   const handleAddToCart = () => {
     const productOptionsPayload = formatOptionsForBackend(selectedOptions);
 
-    mutate({ productId: id, productOptions: productOptionsPayload, quantity: count });
+    mutate({
+      productId: id,
+      productOptions: productOptionsPayload,
+      quantity: count,
+    });
     setIsProductDetailsModalOpen(false);
   };
 
@@ -70,7 +91,11 @@ export const ProductDetails = () => {
       {/* Imagem - lado esquerdo */}
       <div className="flex-1 overflow-hidden">
         <div className="flex h-full items-center justify-center bg-black/10 p-4">
-          <img src={image} alt={title} className="max-h-full w-full object-contain" />
+          <img
+            src={image}
+            alt={title}
+            className="max-h-full w-full object-contain"
+          />
         </div>
       </div>
 
@@ -82,14 +107,22 @@ export const ProductDetails = () => {
 
           {/* Rating */}
           <div className="my-3 flex items-center gap-2">
-            <Rating defaultValue={ratingRate} precision={0.1} size="small" readOnly={true} />
+            <Rating
+              defaultValue={ratingRate}
+              precision={0.1}
+              size="small"
+              readOnly={true}
+            />
             <span className="text-sm text-zinc-400">{`(${ratingCount} Avaliações)`}</span>
           </div>
 
           {/* Price */}
           <div className="flex items-center gap-2 border-b border-zinc-300 pb-3">
             <strong className="text-2xl font-semibold text-gray-800">
-              R$ {isProductOnSale ? Number(promotionPrice).toFixed(2) : Number(price).toFixed(2)}
+              R${" "}
+              {isProductOnSale
+                ? Number(promotionPrice).toFixed(2)
+                : Number(price).toFixed(2)}
             </strong>
             {isProductOnSale && (
               <>

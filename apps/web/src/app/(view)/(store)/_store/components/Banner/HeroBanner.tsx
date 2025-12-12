@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { heroBanners, BannerIndicator, CarouselButton } from "./index";
+
+import { BannerIndicator, CarouselButton,heroBanners } from "./index";
 
 export const HeroBanner = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);

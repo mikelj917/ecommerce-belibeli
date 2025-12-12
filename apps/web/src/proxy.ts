@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+
 import { guardFront } from "./proxy/guardFront";
 
 export const config = {

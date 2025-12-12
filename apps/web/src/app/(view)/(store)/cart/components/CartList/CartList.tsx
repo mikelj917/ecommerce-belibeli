@@ -1,4 +1,5 @@
 import type { CartItemDto } from "@repo/types/contracts";
+
 import { CartItem } from "./CartItem";
 
 type CartListProps = {

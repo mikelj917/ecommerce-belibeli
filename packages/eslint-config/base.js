@@ -37,6 +37,14 @@ export default [
       "sort-imports": "off",
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "error", // Mantenha como erro, mas adicione a exceção
+        {
+          argsIgnorePattern: "^_", // Ignora argumentos de função que começam com _
+          varsIgnorePattern: "^_", // **Ignora variáveis que começam com _**
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
     },
   },
   prettierConfig,

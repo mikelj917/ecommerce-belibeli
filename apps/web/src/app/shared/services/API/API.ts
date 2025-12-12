@@ -13,24 +13,29 @@ API.interceptors.response.use(
   async (error: AxiosError) => {
     const { status, config } = error;
     const currentPath = window.location.pathname;
+    const publicPaths = ["/"];
+    const isPublicPage = publicPaths.some((path) =>
+      path === "/" ? currentPath === "/" : currentPath.startsWith(path)
+    );
     const isLoginPage = currentPath.startsWith("/login");
 
-    if (status === 401) {
+    if (status === 401 && config) {
       try {
         await API.post("/auth/refresh");
-        if (!config) return Promise.reject(error);
         return API(config);
-      } catch (refreshError: any) {
-        if (!isLoginPage) {
-          const redirect = encodeURIComponent(currentPath + window.location.search);
+      } catch (refreshError) {
+        if (!isLoginPage && !isPublicPage) {
+          const redirect = encodeURIComponent(
+            currentPath + window.location.search
+          );
           window.location.href = `/login?redirect=${redirect}`;
         }
-        return Promise.reject(error);
+        return Promise.reject(refreshError);
       }
     }
 
     return Promise.reject(error);
-  },
+  }
 );
 
 export default API;

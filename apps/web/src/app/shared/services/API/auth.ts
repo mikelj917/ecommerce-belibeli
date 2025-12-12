@@ -3,6 +3,7 @@ import type {
   RegisterRequest,
   RegisterResponse,
 } from "@/app/(view)/(auth)/types/Auth";
+
 import API from "./API";
 
 async function login(userData: LoginRequest) {

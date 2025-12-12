@@ -1,7 +1,8 @@
-import { isSaleActive } from "@/app/shared/utils/product/isSaleActive";
 import type { CartItemDto } from "@repo/types/contracts";
 import { Heart, Minus, Plus, Trash } from "lucide-react";
 import React from "react";
+
+import { isSaleActive } from "@/app/shared/utils/product/isSaleActive";
 
 type CartItemProps = {
   product: CartItemDto["product"];

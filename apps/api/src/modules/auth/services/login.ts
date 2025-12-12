@@ -24,7 +24,7 @@ export const login = async ({ email, password }: LoginParams) => {
     throw new BadRequestError("E-mail ou senha incorretos.");
   }
 
-  const { password: _pw, ...userWithoutPassword } = user; // eslint-disable-line @typescript-eslint/no-unused-vars
+  const { password: _pw, ...userWithoutPassword } = user;
 
   const accessToken = generateAccessToken(user.id);
   const refreshToken = generateRefreshToken(user.id);

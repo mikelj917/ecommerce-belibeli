@@ -1,12 +1,13 @@
 "use client";
+import { ProductLoadError } from "@/app/shared/components/domain/store/ProductLoadError";
+import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
+import { useFindProducts } from "@/app/shared/hooks/data/useProductsQueries";
+import { getProductsOnSale } from "@/app/shared/utils/product/getProductsOnSale";
+
+import { ProductDetailsModal } from "../../../../../shared/components/domain/store/ProductDetailsModal/ProductDetailsModal";
 import { CategoriesSection } from "./CategoriesSection/CategoriesSection";
 import { FlashSaleSection } from "./FlashSaleSection/FlashSaleSection";
 import { ForYouSection } from "./ForYouSection/ForYouSection";
-import { ProductDetailsModal } from "../../../../../shared/components/domain/store/ProductDetailsModal/ProductDetailsModal";
-import { useFindProducts } from "@/app/shared/hooks/data/useProductsQueries";
-import { getProductsOnSale } from "@/app/shared/utils/product/getProductsOnSale";
-import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
-import { ProductLoadError } from "@/app/shared/components/domain/store/ProductLoadError";
 
 export const Main = () => {
   const { data, isLoading, isError, refetch } = useFindProducts();
