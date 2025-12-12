@@ -1,7 +1,6 @@
 import { HeroBanner } from "./Banner/HeroBanner";
 import { Header } from "./Header/Header";
 import { Main } from "./Main/Main";
-import { MobileBottomNav } from "./MobileBottomNav/BottomNav";
 
 export const StorePage = async () => {
   return (
@@ -9,7 +8,6 @@ export const StorePage = async () => {
       <Header />
       <HeroBanner />
       <Main />
-      <MobileBottomNav />
     </div>
   );
 };

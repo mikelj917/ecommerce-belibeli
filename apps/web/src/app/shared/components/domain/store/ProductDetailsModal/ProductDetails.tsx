@@ -1,51 +1,35 @@
+"use client";
 import { Rating } from "@mui/material";
-import { OptionsDto, ProductOptionDto } from "@repo/types/contracts";
+import { addItemToCartRequest } from "@repo/types/contracts";
 import { HeartIcon } from "lucide-react";
 import { useState } from "react";
 
 import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
-import { useCreateCart } from "@/app/shared/hooks/data/useCartMutations";
+import { useAddItemToCart } from "@/app/shared/hooks/data/useCartMutations";
 import { getPercentDiscount } from "@/app/shared/utils/product/getPercentDiscount";
 import { isSaleActive } from "@/app/shared/utils/product/isSaleActive";
 
 import { ProductOptions } from "./ProductOptions";
 import { QuantitySelector } from "./QuantitySelector";
 
-export type SelectedOptionsState = Record<string, number>;
-
-const formatOptionsForBackend = (
-  selectedOptions: SelectedOptionsState
-): OptionsDto[] => {
-  return Object.entries(selectedOptions).map(
-    ([optionIdStr, optionValueId]) => ({
-      optionId: parseInt(optionIdStr, 10), // Converte a chave (string) de volta para número
-      optionValueId: optionValueId,
-    })
-  );
-};
-
-const getInitialState = (options: ProductOptionDto[]): SelectedOptionsState => {
-  return options.reduce((acc, option) => {
-    acc[option.id.toString()] = option.values[0]?.id || 0;
-    return acc;
-  }, {} as SelectedOptionsState);
-};
+export type SelectedOptionsState = Record<string, string>;
 
 export const ProductDetails = () => {
   const { selectedProduct, setIsProductDetailsModalOpen } =
     useProductDetailsContext();
+  const { mutate } = useAddItemToCart();
+
+  const [count, setCount] = useState(1);
+  const [selectedOptions, setSelectedOptions] = useState<SelectedOptionsState>(
+    {}
+  );
+  const [showError, setShowError] = useState(false);
 
   if (!selectedProduct) {
     return (
       <p className="text-red-500">Falha ao carregar os detalhes do produto</p>
     );
   }
-
-  const { mutate } = useCreateCart();
-  const [count, setCount] = useState(1);
-  const [selectedOptions, setSelectedOptions] = useState<SelectedOptionsState>(
-    () => getInitialState(selectedProduct.productOption)
-  );
 
   const {
     id,
@@ -55,24 +39,50 @@ export const ProductDetails = () => {
     ratingCount,
     price,
     promotionPrice,
-    productOption,
+    productOptions,
   } = selectedProduct;
 
-  const handleSelectOption = (optionId: number, valueId: number) => {
-    setSelectedOptions((prevOptions) => ({
-      ...prevOptions,
-      [optionId.toString()]: valueId,
+  const areAllOptionsSelected = (): boolean => {
+    if (productOptions.length === 0) return true;
+
+    return productOptions.every((option) => {
+      const selectedValue = selectedOptions[option.id];
+      return selectedValue !== undefined && selectedValue !== "";
+    });
+  };
+
+  const buildPayload = (): addItemToCartRequest => {
+    return {
+      productId: id,
+      productOptions: Object.entries(selectedOptions).map(
+        ([optionId, optionValueId]) => ({
+          optionId,
+          optionValueId,
+        })
+      ),
+      quantity: count,
+    };
+  };
+
+  const handleSelectOption = (optionId: string, valueId: string) => {
+    setSelectedOptions((prev) => ({
+      ...prev,
+      [optionId]: valueId,
     }));
+
+    if (showError) {
+      setShowError(false);
+    }
   };
 
   const handleAddToCart = () => {
-    const productOptionsPayload = formatOptionsForBackend(selectedOptions);
+    if (!areAllOptionsSelected()) {
+      setShowError(true);
+      return;
+    }
 
-    mutate({
-      productId: id,
-      productOptions: productOptionsPayload,
-      quantity: count,
-    });
+    const payload = buildPayload();
+    mutate(payload);
     setIsProductDetailsModalOpen(false);
   };
 
@@ -87,7 +97,7 @@ export const ProductDetails = () => {
   const percentDiscount = getPercentDiscount(selectedProduct);
 
   return (
-    <div className="flex h-[500px] gap-10">
+    <div className="flex h-125 gap-10">
       {/* Imagem - lado esquerdo */}
       <div className="flex-1 overflow-hidden">
         <div className="flex h-full items-center justify-center bg-black/10 p-4">
@@ -101,7 +111,7 @@ export const ProductDetails = () => {
 
       {/* Detalhes - lado direito */}
       <div className="flex h-full flex-1 flex-col">
-        {/* ========== SEÇÃO SUPERIOR (altura automática) ========== */}
+        {/* ========== SEÇÃO SUPERIOR ========== */}
         <div className="shrink-0">
           <h1 className="text-2xl font-bold">{title}</h1>
 
@@ -113,7 +123,9 @@ export const ProductDetails = () => {
               size="small"
               readOnly={true}
             />
-            <span className="text-sm text-zinc-400">{`(${ratingCount} Avaliações)`}</span>
+            <span className="text-sm text-zinc-400">
+              ({ratingCount} Avaliações)
+            </span>
           </div>
 
           {/* Price */}
@@ -127,7 +139,7 @@ export const ProductDetails = () => {
             {isProductOnSale && (
               <>
                 <span className="rounded-sm bg-red-500 px-1.5 py-0.5 text-sm font-bold text-white">
-                  {`-${percentDiscount}%`}
+                  -{percentDiscount}%
                 </span>
                 <span className="text-sm text-red-500 line-through">
                   R$ {Number(price).toFixed(2)}
@@ -140,14 +152,22 @@ export const ProductDetails = () => {
         {/* ========== SEÇÃO DO MEIO (scroll) ========== */}
         <div className="min-h-0 flex-1 overflow-y-auto py-2 pr-2">
           {/* Product Options */}
-          {productOption.length > 0 && (
+          {productOptions.length > 0 && (
             <div className="mb-6">
               <ProductOptions
                 key={id}
-                productOptions={productOption}
+                productOptions={productOptions}
                 onSelectOption={handleSelectOption}
                 selectedOptions={selectedOptions}
               />
+
+              {/* Mensagem de erro */}
+              {showError && (
+                <p className="mt-2 text-sm text-red-500">
+                  Por favor, selecione todas as opções antes de adicionar ao
+                  carrinho.
+                </p>
+              )}
             </div>
           )}
 
@@ -159,12 +179,18 @@ export const ProductDetails = () => {
           />
         </div>
 
-        {/* ========== SEÇÃO INFERIOR (altura automática) ========== */}
+        {/* ========== SEÇÃO INFERIOR ========== */}
         <div className="shrink-0 border-t border-zinc-200 pt-4">
           <div className="flex items-center justify-center gap-4">
             <button
               onClick={handleAddToCart}
-              className="flex-1 cursor-pointer bg-black px-8 py-4 font-bold uppercase text-white transition-colors hover:bg-black/80"
+              disabled={!areAllOptionsSelected()}
+              className={`flex-1 px-8 py-4 font-bold uppercase text-white transition-colors${
+                areAllOptionsSelected()
+                  ? "cursor-pointer bg-black hover:bg-black/80"
+                  : "cursor-not-allowed bg-black/40"
+              }
+              `}
             >
               Adicionar ao Carrinho
             </button>

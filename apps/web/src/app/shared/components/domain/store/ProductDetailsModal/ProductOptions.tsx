@@ -6,22 +6,30 @@ import { ProductOptionSelect } from "./ProductOptionSelect";
 type ProductOptionsProps = {
   productOptions: ProductOptionDto[];
   onSelectOption: (optionId: string, valueId: string) => void;
-  selectedOptions: SelectedOptionsState;
+  selectedOptions: SelectedOptionsState | undefined;
 };
 
 export const ProductOptions = ({
   productOptions,
   onSelectOption,
-  selectedOptions,
+  selectedOptions = {}, // Default vazio se undefined
 }: ProductOptionsProps) => {
   if (!productOptions || productOptions.length < 1) {
-    return <h1 className="text-red-500">Falha ao carregar as opções do produto</h1>;
+    return (
+      <h1 className="text-red-500">Falha ao carregar as opções do produto</h1>
+    );
   }
 
   const getSelectedValueName = (option: ProductOptionDto): string => {
-    const currentSelectedId = selectedOptions[option.id.toString()];
+    const currentSelectedId = selectedOptions[option.id]; // UUID já é string
 
-    const selectedValue = option.values.find((value) => value.id === currentSelectedId);
+    if (!currentSelectedId) {
+      return "Selecione";
+    }
+
+    const selectedValue = option.values.find(
+      (value) => value.id === currentSelectedId
+    );
 
     return selectedValue?.value || "Selecione";
   };
@@ -29,16 +37,22 @@ export const ProductOptions = ({
   return (
     <div className="space-y-5">
       {productOptions.map((option) => {
-        const optionIdStr = option.id.toString();
-        const currentSelectedId = selectedOptions[optionIdStr];
+        const currentSelectedId = selectedOptions[option.id];
         const currentSelectedValueName = getSelectedValueName(option);
+        const hasSelection = currentSelectedId !== undefined;
 
         return (
           <div key={option.id}>
             {/* Título e Valor Selecionado */}
             <div className="mb-2 flex items-center gap-2">
-              <h1 className="font-bold text-gray-900">{`${option.type}:`}</h1>
-              <span className="font-semibold text-gray-900">{currentSelectedValueName}</span>
+              <h1 className="font-bold text-gray-900">{option.type}:</h1>
+              <span
+                className={`font-semibold ${
+                  hasSelection ? "text-gray-900" : "text-gray-400"
+                }`}
+              >
+                {currentSelectedValueName}
+              </span>
             </div>
 
             {/* Botões de Seleção */}

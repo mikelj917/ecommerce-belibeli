@@ -3,11 +3,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { cartService } from "@/app/shared/services/API/cart";
 
-export const useCreateCart = () => {
+export const useAddItemToCart = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (params: addItemToCartRequest) => cartService.addItemToCart(params),
+    mutationFn: (params: addItemToCartRequest) =>
+      cartService.addItemToCart(params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
