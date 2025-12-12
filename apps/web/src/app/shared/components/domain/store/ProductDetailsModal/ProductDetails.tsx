@@ -51,6 +51,8 @@ export const ProductDetails = () => {
     });
   };
 
+  console.log(areAllOptionsSelected());
+
   const buildPayload = (): addItemToCartRequest => {
     return {
       productId: id,
@@ -185,7 +187,7 @@ export const ProductDetails = () => {
             <button
               onClick={handleAddToCart}
               disabled={!areAllOptionsSelected()}
-              className={`flex-1 px-8 py-4 font-bold uppercase text-white transition-colors${
+              className={`flex-1 px-8 py-4 font-bold uppercase text-white transition-colors ${
                 areAllOptionsSelected()
                   ? "cursor-pointer bg-black hover:bg-black/80"
                   : "cursor-not-allowed bg-black/40"
@@ -196,7 +198,7 @@ export const ProductDetails = () => {
             </button>
 
             <button className="group cursor-pointer rounded-full border border-black/10 p-3 transition-transform hover:scale-105">
-              <HeartIcon className="h-10 w-10" />
+              <HeartIcon className="h-10 w-10 text-black/80 group-hover:fill-red-500 group-hover:text-red-500" />
             </button>
           </div>
         </div>
