@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
+
 import { LeftLoginSide } from "./components/LeftSide/LeftLoginSide";
 import { RightLoginSide } from "./components/RightSide/RightLoginSide";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Entrar | BeliBeli Store",
   description:
     "Acesse sua conta na BeliBeli Store para acompanhar pedidos, gerenciar informações e aproveitar as melhores ofertas com praticidade.",

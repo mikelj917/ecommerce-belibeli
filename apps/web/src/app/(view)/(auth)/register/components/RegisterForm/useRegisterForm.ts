@@ -1,14 +1,16 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { type SubmitHandler,useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 
 import { useRegister } from "@/app/shared/hooks/data/useAuthMutations";
 
-import { type RegisterFormData,registerSchema } from "../../schemas/registerSchema";
+import {
+  type RegisterFormData,
+  registerSchema,
+} from "../../schemas/registerSchema";
 
 export const useRegisterForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [authError, setAuthError] = useState<string>("");
   const { mutate } = useRegister();
 
@@ -53,19 +55,15 @@ export const useRegisterForm = () => {
         confirmPassword: data.password.confirmPassword,
       },
       {
-        onSuccess: () => {
-          setIsModalOpen(true);
-        },
         onError: (error) => {
           const data = error.response?.data as { message: string };
           setAuthError(data.message);
         },
-      },
+      }
     );
   };
 
   return {
-    isModalOpen,
     authError,
     register,
     handleSubmit,

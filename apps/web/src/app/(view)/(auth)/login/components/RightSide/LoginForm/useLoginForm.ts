@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { useLogin } from "@/app/shared/hooks/data/useAuthMutations";
 
-import { type LoginFormData,loginSchema } from "../../../schemas/loginSchema";
+import { type LoginFormData, loginSchema } from "../../../schemas/loginSchema";
 
 export const useLoginForm = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);

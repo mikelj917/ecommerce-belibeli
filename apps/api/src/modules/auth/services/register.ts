@@ -1,6 +1,10 @@
 import bcrypt from "bcrypt";
 
 import { RegisterParams } from "@/modules/auth/types/ServicesParams";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "@/modules/auth/utils/tokenGenerator";
 import { db } from "@/shared/lib/db";
 import { ConflictError } from "@/shared/utils/HttpErrors";
 
@@ -17,5 +21,8 @@ export const register = async ({ name, email, password }: RegisterParams) => {
     select: { id: true, name: true, email: true },
   });
 
-  return user;
+  const accessToken = generateAccessToken(user.id);
+  const refreshToken = generateRefreshToken(user.id);
+
+  return { user, accessToken, refreshToken };
 };

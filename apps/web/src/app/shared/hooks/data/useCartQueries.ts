@@ -11,7 +11,7 @@ export const useFindCart = () => {
 
 export const useFindCartItems = () => {
   return useQuery({
-    queryKey: ["cartItems"],
+    queryKey: ["cart", "items"],
     queryFn: cartService.findCartItems,
   });
 };

@@ -1,21 +1,21 @@
 "use client";
-import { useMutation } from "@tanstack/react-query";
-import type { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
-
 import type {
   LoginRequest,
   LoginResponse,
   RegisterRequest,
   RegisterResponse,
-} from "@/app/(view)/(auth)/types/Auth";
+} from "@repo/types/contracts";
+import { useMutation } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+
 import { authService } from "@/app/shared/services/API/auth";
 
 export const useLogin = () => {
   const router = useRouter();
 
   return useMutation<LoginResponse, AxiosError, LoginRequest>({
-    mutationFn: authService.login,
+    mutationFn: (params: LoginRequest) => authService.login(params),
     onSuccess: () => {
       router.push("/");
     },
@@ -23,7 +23,12 @@ export const useLogin = () => {
 };
 
 export const useRegister = () => {
+  const router = useRouter();
+
   return useMutation<RegisterResponse, AxiosError, RegisterRequest>({
-    mutationFn: authService.register,
+    mutationFn: (params) => authService.register(params),
+    onSuccess: () => {
+      router.push("/");
+    },
   });
 };

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { ChevronLeftIcon, LockIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -7,7 +7,6 @@ import { SocialLoginButton } from "@/app/(view)/(auth)/components/SocialLoginBut
 import { ErrorNotification } from "@/app/shared/components/ErrorNotification";
 import googleGLogo from "@/assets/images/auth-logos/google-G.png";
 
-import { SucessRegisterModal } from "../SucessRegisterModal/SucessRegisterModal";
 import { Step1Identification } from "./Step1Identification";
 import { Step2Security } from "./Step2Security";
 import { useRegisterForm } from "./useRegisterForm";
@@ -19,7 +18,6 @@ export const RegisterForm = () => {
     handleNextStep,
     handlePreviousStep,
     handleSubmit,
-    isModalOpen,
     isSubmitting,
     onSubmit,
     register,
@@ -35,13 +33,18 @@ export const RegisterForm = () => {
   return (
     <div className="flex w-full flex-col items-center gap-3">
       <div>
-        <h1 className="mt-5 text-center text-2xl font-bold">Crie a sua conta BeliBeli</h1>
+        <h1 className="mt-5 text-center text-2xl font-bold">
+          Crie a sua conta BeliBeli
+        </h1>
         <p className="flex justify-center text-sm text-green-500">
           <LockIcon className="size-5" />
           Seus dados estão protegidos.
         </p>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-4">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex w-full flex-col gap-4"
+      >
         {currentStep === 1 && (
           <button
             onClick={handlePreviousStep}
@@ -94,14 +97,11 @@ export const RegisterForm = () => {
         <div className="w-full max-w-lg">
           <OrDivider />
           <div className="flex flex-col gap-3">
-            <SocialLoginButton src={googleGLogo} alt="Prosseguir com o Google" />
+            <SocialLoginButton
+              src={googleGLogo}
+              alt="Prosseguir com o Google"
+            />
           </div>
-        </div>
-      )}
-
-      {isModalOpen && (
-        <div className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center bg-black/90 p-2">
-          <SucessRegisterModal />
         </div>
       )}
 

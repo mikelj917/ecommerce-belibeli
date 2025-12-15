@@ -1,19 +1,20 @@
-import type {
+import {
   LoginRequest,
+  LoginResponse,
   RegisterRequest,
   RegisterResponse,
-} from "@/app/(view)/(auth)/types/Auth";
+} from "@repo/types/contracts";
 
 import API from "./API";
 
-async function login(userData: LoginRequest) {
-  const response = await API.post("/auth/login", userData);
+const login = async (userData: LoginRequest) => {
+  const response = await API.post<LoginResponse>("/auth/login", userData);
   return response.data;
-}
+};
 
-async function register(userData: RegisterRequest) {
+const register = async (userData: RegisterRequest) => {
   const response = await API.post<RegisterResponse>("/auth/register", userData);
   return response.data;
-}
+};
 
 export const authService = { login, register };
