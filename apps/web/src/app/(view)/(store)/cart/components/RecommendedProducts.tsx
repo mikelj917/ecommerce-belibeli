@@ -1,12 +1,13 @@
 "use client";
+import type { ProductDto } from "@repo/types/contracts";
+
 import { ProductCard } from "@/app/shared/components/domain/store/ProductCard";
-import { useFindProducts } from "@/app/shared/hooks/data/useProductsQueries";
 
-import { ProductCardSkeleton } from "../../../../shared/components/domain/store/ProductCardSkeleton";
+type RecommendedProductsProps = {
+  products: ProductDto[];
+};
 
-export const RecommendedProducts = () => {
-  const { data, isLoading } = useFindProducts();
-
+export const RecommendedProducts = ({ products }: RecommendedProductsProps) => {
   return (
     <section className="bg-white px-3 py-12">
       <div className="mx-auto lg:container">
@@ -14,13 +15,9 @@ export const RecommendedProducts = () => {
           Você Gostaria de Preenchê-lo Com
         </h1>
         <section className="grid grid-cols-2 items-center justify-center gap-6 py-10 md:grid-cols-3 lg:grid-cols-4">
-          {isLoading
-            ? [...Array(12)].map((_, index) => (
-                <ProductCardSkeleton key={index} grid={true} />
-              ))
-            : data?.products?.map((product) => (
-                <ProductCard key={product.id} product={product} grid={true} />
-              ))}
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} grid={true} />
+          ))}
         </section>
       </div>
     </section>

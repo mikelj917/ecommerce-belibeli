@@ -1,0 +1,68 @@
+"use client";
+import type { ProductDto } from "@repo/types/contracts";
+
+import { CartHeader } from "@/app/(view)/(store)/cart/components/CartHeader";
+import { CartList } from "@/app/(view)/(store)/cart/components/CartList/CartList";
+import { CartSummary } from "@/app/(view)/(store)/cart/components/CartSummary";
+import { EmptyCart } from "@/app/(view)/(store)/cart/components/EmptyCart";
+import { RecommendedProducts } from "@/app/(view)/(store)/cart/components/RecommendedProducts";
+import { CartLoadError } from "@/app/shared/components/domain/store/CartLoadError";
+import { ProductDetailsModal } from "@/app/shared/components/domain/store/ProductDetailsModal/ProductDetailsModal";
+import { useFindCart } from "@/app/shared/hooks/data/useCartQueries";
+
+type CartPageProps = {
+  products: ProductDto[];
+};
+
+export const CartPage = ({ products }: CartPageProps) => {
+  const { data, refetch } = useFindCart();
+
+  if (!data) {
+    return (
+      <section className="min-h-screen bg-neutral-100 pb-40 lg:p-0">
+        <div className="mx-auto">
+          <CartHeader />
+          <div className="flex justify-center p-10">
+            <CartLoadError onRetryAction={refetch} />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!data.cart) {
+    return (
+      <section className="bg-neutral-100 pb-40 lg:p-0">
+        <div className="mx-auto">
+          <CartHeader />
+          <div className="flex justify-center p-10">
+            <EmptyCart />
+          </div>
+          <RecommendedProducts products={products} />
+        </div>
+        <ProductDetailsModal />
+      </section>
+    );
+  }
+
+  return (
+    <section className="bg-neutral-100 pb-40 lg:p-0">
+      <div className="mx-auto">
+        <CartHeader />
+        <div className="mx-auto my-2 flex justify-center gap-3 p-3 lg:container lg:flex">
+          <CartList items={data.cart.items} />
+          <CartSummary
+            summary={{
+              count: data.count,
+              discount: data.discount,
+              subtotal: data.subtotal,
+              total: data.total,
+            }}
+          />
+        </div>
+        <RecommendedProducts products={products} />
+      </div>
+      <ProductDetailsModal />
+    </section>
+  );
+};
