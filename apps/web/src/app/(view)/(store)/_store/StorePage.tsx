@@ -1,17 +1,28 @@
-import { productService } from "@/app/shared/services/API/products";
+"use client";
+import { StorePageSkeleton } from "@/app/(view)/(store)/_store/components/StorePageSkeleton";
+import { ProductLoadError } from "@/app/shared/components/domain/store/ProductLoadError";
+import { useFindProducts } from "@/app/shared/hooks/data/useProductsQueries";
 
 import { HeroBanner } from "./components/Banner/HeroBanner";
 import { Header } from "./components/Header/Header";
 import { Main } from "./components/Main/Main";
 
-export const StorePage = async () => {
-  const response = await productService.findAllProducts();
+export const StorePage = () => {
+  const { data, isLoading, isError, refetch } = useFindProducts();
+
+  if (isLoading) {
+    return <StorePageSkeleton />;
+  }
+
+  if (isError || !data) {
+    return <ProductLoadError onRetryAction={refetch} />;
+  }
 
   return (
     <div className="relative z-10 overflow-x-hidden">
       <Header />
       <HeroBanner />
-      <Main products={response.products} />
+      <Main products={data.products} />
     </div>
   );
 };

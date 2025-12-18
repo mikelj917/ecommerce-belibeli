@@ -14,6 +14,7 @@ API.interceptors.response.use(
     const originalConfig = error.config;
 
     if (!originalConfig) return Promise.reject(error);
+    if (originalConfig.url === "/auth/refresh") return Promise.reject(error);
 
     if (error.response?.status === 401 && !originalConfig._retry) {
       originalConfig._retry = true;

@@ -1,7 +1,7 @@
 import { ProductCardSkeleton } from "@/app/shared/components/domain/store/ProductCardSkeleton";
 import { Skeleton } from "@/app/shared/components/ui/skeleton";
 
-export default function Loading() {
+export const StorePageSkeleton = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header Skeleton */}
@@ -98,4 +98,4 @@ export default function Loading() {
       </main>
     </div>
   );
-}
+};

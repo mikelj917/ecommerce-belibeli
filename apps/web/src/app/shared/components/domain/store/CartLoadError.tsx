@@ -5,11 +5,11 @@ import { WifiOffIcon } from "@/app/shared/assets/animatedIcons/wifioff";
 import { LoadError } from "@/app/shared/components/LoadError";
 import { useAnimatedIcon } from "@/app/shared/hooks/ui/useAnimatedIcon";
 
-type ProductLoadErrorProps = {
+type CartLoadErrorProps = {
   onRetryAction: () => void;
 };
 
-export const CartLoadError = ({ onRetryAction }: ProductLoadErrorProps) => {
+export const CartLoadError = ({ onRetryAction }: CartLoadErrorProps) => {
   const { handleMouseEnter, handleMouseLeave, iconRef } = useAnimatedIcon();
 
   useEffect(() => {

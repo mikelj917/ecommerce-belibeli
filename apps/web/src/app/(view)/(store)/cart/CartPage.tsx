@@ -3,6 +3,7 @@ import type { ProductDto } from "@repo/types/contracts";
 
 import { CartHeader } from "@/app/(view)/(store)/cart/components/CartHeader";
 import { CartList } from "@/app/(view)/(store)/cart/components/CartList/CartList";
+import { CartPageSkeleton } from "@/app/(view)/(store)/cart/components/CartPageSkeleton";
 import { CartSummary } from "@/app/(view)/(store)/cart/components/CartSummary";
 import { EmptyCart } from "@/app/(view)/(store)/cart/components/EmptyCart";
 import { RecommendedProducts } from "@/app/(view)/(store)/cart/components/RecommendedProducts";
@@ -15,9 +16,13 @@ type CartPageProps = {
 };
 
 export const CartPage = ({ products }: CartPageProps) => {
-  const { data, refetch } = useFindCart();
+  const { data, refetch, isError, isLoading } = useFindCart();
 
-  if (!data) {
+  if (isLoading) {
+    return <CartPageSkeleton />;
+  }
+
+  if (isError) {
     return (
       <section className="min-h-screen bg-neutral-100 pb-40 lg:p-0">
         <div className="mx-auto">
@@ -30,7 +35,7 @@ export const CartPage = ({ products }: CartPageProps) => {
     );
   }
 
-  if (!data.cart) {
+  if (!data?.cart) {
     return (
       <section className="bg-neutral-100 pb-40 lg:p-0">
         <div className="mx-auto">
