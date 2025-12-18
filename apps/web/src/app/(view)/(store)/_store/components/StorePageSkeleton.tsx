@@ -9,7 +9,7 @@ export const StorePageSkeleton = () => {
         <div className="mx-auto lg:container">
           <nav className="flex gap-3 lg:gap-6">
             {/* Logo */}
-            <Skeleton className="h-8 w-10 rounded-md lg:h-10 lg:w-40 bg-neutral-200" />
+            <Skeleton className="h-8 w-10 rounded-md bg-neutral-200 lg:h-10 lg:w-40" />
 
             {/* Search Bar */}
             <div className="flex flex-1 items-center gap-3 lg:gap-6">
@@ -19,8 +19,8 @@ export const StorePageSkeleton = () => {
               <div className="flex items-center gap-2 lg:gap-4">
                 <Skeleton className="h-7 w-7 rounded-full bg-neutral-200" />
                 <Skeleton className="h-7 w-7 rounded-full bg-neutral-200" />
-                <Skeleton className="h-7 w-7 rounded-full lg:hidden bg-neutral-200" />
-                <Skeleton className="hidden h-7 w-7 rounded-full lg:block bg-neutral-200" />
+                <Skeleton className="h-7 w-7 rounded-full bg-neutral-200 lg:hidden" />
+                <Skeleton className="hidden h-7 w-7 rounded-full bg-neutral-200 lg:block" />
               </div>
             </div>
           </nav>
@@ -29,7 +29,7 @@ export const StorePageSkeleton = () => {
 
       {/* Hero Banner Skeleton */}
       <section className="relative mt-14 w-full lg:mt-0">
-        <Skeleton className="h-133.25 w-full md:h-178.5 bg-neutral-300" />
+        <Skeleton className="h-133.25 w-full bg-neutral-300 md:h-178.5" />
 
         {/* Dots */}
         <div className="absolute bottom-7 left-1/2 flex -translate-x-1/2 gap-4">
@@ -39,13 +39,13 @@ export const StorePageSkeleton = () => {
         </div>
       </section>
 
-      <main className="mx-auto max-w-9xl bg-white pb-14 lg:pb-0">
+      <main className="max-w-9xl mx-auto bg-white pb-14 lg:pb-0">
         {/* Categories Skeleton */}
         <section className="overflow-x-auto py-10">
           <div className="flex justify-center gap-6">
             {[...Array(4)].map((_, i) => (
               <div key={i} className="flex flex-col items-center gap-2 px-3">
-                <Skeleton className="h-20 w-20 rounded-full lg:h-30 lg:w-30 bg-neutral-200" />
+                <Skeleton className="h-20 w-20 rounded-full bg-neutral-200 lg:h-30 lg:w-30" />
                 <Skeleton className="h-4 w-16 bg-neutral-200" />
               </div>
             ))}
@@ -57,7 +57,7 @@ export const StorePageSkeleton = () => {
           <div className="mx-auto lg:container">
             {/* Header */}
             <div className="mb-10 flex items-center justify-between">
-              <div className="flex items-center gap-3 ">
+              <div className="flex items-center gap-3">
                 <Skeleton className="h-8 w-8 rounded-full bg-neutral-200" />
                 <Skeleton className="h-6 w-40 bg-neutral-200" />
                 <div className="flex items-center gap-1">

@@ -39,20 +39,14 @@ export const EmptyCart = () => {
         >
           <CartIcon size={60} ref={iconRef} />
         </EmptyMedia>
-        <EmptyTitle className="text-3xl font-bold">
-          Seu carrinho está vazio
-        </EmptyTitle>
+        <EmptyTitle className="text-3xl font-bold">Seu carrinho está vazio</EmptyTitle>
         <EmptyDescription>
           Explore nossos produtos e encontre algo que combine com você.
         </EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
         <Link href={"/"}>
-          <Button
-            variant="default"
-            size="lg"
-            className="cursor-pointer font-bold"
-          >
+          <Button variant="default" size="lg" className="cursor-pointer font-bold">
             COMPRAR AGORA
           </Button>
         </Link>

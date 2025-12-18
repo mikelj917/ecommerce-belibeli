@@ -41,17 +41,13 @@ export const CartSummary = ({ summary }: CartSummaryProps) => {
 
             <div className="mt-3 flex justify-between text-sm">
               <p>Descontos:</p>
-              <span className="font-bold text-red-500">
-                -R${summary.discount.toFixed(2)}
-              </span>
+              <span className="font-bold text-red-500">-R${summary.discount.toFixed(2)}</span>
             </div>
           </div>
 
           <div className="mt-3 flex items-center justify-between text-sm">
             <strong>Preço total:</strong>
-            <span className="text-2xl font-bold">
-              R${summary.total.toFixed(2)}
-            </span>
+            <span className="text-2xl font-bold">R${summary.total.toFixed(2)}</span>
           </div>
 
           <button className="active:black/90 mt-3 w-full cursor-pointer rounded-sm bg-black py-3 font-bold text-white hover:bg-black/80 active:bg-black/70">
@@ -63,12 +59,7 @@ export const CartSummary = ({ summary }: CartSummaryProps) => {
           <h1 className="text-2xl font-semibold">Pagamento</h1>
           <div className="mt-3 flex flex-wrap gap-3">
             {paymentLogos.map((payment) => (
-              <Image
-                key={payment.alt}
-                src={payment.src}
-                alt={payment.alt}
-                width={50}
-              />
+              <Image key={payment.alt} src={payment.src} alt={payment.alt} width={50} />
             ))}
           </div>
         </div>

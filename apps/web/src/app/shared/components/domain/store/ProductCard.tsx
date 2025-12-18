@@ -18,8 +18,7 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
   const isProductOnSale = isSaleActive(product.promotionEnd);
   const percentDiscount = getPercentDiscount(product);
 
-  const onCartClick = async (product: ProductDto) =>
-    handleOpenProductDetails(product);
+  const onCartClick = async (product: ProductDto) => handleOpenProductDetails(product);
 
   // const onWishClick = () => {};
 
@@ -46,7 +45,7 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
 
         {/* Percent */}
         {isProductOnSale && (
-          <strong className="rounded-4xl absolute left-2 top-2 my-1 inline-block bg-red-500 px-2 py-1 text-sm font-bold text-white">
+          <strong className="absolute top-2 left-2 my-1 inline-block rounded-4xl bg-red-500 px-2 py-1 text-sm font-bold text-white">
             - {percentDiscount}% off
           </strong>
         )}
@@ -54,7 +53,7 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
         {/* Wish Button */}
         <button
           // onClick={onWishClick}
-          className={`active:scale-140 absolute right-2 top-2 cursor-pointer rounded-full bg-white p-1 shadow-md transition duration-150 hover:scale-110`}
+          className={`absolute top-2 right-2 cursor-pointer rounded-full bg-white p-1 shadow-md transition duration-150 hover:scale-110 active:scale-140`}
           aria-label="Add to favorites"
         >
           <HeartIcon
@@ -67,20 +66,16 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
 
       {/* Product Info */}
       <div className="relative p-2">
-        <h1 className="mb-1 line-clamp-2 h-8.75 text-sm font-semibold leading-tight">
+        <h1 className="mb-1 line-clamp-2 h-8.75 text-sm leading-tight font-semibold">
           {product.title}
         </h1>
 
         {/* Rating */}
         <div className="mb-1 flex items-center text-xs text-gray-500">
           <StarIcon className="mr-1 h-3 w-3 fill-yellow-400 stroke-yellow-400" />
-          <span className="font-bold text-black">
-            {product.ratingRate.toFixed(1) ?? "–"}
-          </span>
+          <span className="font-bold text-black">{product.ratingRate.toFixed(1) ?? "–"}</span>
           <span className="mx-1">·</span>
-          <span>
-            {product.ratingCount ? `${product.totalSold} vendidos` : "Novo"}
-          </span>
+          <span>{product.ratingCount ? `${product.totalSold} vendidos` : "Novo"}</span>
         </div>
 
         {/* Price */}
@@ -102,13 +97,11 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
         {/* Cart Button */}
         <button
           onClick={() => onCartClick(product)}
-          className={`active:scale-140 absolute bottom-2 right-2 hidden cursor-pointer rounded-full bg-white p-1 shadow-md transition duration-150 hover:scale-110 lg:bottom-3 lg:right-3 lg:hidden lg:group-hover:block`}
+          className={`absolute right-2 bottom-2 hidden cursor-pointer rounded-full bg-white p-1 shadow-md transition duration-150 hover:scale-110 active:scale-140 lg:right-3 lg:bottom-3 lg:hidden lg:group-hover:block`}
           aria-label="Add to cart"
         >
           <ShoppingCartIcon
-            className={
-              "fill-blackfill-gray-500 block size-4 text-black lg:size-5"
-            }
+            className={"fill-blackfill-gray-500 block size-4 text-black lg:size-5"}
           />
         </button>
       </div>

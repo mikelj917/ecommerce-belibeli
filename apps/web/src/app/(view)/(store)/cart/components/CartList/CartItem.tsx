@@ -68,7 +68,7 @@ type CartItemImageProps = {
 const CartItemImage = ({ product }: CartItemImageProps) => {
   return (
     <img
-      className="sm:w-30 aspect-square w-20 rounded-sm bg-black/10 object-contain p-1 md:w-40"
+      className="aspect-square w-20 rounded-sm bg-black/10 object-contain p-1 sm:w-30 md:w-40"
       src={product.image}
       alt={product.title}
     />
@@ -89,7 +89,7 @@ type CartItemTitleProps = React.ComponentProps<"h1"> & {
 
 const CartItemTitle = ({ productTitle, ...props }: CartItemTitleProps) => {
   return (
-    <h1 {...props} className="line-clamp-1 text-sm font-semibold leading-tight md:text-lg">
+    <h1 {...props} className="line-clamp-1 text-sm leading-tight font-semibold md:text-lg">
       {productTitle}
     </h1>
   );
@@ -143,7 +143,7 @@ type CartItemActionsProps = {
 
 const CartItemActions = ({ children }: CartItemActionsProps) => {
   return (
-    <div className="flex h-full flex-col items-end justify-between gap-5 sm:absolute sm:bottom-0 sm:right-0 sm:flex-row-reverse">
+    <div className="flex h-full flex-col items-end justify-between gap-5 sm:absolute sm:right-0 sm:bottom-0 sm:flex-row-reverse">
       {children}
     </div>
   );

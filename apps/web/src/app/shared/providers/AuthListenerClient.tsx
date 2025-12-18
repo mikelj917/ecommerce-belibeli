@@ -5,11 +5,7 @@ import { useEffect } from "react";
 
 import API from "@/app/shared/services/API/API";
 
-export default function AuthListenerClient({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AuthListenerClient({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -19,12 +15,8 @@ export default function AuthListenerClient({
       (res) => res,
       (err) => {
         if (err?.response?.status === 401 && !pathname.startsWith("/")) {
-          const search = searchParams?.toString
-            ? `?${searchParams.toString()}`
-            : "";
-          const redirect = encodeURIComponent(
-            pathname + (search === "?" ? "" : search)
-          );
+          const search = searchParams?.toString ? `?${searchParams.toString()}` : "";
+          const redirect = encodeURIComponent(pathname + (search === "?" ? "" : search));
           router.push(`/login?redirect=${redirect}`);
         }
         return Promise.reject(err);

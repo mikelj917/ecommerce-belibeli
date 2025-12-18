@@ -4,11 +4,7 @@ type ProductOptionSelectProps = {
   onClick: () => void;
 };
 
-export const ProductOptionSelect = ({
-  value,
-  isSelected,
-  onClick,
-}: ProductOptionSelectProps) => {
+export const ProductOptionSelect = ({ value, isSelected, onClick }: ProductOptionSelectProps) => {
   return (
     <button
       onClick={onClick}

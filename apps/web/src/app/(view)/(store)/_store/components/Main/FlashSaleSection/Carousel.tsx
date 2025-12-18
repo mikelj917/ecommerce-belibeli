@@ -1,7 +1,5 @@
 "use client";
-import useEmblaCarousel, {
-  type UseEmblaCarouselType,
-} from "embla-carousel-react";
+import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { MoveLeftIcon, MoveRightIcon } from "lucide-react";
 import * as React from "react";
 
@@ -110,8 +108,7 @@ function Carousel({
         carouselRef,
         api: api,
         opts,
-        orientation:
-          orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
+        orientation: orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
         scrollPrev,
         scrollNext,
         canScrollPrev,
@@ -136,11 +133,7 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
   const { carouselRef } = useCarousel();
 
   return (
-    <div
-      ref={carouselRef}
-      className="overflow-hidden px-2"
-      data-slot="carousel-content"
-    >
+    <div ref={carouselRef} className="overflow-hidden px-2" data-slot="carousel-content">
       <div className={cn(className)} {...props} />
     </div>
   );

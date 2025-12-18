@@ -2,11 +2,7 @@ import { ProductDetailsProvider } from "@/app/shared/contexts/ProductDetailsCont
 import { SideMenuProvider } from "@/app/shared/contexts/SideMenuMobileContext";
 import AuthListenerClient from "@/app/shared/providers/AuthListenerClient";
 
-export default async function StoreLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function StoreLayout({ children }: { children: React.ReactNode }) {
   return (
     <AuthListenerClient>
       <ProductDetailsProvider>

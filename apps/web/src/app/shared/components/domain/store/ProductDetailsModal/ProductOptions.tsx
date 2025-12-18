@@ -15,9 +15,7 @@ export const ProductOptions = ({
   selectedOptions = {}, // Default vazio se undefined
 }: ProductOptionsProps) => {
   if (!productOptions || productOptions.length < 1) {
-    return (
-      <h1 className="text-red-500">Falha ao carregar as opções do produto</h1>
-    );
+    return <h1 className="text-red-500">Falha ao carregar as opções do produto</h1>;
   }
 
   const getSelectedValueName = (option: ProductOptionDto): string => {
@@ -27,9 +25,7 @@ export const ProductOptions = ({
       return "Selecione";
     }
 
-    const selectedValue = option.values.find(
-      (value) => value.id === currentSelectedId
-    );
+    const selectedValue = option.values.find((value) => value.id === currentSelectedId);
 
     return selectedValue?.value || "Selecione";
   };
@@ -46,11 +42,7 @@ export const ProductOptions = ({
             {/* Título e Valor Selecionado */}
             <div className="mb-2 flex items-center gap-2">
               <h1 className="font-bold text-gray-900">{option.type}:</h1>
-              <span
-                className={`font-semibold ${
-                  hasSelection ? "text-gray-900" : "text-gray-400"
-                }`}
-              >
+              <span className={`font-semibold ${hasSelection ? "text-gray-900" : "text-gray-400"}`}>
                 {currentSelectedValueName}
               </span>
             </div>

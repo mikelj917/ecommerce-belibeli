@@ -8,8 +8,7 @@ export const LeftLoginSide = () => {
     >
       <div className="mx-auto flex w-fit flex-col items-center justify-center">
         <h1 className="mb-2 text-4xl font-extrabold tracking-tighter">
-          Bem-vindo de volta à{" "}
-          <span className="font-kotta">BeliBeli Shop.</span>
+          Bem-vindo de volta à <span className="font-kotta">BeliBeli Shop.</span>
         </h1>
         <p className="self-start font-mono text-black/60">
           Os melhores produtos estão a um clique!

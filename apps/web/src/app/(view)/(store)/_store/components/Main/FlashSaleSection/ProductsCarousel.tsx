@@ -40,10 +40,7 @@ export function ProductsCarousel({ productsOnSale = [] }: Props) {
 
       <CarouselContent className="flex gap-4 py-10">
         {productsOnSale.map((product) => (
-          <CarouselItem
-            key={product.id}
-            className="relative z-10 basis-auto overflow-visible"
-          >
+          <CarouselItem key={product.id} className="relative z-10 basis-auto overflow-visible">
             <ProductCard product={product} />
           </CarouselItem>
         ))}

@@ -1,5 +1,18 @@
-import { CreditCardIcon, File, FileBoxIcon, FileQuestionMarkIcon, HandbagIcon, HeartIcon, MenuIcon, PhoneIcon, ShoppingCartIcon, SparklesIcon, TagIcon, UserIcon, ZapIcon } from "lucide-react";
-
+import {
+  CreditCardIcon,
+  File,
+  FileBoxIcon,
+  FileQuestionMarkIcon,
+  HandbagIcon,
+  HeartIcon,
+  MenuIcon,
+  PhoneIcon,
+  ShoppingCartIcon,
+  SparklesIcon,
+  TagIcon,
+  UserIcon,
+  ZapIcon,
+} from "lucide-react";
 
 export const headerActionIcons = [
   {
@@ -10,6 +23,7 @@ export const headerActionIcons = [
   {
     icon: <ShoppingCartIcon className="size-7 cursor-pointer stroke-2" />,
     key: "Cart",
+
     link: "/cart",
   },
   {

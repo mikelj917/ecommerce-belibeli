@@ -15,32 +15,19 @@ import { QuantitySelector } from "./QuantitySelector";
 export type SelectedOptionsState = Record<string, string>;
 
 export const ProductDetails = () => {
-  const { selectedProduct, setIsProductDetailsModalOpen } =
-    useProductDetailsContext();
+  const { selectedProduct, setIsProductDetailsModalOpen } = useProductDetailsContext();
   const { mutate } = useAddItemToCart();
 
   const [count, setCount] = useState(1);
-  const [selectedOptions, setSelectedOptions] = useState<SelectedOptionsState>(
-    {}
-  );
+  const [selectedOptions, setSelectedOptions] = useState<SelectedOptionsState>({});
   const [showError, setShowError] = useState(false);
 
   if (!selectedProduct) {
-    return (
-      <p className="text-red-500">Falha ao carregar os detalhes do produto</p>
-    );
+    return <p className="text-red-500">Falha ao carregar os detalhes do produto</p>;
   }
 
-  const {
-    id,
-    image,
-    title,
-    ratingRate,
-    ratingCount,
-    price,
-    promotionPrice,
-    productOptions,
-  } = selectedProduct;
+  const { id, image, title, ratingRate, ratingCount, price, promotionPrice, productOptions } =
+    selectedProduct;
 
   const areAllOptionsSelected = (): boolean => {
     if (productOptions.length === 0) return true;
@@ -56,12 +43,10 @@ export const ProductDetails = () => {
   const buildPayload = (): addItemToCartRequest => {
     return {
       productId: id,
-      productOptions: Object.entries(selectedOptions).map(
-        ([optionId, optionValueId]) => ({
-          optionId,
-          optionValueId,
-        })
-      ),
+      productOptions: Object.entries(selectedOptions).map(([optionId, optionValueId]) => ({
+        optionId,
+        optionValueId,
+      })),
       quantity: count,
     };
   };
@@ -103,11 +88,7 @@ export const ProductDetails = () => {
       {/* Imagem - lado esquerdo */}
       <div className="flex-1 overflow-hidden">
         <div className="flex h-full items-center justify-center bg-black/10 p-4">
-          <img
-            src={image}
-            alt={title}
-            className="max-h-full w-full object-contain"
-          />
+          <img src={image} alt={title} className="max-h-full w-full object-contain" />
         </div>
       </div>
 
@@ -119,24 +100,14 @@ export const ProductDetails = () => {
 
           {/* Rating */}
           <div className="my-3 flex items-center gap-2">
-            <Rating
-              defaultValue={ratingRate}
-              precision={0.1}
-              size="small"
-              readOnly={true}
-            />
-            <span className="text-sm text-zinc-400">
-              ({ratingCount} Avaliações)
-            </span>
+            <Rating defaultValue={ratingRate} precision={0.1} size="small" readOnly={true} />
+            <span className="text-sm text-zinc-400">({ratingCount} Avaliações)</span>
           </div>
 
           {/* Price */}
           <div className="flex items-center gap-2 border-b border-zinc-300 pb-3">
             <strong className="text-2xl font-semibold text-gray-800">
-              R${" "}
-              {isProductOnSale
-                ? Number(promotionPrice).toFixed(2)
-                : Number(price).toFixed(2)}
+              R$ {isProductOnSale ? Number(promotionPrice).toFixed(2) : Number(price).toFixed(2)}
             </strong>
             {isProductOnSale && (
               <>
@@ -166,8 +137,7 @@ export const ProductDetails = () => {
               {/* Mensagem de erro */}
               {showError && (
                 <p className="mt-2 text-sm text-red-500">
-                  Por favor, selecione todas as opções antes de adicionar ao
-                  carrinho.
+                  Por favor, selecione todas as opções antes de adicionar ao carrinho.
                 </p>
               )}
             </div>
@@ -187,12 +157,11 @@ export const ProductDetails = () => {
             <button
               onClick={handleAddToCart}
               disabled={!areAllOptionsSelected()}
-              className={`flex-1 px-8 py-4 font-bold uppercase text-white transition-colors ${
+              className={`flex-1 px-8 py-4 font-bold text-white uppercase transition-colors ${
                 areAllOptionsSelected()
                   ? "cursor-pointer bg-black hover:bg-black/80"
                   : "cursor-not-allowed bg-black/40"
-              }
-              `}
+              } `}
             >
               Adicionar ao Carrinho
             </button>

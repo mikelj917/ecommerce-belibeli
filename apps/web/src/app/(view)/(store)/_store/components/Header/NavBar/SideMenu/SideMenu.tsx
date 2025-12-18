@@ -13,11 +13,7 @@ const handleContentClick = (e: React.MouseEvent) => {
   e.stopPropagation();
 };
 
-export const SideMenu = ({
-  onClose,
-  backgroundClassName,
-  sideMenuClassName,
-}: Props) => {
+export const SideMenu = ({ onClose, backgroundClassName, sideMenuClassName }: Props) => {
   return (
     <div
       role="none"

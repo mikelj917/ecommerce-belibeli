@@ -31,10 +31,7 @@ export const LoginForm = () => {
           Login
         </h1>
       </div>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex w-full flex-col gap-4"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-4">
         <InputForm
           label="Email"
           placeholder="Digite o seu email"
@@ -48,11 +45,7 @@ export const LoginForm = () => {
           isPassword={true}
           type={isPasswordVisible ? "text" : "password"}
           icon={
-            isPasswordVisible ? (
-              <EyeIcon className="size-6" />
-            ) : (
-              <EyeOffIcon className="size-6" />
-            )
+            isPasswordVisible ? <EyeIcon className="size-6" /> : <EyeOffIcon className="size-6" />
           }
           label="Senha"
           placeholder="Digite a sua senha"

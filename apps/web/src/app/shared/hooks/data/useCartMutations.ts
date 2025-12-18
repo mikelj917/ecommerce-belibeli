@@ -1,7 +1,4 @@
-import {
-  addItemToCartRequest,
-  AddItemToCartResponse,
-} from "@repo/types/contracts";
+import { addItemToCartRequest, AddItemToCartResponse } from "@repo/types/contracts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 
@@ -11,8 +8,7 @@ export const useAddItemToCart = () => {
   const queryClient = useQueryClient();
 
   return useMutation<AddItemToCartResponse, AxiosError, addItemToCartRequest>({
-    mutationFn: (params: addItemToCartRequest) =>
-      cartService.addItemToCart(params),
+    mutationFn: (params: addItemToCartRequest) => cartService.addItemToCart(params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },

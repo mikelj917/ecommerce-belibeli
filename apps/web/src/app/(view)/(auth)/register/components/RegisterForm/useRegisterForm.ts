@@ -4,10 +4,7 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 
 import { useRegister } from "@/app/shared/hooks/data/useAuthMutations";
 
-import {
-  type RegisterFormData,
-  registerSchema,
-} from "../../schemas/registerSchema";
+import { type RegisterFormData, registerSchema } from "../../schemas/registerSchema";
 
 export const useRegisterForm = () => {
   const [currentStep, setCurrentStep] = useState(0);

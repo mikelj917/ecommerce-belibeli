@@ -65,12 +65,7 @@ export const ErrorNotification = ({
           exit={isMobile ? { y: -24, opacity: 0 } : { x: 100, opacity: 0 }}
           transition={{ type: "spring", stiffness: 400, damping: 30 }}
           style={isMobile ? { left: "50%", x: "-50%" } : undefined}
-          className={`
-            fixed z-50 top-6
-            flex w-[90%] flex-col
-            rounded-lg border border-red-300 bg-red-100 shadow-lg
-            ${isMobile ? "max-w-lg" : "right-6 max-w-sm"}
-          `}
+          className={`fixed top-6 z-50 flex w-[90%] flex-col rounded-lg border border-red-300 bg-red-100 shadow-lg ${isMobile ? "max-w-lg" : "right-6 max-w-sm"} `}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >

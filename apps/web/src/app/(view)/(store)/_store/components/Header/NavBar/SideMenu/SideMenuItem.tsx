@@ -8,13 +8,7 @@ type Props = {
   label: string;
 };
 
-export const SideMenuItem = ({
-  onClick,
-  link,
-  className,
-  icon,
-  label,
-}: Props) => {
+export const SideMenuItem = ({ onClick, link, className, icon, label }: Props) => {
   return (
     <a
       onClick={onClick}
