@@ -13,3 +13,11 @@ export type RegisterResponse = {
     email: string;
   };
 };
+
+export type GetUserResponse = {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  } | null;
+};
