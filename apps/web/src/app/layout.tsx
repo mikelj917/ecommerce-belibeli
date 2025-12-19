@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Kotta_One } from "next/font/google";
 
 import { QueryProvider } from "@/app/shared/providers/QueryProvider";
+import { UserInitializer } from "@/app/shared/providers/UserInitializer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +39,9 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${kottaOne.variable} antialiased`}
       >
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <UserInitializer>{children}</UserInitializer>
+        </QueryProvider>
       </body>
     </html>
   );

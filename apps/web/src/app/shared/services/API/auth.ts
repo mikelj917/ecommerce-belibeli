@@ -1,4 +1,5 @@
 import {
+  type GetUserResponse,
   LoginRequest,
   LoginResponse,
   RegisterRequest,
@@ -17,4 +18,9 @@ const register = async (userData: RegisterRequest) => {
   return response.data;
 };
 
-export const authService = { login, register };
+const getUser = async () => {
+  const response = await API.get<GetUserResponse>("/auth/me");
+  return response.data;
+};
+
+export const authService = { login, register, getUser };
