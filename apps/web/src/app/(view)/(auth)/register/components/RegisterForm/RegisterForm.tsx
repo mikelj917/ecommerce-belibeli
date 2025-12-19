@@ -60,12 +60,21 @@ export const RegisterForm = () => {
               Continuar
             </button>
 
-            <p className="text-center text-sm text-black/60">
-              Você já possui uma conta?{" "}
-              <span className="cursor-pointer font-bold text-black underline active:text-black/70">
-                <Link href={"/login"}>Login</Link>
-              </span>
-            </p>
+            <div className="mt-2 flex flex-col items-center gap-3">
+              <p className="text-center text-sm text-black/60">
+                Não possui uma conta?{" "}
+                <span className="cursor-pointer font-bold text-black underline active:text-black/70">
+                  <Link href={"/register"}>Crie uma</Link>
+                </span>
+              </p>
+
+              <p className="text-center text-sm text-black/60">
+                Apenas dando uma olhada?{" "}
+                <span className="cursor-pointer font-bold text-black underline active:text-black/70">
+                  <Link href={"/"}>Acesse a loja</Link>
+                </span>
+              </p>
+            </div>
           </>
         ) : (
           <div className="mx-auto mt-5 flex w-full max-w-lg gap-4">

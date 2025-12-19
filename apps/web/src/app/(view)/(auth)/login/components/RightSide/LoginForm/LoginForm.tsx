@@ -76,12 +76,21 @@ export const LoginForm = () => {
           {isSubmitting ? "Entrando..." : "Entrar"}
         </button>
 
-        <p className="mt-2 text-center text-sm text-black/60">
-          Não possui uma conta?{" "}
-          <span className="cursor-pointer font-bold text-black underline active:text-black/70">
-            <Link href={"/register"}>Crie uma</Link>
-          </span>
-        </p>
+        <div className="mt-2 flex flex-col items-center gap-3">
+          <p className="text-center text-sm text-black/60">
+            Não possui uma conta?{" "}
+            <span className="cursor-pointer font-bold text-black underline active:text-black/70">
+              <Link href={"/register"}>Crie uma</Link>
+            </span>
+          </p>
+
+          <p className="text-center text-sm text-black/60">
+            Apenas dando uma olhada?{" "}
+            <span className="cursor-pointer font-bold text-black underline active:text-black/70">
+              <Link href={"/"}>Acesse a loja</Link>
+            </span>
+          </p>
+        </div>
       </form>
 
       <div className="w-full max-w-lg">
