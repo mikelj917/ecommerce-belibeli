@@ -1,10 +1,10 @@
 "use client";
 import { StorePageSkeleton } from "@/app/(view)/(store)/_store/components/StorePageSkeleton";
+import { Header } from "@/app/shared/components/domain/store/Header/Header";
 import { ProductLoadError } from "@/app/shared/components/domain/store/ProductLoadError";
 import { useFindProducts } from "@/app/shared/hooks/data/useProductsQueries";
 
 import { HeroBanner } from "./components/Banner/HeroBanner";
-import { Header } from "./components/Header/Header";
 import { Main } from "./components/Main/Main";
 
 export const StorePage = () => {

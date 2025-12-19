@@ -51,22 +51,20 @@ export const CartPage = ({ products }: CartPageProps) => {
   }
 
   return (
-    <section className="bg-neutral-100 pb-40 lg:p-0">
-      <div className="mx-auto">
-        <CartHeader />
-        <div className="mx-auto my-2 flex justify-center gap-3 p-3 lg:container lg:flex">
-          <CartList items={data.cart.items} />
-          <CartSummary
-            summary={{
-              count: data.count,
-              discount: data.discount,
-              subtotal: data.subtotal,
-              total: data.total,
-            }}
-          />
-        </div>
-        <RecommendedProducts products={products} />
+    <section className="mt-14.5 bg-white pb-40 lg:pb-0">
+      {/* <CartHeader /> */}
+      <div className="mx-auto my-2 justify-center gap-3 p-3 lg:container lg:flex">
+        <CartList items={data.cart.items} />
+        <CartSummary
+          summary={{
+            count: data.count,
+            discount: data.discount,
+            subtotal: data.subtotal,
+            total: data.total,
+          }}
+        />
       </div>
+      <RecommendedProducts products={products} />
       <ProductDetailsModal />
     </section>
   );
