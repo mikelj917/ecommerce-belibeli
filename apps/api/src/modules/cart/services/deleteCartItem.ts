@@ -12,11 +12,11 @@ export const deleteCartItem = async ({
   });
 
   if (!item) {
-    throw new NotFoundError("Carrinho não encontrado para o usuário.");
+    throw new NotFoundError("Item do carrinho não encontrado.");
   }
 
   if (item.cart.userId !== userId) {
-    throw new ForbiddenError("Item não pertence ao usuário.");
+    throw new ForbiddenError("Item do carrinho não pertence ao usuário.");
   }
 
   await db.cartItem.delete({ where: { id: cartItemId } });

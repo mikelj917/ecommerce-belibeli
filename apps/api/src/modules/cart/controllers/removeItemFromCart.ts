@@ -9,7 +9,7 @@ export const removeItemFromCart: RequestHandler = async (
   res: Response<RemoveCartItemResponse>
 ) => {
   const { userId } = res.locals.user;
-  const { cartItemId } = v.removeItemFromCart.getValidatedValues(req).body;
+  const { cartItemId } = v.removeItemFromCart.getValidatedValues(req).params;
 
   await cartServices.deleteCartItem({ cartItemId, userId });
 

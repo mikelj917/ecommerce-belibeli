@@ -12,13 +12,13 @@ export const deleteWishlistItem = async ({
   });
 
   if (!item) {
-    throw new NotFoundError(
-      "Item da lista de desejos não encontrado para o usuário."
-    );
+    throw new NotFoundError("Item da lista de desejos não encontrado.");
   }
 
   if (item.wishlist.userId !== userId) {
-    throw new ForbiddenError("Item não pertence ao usuário.");
+    throw new ForbiddenError(
+      "Item da lista de desejos não pertence ao usuário."
+    );
   }
 
   await db.wishlistItem.delete({ where: { id: wishlistItemId } });

@@ -2,8 +2,8 @@ import z from "zod";
 
 import { validation } from "@/shared/middlewares/validation";
 
-const body = z.object({
+const params = z.object({
   cartItemId: z.uuid("Valor inválido."),
 });
 
-export const removeItemFromCart = validation({ body });
+export const removeItemFromCart = validation({ params });

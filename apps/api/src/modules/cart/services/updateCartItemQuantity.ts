@@ -13,11 +13,11 @@ export const updateCartItemQuantity = async ({
   });
 
   if (!item) {
-    throw new NotFoundError("Carrinho não encontrado para o usuário.");
+    throw new NotFoundError("Item do carrinho não encontrado.");
   }
 
   if (item.cart.userId !== userId) {
-    throw new ForbiddenError("Item não pertence ao usuário.");
+    throw new ForbiddenError("Item do carrinho não pertence ao usuário.");
   }
 
   const cartItem = await db.cartItem.update({
