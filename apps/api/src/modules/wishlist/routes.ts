@@ -3,6 +3,7 @@ import { Router } from "express";
 import {
   addItemToWishlist,
   findWishlist,
+  removeItemFromWishlist,
 } from "@/modules/wishlist/controllers";
 import v from "@/modules/wishlist/validators";
 import { authMiddleware } from "@/shared/middlewares/auth";
@@ -16,11 +17,11 @@ wishlistRouter.post(
   v.addItemToWishlist.middleware,
   addItemToWishlist
 );
-// wishlistRouter.delete(
-//   "/wishlist/items/:wishlistItemId",
-//   authMiddleware,
-//   v.removeItemFromWishlist.middleware,
-//   removeItemFromWishlist
-// );
+wishlistRouter.delete(
+  "/wishlist/items/:wishlistItemId",
+  authMiddleware,
+  v.removeItemFromWishlist.middleware,
+  removeItemFromWishlist
+);
 
 export { wishlistRouter };
