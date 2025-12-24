@@ -1,25 +1,23 @@
 import type { RemoveItemFromWishlistParams } from "@/modules/wishlist/types/ServiceParams";
 import { db } from "@/shared/lib/db";
-import { ForbiddenError, NotFoundError } from "@/shared/utils/HttpErrors";
+import { NotFoundError } from "@/shared/utils/HttpErrors";
 
 export const deleteWishlistItem = async ({
   userId,
-  wishlistItemId,
+  productId,
 }: RemoveItemFromWishlistParams) => {
-  const item = await db.wishlistItem.findUnique({
-    where: { id: wishlistItemId },
-    include: { wishlist: { select: { userId: true } } },
+  const result = await db.wishlistItem.deleteMany({
+    where: {
+      productId,
+      wishlist: {
+        userId,
+      },
+    },
   });
 
-  if (!item) {
-    throw new NotFoundError("Item da lista de desejos não encontrado.");
-  }
-
-  if (item.wishlist.userId !== userId) {
-    throw new ForbiddenError(
-      "Item da lista de desejos não pertence ao usuário."
+  if (result.count === 0) {
+    throw new NotFoundError(
+      "Item da lista de desejos não encontrado ou não pertence ao usuário."
     );
   }
-
-  await db.wishlistItem.delete({ where: { id: wishlistItemId } });
 };

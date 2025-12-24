@@ -1,35 +1,21 @@
 "use client";
 
-import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
 import type { HTMLAttributes } from "react";
 import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
 
 import { cn } from "@/app/shared/lib/utils";
 
-export interface CartIconHandle {
+export interface HeartIconHandle {
   startAnimation: () => void;
   stopAnimation: () => void;
 }
 
-interface CartIconProps extends HTMLAttributes<HTMLDivElement> {
+interface HeartIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
 
-const CART_VARIANTS: Variants = {
-  normal: { scale: 1 },
-  animate: {
-    scale: 1.1,
-    y: [0, -5, 0],
-    transition: {
-      duration: 0.3,
-      ease: "easeInOut",
-      y: { repeat: 1, delay: 0.1, duration: 0.4 },
-    },
-  },
-};
-
-const CartIcon = forwardRef<CartIconHandle, CartIconProps>(
+const HeartIcon = forwardRef<HeartIconHandle, HeartIconProps>(
   ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
     const controls = useAnimation();
     const isControlledRef = useRef(false);
@@ -64,6 +50,7 @@ const CartIcon = forwardRef<CartIconHandle, CartIconProps>(
       },
       [controls, onMouseLeave]
     );
+
     return (
       <div
         className={cn(className)}
@@ -81,17 +68,23 @@ const CartIcon = forwardRef<CartIconHandle, CartIconProps>(
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          variants={CART_VARIANTS}
           animate={controls}
-          transition={{ duration: 0.2 }}
+          variants={{
+            normal: { scale: 1 },
+            animate: { scale: [1, 1.08, 1] },
+          }}
+          transition={{
+            duration: 0.45,
+            repeat: 2,
+          }}
         >
-          <path d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z" />
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
         </motion.svg>
       </div>
     );
   }
 );
 
-CartIcon.displayName = "CartIcon";
+HeartIcon.displayName = "HeartIcon";
 
-export { CartIcon };
+export { HeartIcon };

@@ -7,29 +7,38 @@ import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
 
 import { cn } from "@/app/shared/lib/utils";
 
-export interface CartIconHandle {
+export interface UserIconHandle {
   startAnimation: () => void;
   stopAnimation: () => void;
 }
 
-interface CartIconProps extends HTMLAttributes<HTMLDivElement> {
+interface UserIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
 
-const CART_VARIANTS: Variants = {
-  normal: { scale: 1 },
+const PATH_VARIANT: Variants = {
+  normal: { pathLength: 1, opacity: 1, pathOffset: 0 },
   animate: {
-    scale: 1.1,
-    y: [0, -5, 0],
-    transition: {
-      duration: 0.3,
-      ease: "easeInOut",
-      y: { repeat: 1, delay: 0.1, duration: 0.4 },
-    },
+    pathLength: [0, 1],
+    opacity: [0, 1],
+    pathOffset: [1, 0],
   },
 };
 
-const CartIcon = forwardRef<CartIconHandle, CartIconProps>(
+const CIRCLE_VARIANT: Variants = {
+  normal: {
+    pathLength: 1,
+    pathOffset: 0,
+    scale: 1,
+  },
+  animate: {
+    pathLength: [0, 1],
+    pathOffset: [1, 0],
+    scale: [0.5, 1],
+  },
+};
+
+const UserIcon = forwardRef<UserIconHandle, UserIconProps>(
   ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
     const controls = useAnimation();
     const isControlledRef = useRef(false);
@@ -71,7 +80,7 @@ const CartIcon = forwardRef<CartIconHandle, CartIconProps>(
         onMouseLeave={handleMouseLeave}
         {...props}
       >
-        <motion.svg
+        <svg
           xmlns="http://www.w3.org/2000/svg"
           width={size}
           height={size}
@@ -81,17 +90,24 @@ const CartIcon = forwardRef<CartIconHandle, CartIconProps>(
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          variants={CART_VARIANTS}
-          animate={controls}
-          transition={{ duration: 0.2 }}
         >
-          <path d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z" />
-        </motion.svg>
+          <motion.circle cx="12" cy="8" r="5" animate={controls} variants={CIRCLE_VARIANT} />
+
+          <motion.path
+            d="M20 21a8 8 0 0 0-16 0"
+            variants={PATH_VARIANT}
+            transition={{
+              delay: 0.2,
+              duration: 0.4,
+            }}
+            animate={controls}
+          />
+        </svg>
       </div>
     );
   }
 );
 
-CartIcon.displayName = "CartIcon";
+UserIcon.displayName = "UserIcon";
 
-export { CartIcon };
+export { UserIcon };

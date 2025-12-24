@@ -3,6 +3,11 @@ import { ProductDto } from "@repo/types/contracts";
 import { HeartIcon, ShoppingCartIcon, StarIcon } from "lucide-react";
 
 import { useProductDetailsContext } from "@/app/shared/contexts/ProductDetailsContext";
+import {
+  useAddItemToWishlist,
+  useRemoveItemFromWishlist,
+} from "@/app/shared/hooks/data/useWishlistMutations";
+import { useIsWishlisted } from "@/app/shared/hooks/ui/useIsWishlisted";
 import { getPercentDiscount } from "@/app/shared/utils/product/getPercentDiscount";
 import { isSaleActive } from "@/app/shared/utils/product/isSaleActive";
 
@@ -12,7 +17,9 @@ type ProductCardProps = {
 };
 
 export const ProductCard = ({ product, grid }: ProductCardProps) => {
-  // const [isWishedState, setIsWishedState] = useState(isWished);
+  const { mutate: wishProduct } = useAddItemToWishlist();
+  const { mutate: unwishProduct } = useRemoveItemFromWishlist();
+  const { isWishlisted } = useIsWishlisted(product.id);
   const { handleOpenProductDetails } = useProductDetailsContext();
 
   const isProductOnSale = isSaleActive(product.promotionEnd);
@@ -20,13 +27,13 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
 
   const onCartClick = async (product: ProductDto) => handleOpenProductDetails(product);
 
-  // const onWishClick = () => {};
-
-  // const handleWishlistToggle = () => {
-  //   setIsWishedState((prev) => !prev);
-  //   toggleWishlistItem(product.id);
-  //   setWishlistCount(getWishlistIDs().length);
-  // };
+  const handleToggleWishlist = () => {
+    if (isWishlisted) {
+      unwishProduct({ productId: product.id });
+    } else {
+      wishProduct({ productId: product.id });
+    }
+  };
 
   return (
     <div
@@ -52,13 +59,13 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
 
         {/* Wish Button */}
         <button
-          // onClick={onWishClick}
+          onClick={handleToggleWishlist}
           className={`absolute top-2 right-2 cursor-pointer rounded-full bg-white p-1 shadow-md transition duration-150 hover:scale-110 active:scale-140`}
           aria-label="Add to favorites"
         >
           <HeartIcon
             className={`size-4 lg:size-5 ${
-              true ? "fill-red-500 text-red-500" : "fill-gray-500 text-gray-500"
+              isWishlisted ? "fill-red-500 text-red-500" : "fill-gray-400 text-gray-400"
             }`}
           />
         </button>
@@ -79,7 +86,6 @@ export const ProductCard = ({ product, grid }: ProductCardProps) => {
         </div>
 
         {/* Price */}
-
         <div className="flex items-center gap-1">
           <strong className="font-semibold">
             R$

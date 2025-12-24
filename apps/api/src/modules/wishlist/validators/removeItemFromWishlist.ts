@@ -3,7 +3,7 @@ import z from "zod";
 import { validation } from "@/shared/middlewares/validation";
 
 const params = z.object({
-  wishlistItemId: z.uuid("Valor inválido."),
+  productId: z.uuid("Valor inválido."),
 });
 
 export const removeItemFromWishlist = validation({ params });

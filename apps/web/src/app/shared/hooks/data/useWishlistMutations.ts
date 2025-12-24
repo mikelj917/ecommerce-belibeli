@@ -9,7 +9,7 @@ import type { AxiosError } from "axios";
 
 import { wishlistService } from "@/app/shared/services/API/wishlist";
 
-export const useAddItemToCart = () => {
+export const useAddItemToWishlist = () => {
   const queryClient = useQueryClient();
 
   return useMutation<AddItemToWishlistResponse, AxiosError, AddItemToWishlistRequest>({

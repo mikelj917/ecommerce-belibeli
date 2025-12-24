@@ -3,5 +3,5 @@ export type AddItemToWishlistRequest = {
 };
 
 export type RemoveItemFromWishlistRequest = {
-  wishlistItemId: string;
+  productId: string;
 };

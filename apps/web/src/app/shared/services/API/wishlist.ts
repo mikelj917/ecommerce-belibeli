@@ -14,13 +14,13 @@ const findWishlist = async () => {
 };
 
 const addItemToWishlist = async ({ productId }: AddItemToWishlistRequest) => {
-  const response = await API.post<AddItemToWishlistResponse>("/wishlist/items", { productId });
+  const response = await API.post<AddItemToWishlistResponse>("/wishlist", { productId });
 
   return response.data;
 };
 
-const removeItemToWishlist = async ({ wishlistItemId }: RemoveItemFromWishlistRequest) => {
-  await API.delete(`/wishlist/items/${wishlistItemId}`);
+const removeItemToWishlist = async ({ productId }: RemoveItemFromWishlistRequest) => {
+  await API.delete(`/wishlist/${productId}`);
 };
 
 export const wishlistService = { findWishlist, addItemToWishlist, removeItemToWishlist };

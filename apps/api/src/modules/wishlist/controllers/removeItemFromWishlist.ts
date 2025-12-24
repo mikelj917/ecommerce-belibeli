@@ -9,10 +9,9 @@ export const removeItemFromWishlist: RequestHandler = async (
   res: Response<RemoveWishlistItemResponse>
 ) => {
   const { userId } = res.locals.user;
-  const { wishlistItemId } =
-    v.removeItemFromWishlist.getValidatedValues(req).params;
+  const { productId } = v.removeItemFromWishlist.getValidatedValues(req).params;
 
-  await wishlistServices.deleteWishlistItem({ wishlistItemId, userId });
+  await wishlistServices.deleteWishlistItem({ productId, userId });
 
   return res.status(204).send();
 };

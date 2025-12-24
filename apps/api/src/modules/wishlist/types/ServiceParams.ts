@@ -9,5 +9,5 @@ export type CreateWishlistItemParams = {
 
 export type RemoveItemFromWishlistParams = {
   userId: string;
-  wishlistItemId: string;
+  productId: string;
 };

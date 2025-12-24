@@ -12,13 +12,13 @@ const wishlistRouter: Router = Router();
 
 wishlistRouter.get("/wishlist", authMiddleware, findWishlist);
 wishlistRouter.post(
-  "/wishlist/items",
+  "/wishlist",
   authMiddleware,
   v.addItemToWishlist.middleware,
   addItemToWishlist
 );
 wishlistRouter.delete(
-  "/wishlist/items/:wishlistItemId",
+  "/wishlist/:productId",
   authMiddleware,
   v.removeItemFromWishlist.middleware,
   removeItemFromWishlist
