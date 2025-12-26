@@ -1,4 +1,4 @@
-import { ProductCardSkeleton } from "@/app/shared/components/domain/store/ProductCardSkeleton";
+import { ProductCardSkeleton } from "@/app/shared/components/domain/store/Skeletons/ProductCardSkeleton";
 import { Skeleton } from "@/app/shared/components/ui/skeleton";
 
 /**

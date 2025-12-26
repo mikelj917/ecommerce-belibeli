@@ -14,7 +14,7 @@ export type WishlistItemDto = {
 
 export type WishlistDto = {
   id: string;
-  items: WishlistItemDto[];
+  items: WishlistItemDto[] | [];
 };
 
 export type FindWishlistResponse = {
