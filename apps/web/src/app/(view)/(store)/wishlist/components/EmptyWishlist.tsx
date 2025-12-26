@@ -33,10 +33,9 @@ export const EmptyWishlist = () => {
           variant="default"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          className="rounded-full border border-gray-200 bg-white p-6"
         >
-          <div className="rounded-full border border-gray-200 bg-white p-6">
-            <HeartIcon size={60} ref={iconRef} />
-          </div>
+          <HeartIcon size={60} ref={iconRef} />
         </EmptyMedia>
         <EmptyTitle className="text-3xl font-bold">Sua Lista de Desejos está vazia</EmptyTitle>
         <EmptyDescription>

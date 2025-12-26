@@ -13,9 +13,8 @@ export const StorePage = () => {
   if (isLoading) {
     return <StorePageSkeleton />;
   }
-
   if (isError || !data) {
-    return <ProductLoadError onRetryAction={refetch} />;
+    return <ProductLoadError refetchAction={refetch} />;
   }
 
   return (

@@ -2,14 +2,14 @@
 import { useEffect } from "react";
 
 import { WifiOffIcon } from "@/app/shared/assets/animatedIcons/wifioff";
-import { LoadError } from "@/app/shared/components/LoadError";
+import { LoadAlert } from "@/app/shared/components/LoadAlert";
 import { useAnimatedIcon } from "@/app/shared/hooks/ui/useAnimatedIcon";
 
 type CartLoadErrorProps = {
-  onRetryAction: () => void;
+  refetchAction: () => void;
 };
 
-export const CartLoadError = ({ onRetryAction }: CartLoadErrorProps) => {
+export const CartLoadError = ({ refetchAction }: CartLoadErrorProps) => {
   const { handleMouseEnter, handleMouseLeave, iconRef } = useAnimatedIcon();
 
   useEffect(() => {
@@ -25,17 +25,21 @@ export const CartLoadError = ({ onRetryAction }: CartLoadErrorProps) => {
   }, [iconRef]);
 
   return (
-    <LoadError
+    <LoadAlert
       iconWrapperProps={{
         onMouseEnter: handleMouseEnter,
         onMouseLeave: handleMouseLeave,
       }}
-      iconWrapperClassName="rounded-full bg-red-100 p-4"
-      icon={<WifiOffIcon ref={iconRef} size={40} className="text-red-500" />}
+      iconWrapperClassName="rounded-full p-4"
+      icon={<WifiOffIcon ref={iconRef} size={50} />}
       title="Não foi possivel carregar o seu carrinho"
       description="Parece que estamos com problemas para buscar o seu carrinho. Por favor, verifique sua conexão com a internet ou aguarde alguns instantes."
-      onRetryAction={onRetryAction}
-      buttonText="Tentar novamente"
+      actions={[
+        {
+          label: "Tentar novamente",
+          onClick: refetchAction,
+        },
+      ]}
     />
   );
 };

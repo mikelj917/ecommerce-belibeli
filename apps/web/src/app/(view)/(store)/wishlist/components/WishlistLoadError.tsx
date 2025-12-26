@@ -1,16 +1,18 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 import { WifiOffIcon } from "@/app/shared/assets/animatedIcons/wifioff";
 import { LoadAlert } from "@/app/shared/components/LoadAlert";
 import { useAnimatedIcon } from "@/app/shared/hooks/ui/useAnimatedIcon";
 
-type ProductLoadErrorProps = {
+type WishlistLoadErrorProps = {
   refetchAction: () => void;
 };
 
-export const ProductLoadError = ({ refetchAction }: ProductLoadErrorProps) => {
+export const WishlistLoadError = ({ refetchAction }: WishlistLoadErrorProps) => {
   const { handleMouseEnter, handleMouseLeave, iconRef } = useAnimatedIcon();
+  const router = useRouter();
 
   useEffect(() => {
     const startTimer = setTimeout(() => {
@@ -30,13 +32,19 @@ export const ProductLoadError = ({ refetchAction }: ProductLoadErrorProps) => {
         onMouseEnter: handleMouseEnter,
         onMouseLeave: handleMouseLeave,
       }}
+      iconWrapperClassName="rounded-full p-4"
       icon={<WifiOffIcon ref={iconRef} size={50} />}
-      title="Não foi possivel carregar os produtos"
-      description="Parece que estamos com problemas para buscar os produtos. Por favor, verifique sua conexão com a internet ou aguarde alguns instantes."
+      title="Não foi possível carregar a sua lista"
+      description="Ocorreu um erro ao tentar buscar a lista de desejos. Verifique sua conexão ou tente
+          novamente mais tarde."
       actions={[
         {
           label: "Tentar novamente",
           onClick: refetchAction,
+        },
+        {
+          label: "Voltar à Página Inicial",
+          onClick: () => router.push("/"),
         },
       ]}
     />

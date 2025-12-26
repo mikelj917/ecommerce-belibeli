@@ -1,7 +1,6 @@
 "use client";
 import type { ProductDto } from "@repo/types/contracts";
 
-import { CartHeader } from "@/app/(view)/(store)/cart/components/CartHeader";
 import { CartList } from "@/app/(view)/(store)/cart/components/CartList/CartList";
 import { CartPageSkeleton } from "@/app/(view)/(store)/cart/components/CartPageSkeleton";
 import { CartSummary } from "@/app/(view)/(store)/cart/components/CartSummary";
@@ -21,30 +20,17 @@ export const CartPage = ({ products }: CartPageProps) => {
   if (isLoading) {
     return <CartPageSkeleton />;
   }
-
-  if (isError) {
-    return (
-      <section className="min-h-screen bg-neutral-100 pb-40 lg:p-0">
-        <div className="mx-auto">
-          <CartHeader />
-          <div className="flex justify-center p-10">
-            <CartLoadError onRetryAction={refetch} />
-          </div>
-        </div>
-      </section>
-    );
+  if (isError || !data) {
+    return <CartLoadError refetchAction={refetch} />;
   }
 
-  if (!data?.cart) {
+  if (!data.cart) {
     return (
       <section className="bg-neutral-100 pb-40 lg:p-0">
-        <div className="mx-auto">
-          <CartHeader />
-          <div className="flex justify-center p-10">
-            <EmptyCart />
-          </div>
-          <RecommendedProducts products={products} />
+        <div className="mx-auto flex justify-center p-10">
+          <EmptyCart />
         </div>
+        <RecommendedProducts products={products} />
         <ProductDetailsModal />
       </section>
     );

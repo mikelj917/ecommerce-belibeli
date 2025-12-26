@@ -1,15 +1,15 @@
 "use client";
-import { ErrorWishlist } from "@/app/(view)/(store)/wishlist/components/ErrorWishlist";
 import { ExplorationSection } from "@/app/(view)/(store)/wishlist/components/ExplorationSection";
 import { WishlistSkeleton } from "@/app/(view)/(store)/wishlist/components/Skeletons/WishlistSkeleton";
 import { WishlistItems } from "@/app/(view)/(store)/wishlist/components/WishlistItems";
+import { WishlistLoadError } from "@/app/(view)/(store)/wishlist/components/WishlistLoadError";
 import { useFindWishlist } from "@/app/shared/hooks/data/useWishlistQueries";
 
 const WishlistPage = () => {
   const { data, isLoading, isError, refetch } = useFindWishlist();
 
   if (isLoading) return <WishlistSkeleton />;
-  if (isError || !data) return <ErrorWishlist refetchAction={refetch} />;
+  if (isError || !data) return <WishlistLoadError refetchAction={refetch} />;
 
   return (
     <section className="mt-20 px-2">
